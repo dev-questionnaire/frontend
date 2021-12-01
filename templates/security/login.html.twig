@@ -1,0 +1,16 @@
+{% extends "base.html.twig" %}
+{% block title %}Login{% endblock %}
+{% block headline %}Login{% endblock %}
+{% block body %}
+    <form method="post">
+        <p><input type="email" name="email" placeholder="email@example.com" required> Email</p>
+        <p><input type="password" name="password" required> Password</p>
+        <p><input type="checkbox" name="_remember_me"/>Remember me</p>
+        <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+        <p><input type="submit" name="login" value="Login"></p>
+    </form>
+    {% if error %}
+        <p>Error:</p>
+        <p>{{ error.messageKey }}</p>
+    {% endif %}
+{% endblock %}

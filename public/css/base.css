@@ -1,0 +1,40 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial;
+}
+
+a {
+    text-decoration: none;
+    color: orangered;
+}
+
+#headline {
+    padding: 1%;
+    display: flex;
+    justify-content: space-between;
+}
+
+#headline h1{
+    display: inline;
+}
+
+#headline div {
+    display: inline-block;
+    align-self: flex-end;
+}
+
+#body {
+    padding: 1%;
+}
+
+#body tr, td, th {
+    padding: 1%;
+}
+
+#footer {
+    padding: 1%;
+}

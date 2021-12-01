@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+
+<DataProviders
+        xmlns="xervice:dataprovider-01"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="xervice:dataprovider-01 ../vendor/xervice/data-provider/dataprovider.schema.xsd"
+>
+    <DataProvider name="User">
+        <DataElement name="id" type="int" allownull="false" default="0" />
+        <DataElement name="email" type="string" allownull="false" default="''"  />
+        <DataElement name="password" type="string" allownull="false" default="''" />
+        <DataElement name="verificationPassword" type="string" default="''" />
+        <DataElement name="roles" type="array" />
+        <DataElement name="createdAt" type="string" default="''"/>
+        <DataElement name="updatedAt" type="string" default="''"/>
+    </DataProvider>
+</DataProviders>

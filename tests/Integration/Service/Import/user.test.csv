@@ -1,0 +1,4 @@
+email;password;roles;createdAt
+admin@email.com;admin;ROLE_ADMIN,ROLE_USER;01.12.2021
+user@email.com;user;ROLE_USER;01.12.2021
+user@email.com;user;ROLE_USER;01.12.2021
