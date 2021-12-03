@@ -23,6 +23,6 @@ class SecurityControllerTest extends WebTestCase
             '/login'
         );
         self::assertResponseStatusCodeSame(200);
-        self::assertSelectorTextContains('h1', 'Login');
+        self::assertSelectorTextContains('h1', 'Azubi Exams');
     }
 }

@@ -2,6 +2,10 @@ controllers:
     resource: ../../src/Controller/
     type: annotation
 
+user_controller:
+    resource: ../../src/Components/User/Communication/
+    type: annotation
+
 kernel:
     resource: ../../src/Kernel.php
     type: annotation
