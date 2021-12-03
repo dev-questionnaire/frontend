@@ -3,8 +3,8 @@ declare(strict_types=1);
 
 namespace App\Tests\Integration\Components\User\Business\Model\Verification;
 
-use App\Components\Business\Model\Verification\validateEmail;
-use App\Components\User\Persistence\DataTransferObject\UserDataProvider;
+use App\Components\User\Business\Model\Verification\validateEmail;
+use App\GeneratedDataTransferObject\UserDataProvider;
 use App\Components\User\Persistence\Mapper\UserMapper;
 use App\Components\User\Persistence\Repository\UserRepository;
 use App\Entity\User as UserEntity;

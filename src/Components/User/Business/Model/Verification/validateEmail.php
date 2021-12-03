@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Components\Business\Model\Verification;
+namespace App\Components\User\Business\Model\Verification;
 
-use App\Components\User\Persistence\DataTransferObject\UserDataProvider;
+use App\GeneratedDataTransferObject\UserDataProvider;
 use App\Components\User\Persistence\Repository\UserRepository;
 
 class validateEmail implements validateRegistrationCollectionInterface

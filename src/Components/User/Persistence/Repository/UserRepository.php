@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace App\Components\User\Persistence\Repository;
 
-use App\Components\User\Persistence\DataTransferObject\UserDataProvider;
+use App\GeneratedDataTransferObject\UserDataProvider;
 use App\Components\User\Persistence\Mapper\UserMapper;
 use App\Entity\User;
 use \App\Repository\UserRepository as UserEntityRepository;

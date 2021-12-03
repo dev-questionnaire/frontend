@@ -2,7 +2,6 @@
 
 namespace App\Components\User\Communication;
 
-use App\Components\User\Persistence\DataTransferObject\UserDataProvider;
 use App\Components\User\Persistence\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;

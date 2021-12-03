@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace App\Components\User\Persistence\Mapper;
 
-use App\Components\User\Persistence\DataTransferObject\UserDataProvider;
+use App\GeneratedDataTransferObject\UserDataProvider;
 
 class UserMapperCSV
 {

@@ -1,6 +1,6 @@
 <?php
 declare(strict_types=1);
-namespace App\Components\User\Persistence\DataTransferObject;
+namespace App\GeneratedDataTransferObject;
 
 /**
  * Auto generated data provider
