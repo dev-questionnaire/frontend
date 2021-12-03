@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Tests\Integration\Components\User\Persistence\Mapper;
+namespace App\Tests\Integration\Components\User\Business\Model;
 
-use App\Components\User\Persistence\Mapper\UserMapperCSV;
+use App\Components\User\Business\Model\UserMapperCSV;
 use PHPUnit\Framework\TestCase;
 
 class UserMapperCSVTest extends TestCase

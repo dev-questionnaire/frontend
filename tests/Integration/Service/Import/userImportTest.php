@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace App\Tests\Integration\Service\Import;
 
 use App\Components\User\Persistence\Mapper\UserMapper;
-use App\Components\User\Persistence\Mapper\UserMapperCSV;
+use App\Components\User\Business\Model\UserMapperCSV;
 use App\Repository\UserRepository;
 use App\Service\Import\CSVFileReader;
 use App\Service\Import\UserImport;

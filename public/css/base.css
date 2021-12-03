@@ -12,6 +12,10 @@ a {
     color: orangered;
 }
 
+a:hover {
+    color: orange;
+}
+
 #headline {
     padding: 1%;
     display: flex;

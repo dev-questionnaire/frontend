@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace App\Service\Import;
 
 use App\GeneratedDataTransferObject\UserDataProvider;
-use App\Components\User\Persistence\Mapper\UserMapperCSV;
+use App\Components\User\Business\Model\UserMapperCSV;
 use App\Components\User\Persistence\Repository\UserRepository;
 use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
