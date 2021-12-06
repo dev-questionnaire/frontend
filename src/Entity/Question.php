@@ -30,6 +30,12 @@ class Question
      */
     private $answers = [];
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Exam::class)
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $exam;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -55,6 +61,18 @@ class Question
     public function setAnswers(array $answers): self
     {
         $this->answers = $answers;
+
+        return $this;
+    }
+
+    public function getExam(): ?Exam
+    {
+        return $this->exam;
+    }
+
+    public function setExam(?Exam $exam): self
+    {
+        $this->exam = $exam;
 
         return $this;
     }
