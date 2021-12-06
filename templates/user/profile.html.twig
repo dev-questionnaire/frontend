@@ -1,13 +1,13 @@
 {% extends "base.html.twig" %}
-{% block title %}Register{% endblock %}
-{% block headline %}Register{% endblock %}
+{% block title %}Profile{% endblock %}
+{% block headline %}Profile{% endblock %}
 {% block body %}
-    <p>Register</p>
-
-    <form action="{{ path("app_user_register") }}" method="post">
+    <h2>{{ app.user.email }}</h2>
+    <p>Edit profile:</p>
+    <form action="{{ path("app_user_profile") }}" method="post">
         <table>
             <tr>
-                <td><input type="email" name="email" placeholder="email" required></td>
+                <td><input type="email" name="email" placeholder="email" value="{{ app.user.email }}" required></td>
                 <td>Email*</td>
             </tr>
             <tr>
@@ -20,7 +20,7 @@
             </tr>
             <tr>
                 <td><input type="reset">
-                <input type="submit" name="registerUser" value="Register"></td>
+                    <input type="submit" name="updateUser" value="Save changes"></td>
             </tr>
         </table>
     </form>
@@ -33,4 +33,5 @@
             {% endfor %}
         </ul>
     {% endif %}
+    <a href="{{ path("app_user_delete") }}">delete account</a>
 {% endblock %}

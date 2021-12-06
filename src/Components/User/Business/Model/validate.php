@@ -6,7 +6,7 @@ namespace App\Components\User\Business\Model;
 use App\Components\User\Business\Model\Verification\validateCollectionInterface;
 use App\GeneratedDataTransferObject\UserDataProvider;
 
-class validateRegistration implements validationInterface
+class validate implements validationInterface
 {
     private array $validationCollection;
 

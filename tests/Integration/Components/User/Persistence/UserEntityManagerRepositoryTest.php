@@ -27,7 +27,7 @@ class UserEntityManagerRepositoryTest extends KernelTestCase
             ->get('doctrine')
             ->getManager();
 
-        $this->userEntityManager = new UserEntityManager($this->entityManager);
+        $this->userEntityManager = new UserEntityManager($this->entityManager, self::$container->get(\App\Repository\UserRepository::class));
         $this->userRepository = new UserRepository(self::$container->get(\App\Repository\UserRepository::class), new UserMapper());
     }
 
@@ -49,12 +49,12 @@ class UserEntityManagerRepositoryTest extends KernelTestCase
 
     public function testCreateAndGetByEmailAndId(): void
     {
+        $currentDate = (new \DateTime())->format('d.m.Y');
+
         $userDTO = new UserDataProvider();
         $userDTO->setEmail('test@email.com')
             ->setPassword('123456789')
-            ->setRoles(['ROLE_USER'])
-            ->setCreatedAt('06.12.2021')
-            ->setUpdatedAt('07.12.2021');
+            ->setRoles(['ROLE_USER']);
 
         $this->userEntityManager->create($userDTO);
 
@@ -63,8 +63,8 @@ class UserEntityManagerRepositoryTest extends KernelTestCase
         self::assertSame('test@email.com', $userDTO->getEmail());
         self::assertTrue(password_verify('123456789', $userDTO->getPassword()));
         self::assertSame('ROLE_USER', $userDTO->getRoles()[0]);
-        self::assertSame('06.12.2021', $userDTO->getCreatedAt());
-        self::assertSame('07.12.2021', $userDTO->getUpdatedAt());
+        self::assertSame($currentDate, $userDTO->getCreatedAt());
+        self::assertSame($currentDate, $userDTO->getUpdatedAt());
 
         $userId = $userDTO->getId();
 
@@ -75,5 +75,69 @@ class UserEntityManagerRepositoryTest extends KernelTestCase
     {
         self::assertNull($this->userRepository->getById(100));
         self::assertNull($this->userRepository->getByEmail('abc'));
+    }
+
+    public function testCheckEmailTaken(): void
+    {
+        $userDTO = new UserDataProvider();
+        $userDTO->setEmail('test1@email.com')
+            ->setPassword('123456789')
+            ->setRoles(['ROLE_USER']);
+
+        $this->userEntityManager->create($userDTO);
+
+        $userDTO->setEmail('test2@email.com')
+            ->setPassword('123456789')
+            ->setRoles(['ROLE_USER']);
+
+        $this->userEntityManager->create($userDTO);
+
+        $userDTO = $this->userRepository->getByEmail('test2@email.com');
+        $userDTO->setEmail('test1@email.com');
+
+        $result = $this->userRepository->checkEmailTaken($userDTO);
+
+        self::assertTrue($result);
+    }
+
+    public function testUpdate(): void
+    {
+        $userDTO = new UserDataProvider();
+        $userDTO->setEmail('test@email.com')
+            ->setPassword('123456789')
+            ->setRoles(['ROLE_USER']);
+
+        $this->userEntityManager->create($userDTO);
+
+        $userDTO = $this->userRepository->getByEmail('test@email.com');
+
+        $userDTO->setEmail('update@email.com')
+            ->setPassword('up123456');
+
+        $this->userEntityManager->update($userDTO);
+
+        $userDTONew = $this->userRepository->getByEmail('update@email.com');
+
+        self::assertSame($userDTO->getId(), $userDTONew->getId());
+        self::assertSame('update@email.com', $userDTONew->getEmail());
+        self::assertTrue(password_verify('up123456', $userDTONew->getPassword()));
+    }
+
+    public function testDelete(): void
+    {
+        $userDTO = new UserDataProvider();
+        $userDTO->setEmail('test@email.com')
+            ->setPassword('123456789')
+            ->setRoles(['ROLE_USER']);
+
+        $this->userEntityManager->create($userDTO);
+
+        $userDTO = $this->userRepository->getByEmail('test@email.com');
+        self::assertNotNull($userDTO);
+
+        $this->userEntityManager->delete($userDTO->getId());
+
+        $userDTO = $this->userRepository->getByEmail('test@email.com');
+        self::assertNull($userDTO);
     }
 }

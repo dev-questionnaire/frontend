@@ -9,7 +9,7 @@ interface UserEntityManagerInterface
 {
     public function create(UserDataProvider $userDataProvider): void;
 
-    public function update(): void;
+    public function update(UserDataProvider $userDataProvider): void;
 
-    public function delete(): void;
+    public function delete(int $id): void;
 }

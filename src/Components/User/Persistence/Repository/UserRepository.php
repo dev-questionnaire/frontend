@@ -38,4 +38,17 @@ class UserRepository implements UserRepositoryInterface
 
         return $this->userMapper->map($userEntity);
     }
+
+    public function checkEmailTaken(UserDataProvider $userDataProvider): bool
+    {
+        $userEntityList = $this->userEntityRepository->createQueryBuilder('u')
+            ->andWhere('u.id != :id')
+            ->andWhere('u.email = :email')
+            ->setParameter('id', $userDataProvider->getId())
+            ->setParameter('email', $userDataProvider->getEmail())
+            ->getQuery()
+            ->getResult();
+
+        return !empty($userEntityList);
+    }
 }

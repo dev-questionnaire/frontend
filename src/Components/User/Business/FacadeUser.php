@@ -15,4 +15,14 @@ class FacadeUser
     {
         return $this->factoryUser->createCreateUser()->create($userDataProvider);
     }
+
+    public function update(UserDataProvider $userDataProvider): array
+    {
+        return $this->factoryUser->createUpdateUser()->update($userDataProvider);
+    }
+
+    public function delete(int $id): void
+    {
+        $this->factoryUser->createDeleteUser()->delete($id);
+    }
 }
