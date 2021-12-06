@@ -11,10 +11,10 @@ final class UserDataProvider extends \Xervice\DataProvider\Business\Model\DataPr
     protected $id;
 
     /** @var string */
-    protected $email = '';
+    protected $email;
 
     /** @var string */
-    protected $password = '';
+    protected $password;
 
     /** @var string */
     protected $verificationPassword = '';
@@ -83,7 +83,7 @@ final class UserDataProvider extends \Xervice\DataProvider\Business\Model\DataPr
      * @param string $email
      * @return UserDataProvider
      */
-    public function setEmail(?string $email = '')
+    public function setEmail(?string $email = null)
     {
         $this->email = $email;
 
@@ -124,7 +124,7 @@ final class UserDataProvider extends \Xervice\DataProvider\Business\Model\DataPr
      * @param string $password
      * @return UserDataProvider
      */
-    public function setPassword(?string $password = '')
+    public function setPassword(?string $password = null)
     {
         $this->password = $password;
 
@@ -326,7 +326,7 @@ final class UserDataProvider extends \Xervice\DataProvider\Business\Model\DataPr
           array (
             'name' => 'id',
             'allownull' => true,
-            'default' => '0',
+            'default' => '',
             'type' => 'int',
             'is_collection' => false,
             'is_dataprovider' => false,
@@ -336,7 +336,7 @@ final class UserDataProvider extends \Xervice\DataProvider\Business\Model\DataPr
           array (
             'name' => 'email',
             'allownull' => true,
-            'default' => '\'\'',
+            'default' => '',
             'type' => 'string',
             'is_collection' => false,
             'is_dataprovider' => false,
@@ -346,7 +346,7 @@ final class UserDataProvider extends \Xervice\DataProvider\Business\Model\DataPr
           array (
             'name' => 'password',
             'allownull' => true,
-            'default' => '\'\'',
+            'default' => '',
             'type' => 'string',
             'is_collection' => false,
             'is_dataprovider' => false,
