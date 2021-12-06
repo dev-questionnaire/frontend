@@ -5,7 +5,7 @@ namespace App\Components\User\Business\Model;
 
 use App\GeneratedDataTransferObject\UserDataProvider;
 
-class UserMapperCSV
+class UserMapperCSV implements UserMapperCSVInterface
 {
     public function map(array $userCSV): UserDataProvider
     {

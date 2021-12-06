@@ -3,14 +3,14 @@ declare(strict_types=1);
 
 namespace App\Components\User\Business\Model;
 
-use App\Components\Business\Model\Verification\validateRegistrationCollectionInterface;
+use App\Components\User\Business\Model\Verification\validateCollectionInterface;
 use App\GeneratedDataTransferObject\UserDataProvider;
 
 class validateRegistration implements validationInterface
 {
     private array $validationCollection;
 
-    public function __construct(validateRegistrationCollectionInterface...$validationCollection)
+    public function __construct(validateCollectionInterface...$validationCollection)
     {
         $this->validationCollection = $validationCollection;
     }

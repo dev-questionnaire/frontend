@@ -6,7 +6,7 @@ namespace App\Components\User\Business\Model\Verification;
 use App\GeneratedDataTransferObject\UserDataProvider;
 use App\Components\User\Persistence\Repository\UserRepository;
 
-class validateEmail implements validateRegistrationCollectionInterface
+class validateEmail implements validateCollectionInterface
 {
     public function __construct(private UserRepository $userRepository)
     {

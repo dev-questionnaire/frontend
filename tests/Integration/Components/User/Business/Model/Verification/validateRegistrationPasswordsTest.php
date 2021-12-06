@@ -3,17 +3,15 @@ declare(strict_types=1);
 
 namespace App\Tests\Integration\Components\User\Business\Model\Verification;
 
-use App\Components\User\Business\Model\Verification\validateEmail;
-use App\GeneratedDataTransferObject\UserDataProvider;
-use App\Components\User\Persistence\Mapper\UserMapper;
-use App\Components\User\Persistence\Repository\UserRepository;
+use App\Components\User\Business\Model\Verification\validateRegistrationPasswords;
 use App\Entity\User as UserEntity;
+use App\GeneratedDataTransferObject\UserDataProvider;
 use Doctrine\ORM\EntityManager;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
-class validateEmailTest extends KernelTestCase
+class validateRegistrationPasswordsTest extends KernelTestCase
 {
-    private validateEmail $validateEmail;
+    private ?validateRegistrationPasswords $validatePassword;
     private ?EntityManager $entityManager;
 
     protected function setUp(): void
@@ -26,10 +24,7 @@ class validateEmailTest extends KernelTestCase
             ->get('doctrine')
             ->getManager();
 
-        $userMapper = new UserMapper();
-        $userEntityRepository = self::$container->get(\App\Repository\UserRepository::class);
-        $userRepository = new UserRepository($userEntityRepository, $userMapper);
-        $this->validateEmail = new validateEmail($userRepository);
+        $this->validatePassword = new validateRegistrationPasswords();
 
         $currentTime = new \DateTime();
 
@@ -55,6 +50,8 @@ class validateEmailTest extends KernelTestCase
         $connection->executeQuery('ALTER TABLE user AUTO_INCREMENT=0');
 
         $connection->close();
+
+        $this->validatePassword = null;
         $this->entityManager = null;
     }
 
@@ -62,24 +59,29 @@ class validateEmailTest extends KernelTestCase
     {
         $userDTO = new UserDataProvider();
 
-        $userDTO->setEmail('email@valantic.com');
+        $userDTO->setPassword('!aA45678')
+            ->setVerificationPassword('!aA45678');
 
-        $errors = $this->validateEmail->getErrors($userDTO);
+        $errors = $this->validatePassword->getErrors($userDTO);
 
         self::assertEmpty($errors);
 
-        $userDTO->setEmail('test@nexus-united.com');
+        $userDTO->setPassword('45678')
+            ->setVerificationPassword('!aA45678');
 
-        $errors = $this->validateEmail->getErrors($userDTO);
+        $errors = $this->validatePassword->getErrors($userDTO);
 
-        self::assertCount(1, $errors);
-        self::assertSame('Email is already taken', $errors[0]);
+        self::assertSame('Password too short!', $errors[0]);
+        self::assertSame('Password must include at least one lowercase letter!', $errors[1]);
+        self::assertSame('Password must include at least one uppercase letter!', $errors[2]);
+        self::assertSame('Password must include at one special character!', $errors[3]);
+        self::assertSame('Password musst match Verification Password', $errors[4]);
 
-        $userDTO->setEmail('test@nexus.com');
+        $userDTO->setPassword('aA!aaaaa')
+            ->setVerificationPassword('aA!aaaaa');
 
-        $errors = $this->validateEmail->getErrors($userDTO);
+        $errors = $this->validatePassword->getErrors($userDTO);
 
-        self::assertCount(1, $errors);
-        self::assertSame('Email is not valid', $errors[0]);
+        self::assertSame('Password must include at least one number!', $errors[0]);
     }
 }

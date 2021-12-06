@@ -12,10 +12,12 @@ class UserMapper
     {
         $userDataProvider = new UserDataProvider();
 
-        $userDataProvider->setId($user->getId());
-        $userDataProvider->setEmail($user->getEmail());
-        $userDataProvider->setPassword($user->getPassword());
-        $userDataProvider->setRoles($user->getRoles());
+        $userDataProvider->setId($user->getId())
+            ->setEmail($user->getEmail())
+            ->setPassword($user->getPassword())
+            ->setRoles($user->getRoles())
+            ->setCreatedAt($user->getCreatedAt()->format('d.m.Y'))
+            ->setUpdatedAt($user->getUpdatedAt()->format('d.m.Y'));
 
         return $userDataProvider;
     }

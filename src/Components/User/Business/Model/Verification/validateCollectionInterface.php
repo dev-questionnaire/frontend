@@ -5,7 +5,7 @@ namespace App\Components\User\Business\Model\Verification;
 
 use App\GeneratedDataTransferObject\UserDataProvider;
 
-interface validateRegistrationCollectionInterface
+interface validateCollectionInterface
 {
     public function getErrors(UserDataProvider $userDTO): array;
 }

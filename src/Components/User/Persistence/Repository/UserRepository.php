@@ -8,7 +8,7 @@ use App\Components\User\Persistence\Mapper\UserMapper;
 use App\Entity\User;
 use \App\Repository\UserRepository as UserEntityRepository;
 
-class UserRepository
+class UserRepository implements UserRepositoryInterface
 {
     public function __construct(
         private UserEntityRepository $userEntityRepository,

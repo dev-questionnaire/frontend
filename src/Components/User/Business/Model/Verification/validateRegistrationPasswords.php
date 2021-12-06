@@ -5,7 +5,7 @@ namespace App\Components\User\Business\Model\Verification;
 
 use App\GeneratedDataTransferObject\UserDataProvider;
 
-class validateRegistrationPasswords implements validateRegistrationCollectionInterface
+class validateRegistrationPasswords implements validateCollectionInterface
 {
     public function getErrors(UserDataProvider $userDTO): array
     {
@@ -22,8 +22,16 @@ class validateRegistrationPasswords implements validateRegistrationCollectionInt
             $errors[] = "Password must include at least one number!";
         }
 
-        if (!preg_match("#[a-zA-Z]+#", $password)) {
-            $errors[] = "Password must include at least one letter!";
+        if (!preg_match("#[a-z]+#", $password)) {
+            $errors[] = "Password must include at least one lowercase letter!";
+        }
+
+        if (!preg_match("#[A-Z]+#", $password)) {
+            $errors[] = "Password must include at least one uppercase letter!";
+        }
+
+        if (!preg_match("/[!@#$%^&*-]+/", $password)) {
+            $errors[] = "Password must include at one special character!";
         }
 
         if($password !== $verPassword) {
