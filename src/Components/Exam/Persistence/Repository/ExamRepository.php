@@ -5,7 +5,7 @@ namespace App\Components\Exam\Persistence\Repository;
 
 use App\Components\Exam\Persistence\Mapper\ExamMapperEntity;
 use App\Entity\Exam;
-use App\GeneratedDataTransferObject\ExamDataProvider;
+use App\DataTransferObject\ExamDataProvider;
 
 class ExamRepository implements ExamRepositoryInterface
 {
@@ -38,6 +38,9 @@ class ExamRepository implements ExamRepositoryInterface
         return $this->examMapper->map($examEntity);
     }
 
+    /**
+     * @return ExamDataProvider[]
+     */
     public function getAll(): array
     {
         $examDTOList = [];
@@ -45,7 +48,7 @@ class ExamRepository implements ExamRepositoryInterface
         $examEntities = $this->examEntityRepository->findAll();
 
         foreach ($examEntities as $examEntity) {
-            $examDTOList[$examEntity->getId()] = $this->examMapper->map($examEntity);
+            $examDTOList[] = $this->examMapper->map($examEntity);
         }
 
         return $examDTOList;

@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace App\Components\Exam\Persistence\Mapper;
 
 use App\Entity\Exam;
-use App\GeneratedDataTransferObject\ExamDataProvider;
+use App\DataTransferObject\ExamDataProvider;
 
 class ExamMapperEntity
 {

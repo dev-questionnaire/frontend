@@ -6,6 +6,10 @@ user_controller:
     resource: ../../src/Components/User/Communication/
     type: annotation
 
+exam_controller:
+    resource: ../../src/Components/Exam/Communication/
+    type: annotation
+
 kernel:
     resource: ../../src/Kernel.php
     type: annotation

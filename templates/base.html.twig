@@ -2,16 +2,16 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>{% block title %}Welcome!{% endblock %}</title>
+    <title>{% block title %}Exams{% endblock %}</title>
     <link rel="stylesheet" type="text/css" href="/css/base.css">
     {% block stylesheets %}{% endblock %}
 <body>
 <header>
     <div id="headline">
         <div>
-            <a href="{{ path("app_home") }}"><h1>Azubi Exams</h1></a>
+            <a href="{{ path("app_exam") }}"><h1>Azubi Exams</h1></a>
             <h1> | </h1>
-            <h1>{% block headline %}Welcome!{% endblock %}</h1>
+            <h1>{% block headline %}Exams{% endblock %}</h1>
         </div>
         <div>
             {% if not app.user %}

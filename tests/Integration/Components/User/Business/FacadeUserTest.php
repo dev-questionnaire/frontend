@@ -5,7 +5,7 @@ namespace App\Tests\Integration\Components\User\Business;
 
 use App\Components\User\Business\FacadeUser;
 use App\Components\User\Persistence\Repository\UserRepositoryInterface;
-use App\GeneratedDataTransferObject\UserDataProvider;
+use App\DataTransferObject\UserDataProvider;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 

@@ -30,4 +30,8 @@
         <DataElement name="updatedAt" type="string" default="''"/>
         <DataElement name="exam_id" type="int" allownull="false" />
     </DataProvider>
+
+    <DataProvider name="Error">
+        <DataElement name="errors" type="array" default="[]"/>
+    </DataProvider>
 </DataProviders>

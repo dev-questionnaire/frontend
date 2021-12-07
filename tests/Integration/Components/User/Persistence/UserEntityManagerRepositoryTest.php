@@ -7,9 +7,10 @@ use App\Components\User\Persistence\EntityManager\UserEntityManager;
 use App\Components\User\Persistence\EntityManager\UserEntityManagerInterface;
 use App\Components\User\Persistence\Mapper\UserMapper;
 use App\Components\User\Persistence\Repository\UserRepository;
-use App\GeneratedDataTransferObject\UserDataProvider;
+use App\DataTransferObject\UserDataProvider;
 use Doctrine\ORM\EntityManager;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class UserEntityManagerRepositoryTest extends KernelTestCase
 {
@@ -27,7 +28,7 @@ class UserEntityManagerRepositoryTest extends KernelTestCase
             ->get('doctrine')
             ->getManager();
 
-        $this->userEntityManager = new UserEntityManager($this->entityManager, self::$container->get(\App\Repository\UserRepository::class));
+        $this->userEntityManager = new UserEntityManager($this->entityManager, self::$container->get(\App\Repository\UserRepository::class), self::$container->get(UserPasswordHasherInterface::class));
         $this->userRepository = new UserRepository(self::$container->get(\App\Repository\UserRepository::class), new UserMapper());
     }
 
@@ -65,18 +66,6 @@ class UserEntityManagerRepositoryTest extends KernelTestCase
         self::assertSame('ROLE_USER', $userDTO->getRoles()[0]);
         self::assertSame($currentDate, $userDTO->getCreatedAt());
         self::assertSame($currentDate, $userDTO->getUpdatedAt());
-
-        $userDTO->setEmail('testDate@email.com')
-            ->setCreatedAt('07.12.2021')
-            ->setUpdatedAt('08.12.2021');
-
-        $this->userEntityManager->create($userDTO);
-
-        $userDTO = $this->userRepository->getByEmail('testDate@email.com');
-
-        self::assertSame('testDate@email.com', $userDTO->getEmail());
-        self::assertSame('07.12.2021', $userDTO->getCreatedAt());
-        self::assertSame('08.12.2021', $userDTO->getUpdatedAt());
 
         $userId = $userDTO->getId();
 

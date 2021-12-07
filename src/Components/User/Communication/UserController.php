@@ -3,8 +3,11 @@
 namespace App\Components\User\Communication;
 
 use App\Components\User\Business\FacadeUser;
+use App\Components\User\Communication\Forms\Register;
+use App\Components\User\Communication\Forms\Update;
 use App\Components\User\Persistence\Repository\UserRepositoryInterface;
-use App\GeneratedDataTransferObject\UserDataProvider;
+use App\DataTransferObject\UserDataProvider;
+use App\Entity\User;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -26,71 +29,57 @@ class UserController extends AbstractController
      */
     public function register(Request $request): Response
     {
+
         $errors = [];
 
-        if ($request->isMethod('POST')) {
-            $email = $request->request->get('email');
-            $password = $request->request->get('password');
-            $verPassword = $request->request->get('verPassword');
+        $userDataProvider = new UserDataProvider();
 
-            $userDTO = new UserDataProvider();
-            $userDTO->setEmail($email)
-                ->setPassword($password)
-                ->setVerificationPassword($verPassword)
-                ->setRoles(['ROLE_USER']);
+        $form = $this->createForm(Register::class, $userDataProvider);
 
-            $errors = $this->facadeUser->create($userDTO);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $userDataProvider = $form->getData();
+
+            $errors = $this->facadeUser->create($userDataProvider);
 
             if (empty($errors)) {
                 return new RedirectResponse('/login');
             }
         }
 
-        return $this->render('user/register.html.twig', [
+        return $this->renderForm('user/register.html.twig', [
+            'form' => $form,
             'errors' => $errors,
         ]);
     }
 
     /**
-     * @IsGranted("ROLE_USER")
      * @Route ("/user/profile", name="app_user_profile")
      */
     public function profile(UserInterface $user, Request $request): Response
     {
         $errors = [];
 
-        if ($request->isMethod('POST')) {
-            $userDTO = $this->userRepository->getByEmail($user->getUserIdentifier());
+        $userDataProvider = $this->userRepository->getByEmail($user->getUserIdentifier());
 
-            $email = $request->request->get('email');
-            $password = $request->request->get('password');
-            $verPassword = $request->request->get('verPassword');
+        $form = $this->createForm(Update::class, $userDataProvider);
 
-            $changesMade = false;
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $userDataProvider = $form->getData();
 
-            if($email !== $user->getUserIdentifier()) {
-                $userDTO->setEmail($email);
-                $changesMade = true;
-            }
-
-            if(!password_verify($password, $user->getPassword())) {
-                $userDTO->setPassword($password)
-                    ->setVerificationPassword($verPassword);
-                $changesMade = true;
-            }
-
-            if($changesMade === true) {
-                $errors = $this->facadeUser->update($userDTO);
+            if ($userDataProvider->getEmail() !== $user->getUserIdentifier() || !password_verify($userDataProvider->getPassword(), $user->getPassword())) {
+                $errors = $this->facadeUser->update($userDataProvider);
             }
         }
 
-        return $this->render('user/profile.html.twig', [
+        return $this->renderForm('user/profile.html.twig', [
+            'form' => $form,
             'errors' => $errors,
         ]);
     }
 
     /**
-     * @IsGranted ("ROLE_USER")
      * @Route ("/user/delete", name="app_user_delete")
      */
     public function deleteUser(UserInterface $user): Response

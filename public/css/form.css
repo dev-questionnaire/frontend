@@ -1,0 +1,7 @@
+form {
+    width:  10%;
+}
+
+form>div>div{
+    margin: 5%;
+}

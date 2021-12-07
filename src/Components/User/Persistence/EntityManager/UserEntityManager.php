@@ -4,35 +4,35 @@ declare(strict_types=1);
 namespace App\Components\User\Persistence\EntityManager;
 
 use App\Entity\User;
-use App\GeneratedDataTransferObject\UserDataProvider;
+use App\DataTransferObject\UserDataProvider;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class UserEntityManager implements UserEntityManagerInterface
 {
-    public function __construct(private EntityManagerInterface $entityManager, private UserRepository $userRepository)
+    public function __construct(
+        private EntityManagerInterface $entityManager,
+        private UserRepository $userRepository,
+        private UserPasswordHasherInterface $userPasswordHasher,
+    )
     {
     }
 
     public function create(UserDataProvider $userDataProvider): void
     {
         $userEntity = new User();
-        $currentDate = new \DateTime();
 
+        $plaintextPassword = $userDataProvider->getPassword();
+
+        $hashedPassword = $this->userPasswordHasher->hashPassword(
+            $userEntity,
+            $plaintextPassword
+        );
 
         $userEntity->setEmail($userDataProvider->getEmail())
-            ->setPassword(password_hash($userDataProvider->getPassword(), PASSWORD_DEFAULT))
-            ->setRoles($userDataProvider->getRoles());
-
-        if ($userDataProvider->getCreatedAt() === '' || $userDataProvider->getUpdatedAt() === '') {
-            $userEntity
-                ->setCreatedAt($currentDate)
-                ->setUpdatedAt($currentDate);
-        } else {
-            $userEntity
-                ->setCreatedAt(date_create_from_format('d.m.Y', $userDataProvider->getCreatedAt()))
-                ->setUpdatedAt(date_create_from_format('d.m.Y', $userDataProvider->getUpdatedAt()));
-        }
+            ->setRoles(['ROLE_USER'])
+            ->setPassword($hashedPassword);
 
         $this->entityManager->persist($userEntity);
         $this->entityManager->flush();
@@ -40,12 +40,18 @@ class UserEntityManager implements UserEntityManagerInterface
 
     public function update(UserDataProvider $userDataProvider): void
     {
-        $currentDate = new \DateTime;
-
         $userEntity = $this->userRepository->find($userDataProvider->getId());
-        $userEntity->setEmail($userDataProvider->getEmail())
-            ->setPassword(password_hash($userDataProvider->getPassword(), PASSWORD_DEFAULT))
-            ->setUpdatedAt($currentDate);
+
+        $plaintextPassword = $userDataProvider->getPassword();
+
+        $hashedPassword = $this->userPasswordHasher->hashPassword(
+            $userEntity,
+            $plaintextPassword
+        );
+
+        $userEntity
+            ->setEmail($userDataProvider->getEmail())
+            ->setPassword($hashedPassword);
 
         $this->entityManager->flush();
     }

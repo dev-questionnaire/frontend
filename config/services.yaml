@@ -30,3 +30,14 @@ services:
     Xervice\DataProvider\Communication\Console\GenerateCommand:
         tags: [ console.command ]
     ###< Xervice\DataProvider ###
+
+    # Custom
+    App\Components\User\Business\Model\ValidateCreate:
+        arguments:
+            - '@App\Components\User\Business\Model\Verification\ValidateRegistrationEmail'
+            - '@App\Components\User\Business\Model\Verification\ValidatePasswords'
+
+    App\Components\User\Business\Model\ValidateUpdate:
+        arguments:
+            - '@App\Components\User\Business\Model\Verification\ValidateUpdateEmail'
+            - '@App\Components\User\Business\Model\Verification\ValidatePasswords'

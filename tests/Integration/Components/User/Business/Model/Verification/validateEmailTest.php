@@ -3,8 +3,9 @@ declare(strict_types=1);
 
 namespace App\Tests\Integration\Components\User\Business\Model\Verification;
 
-use App\Components\User\Business\Model\Verification\validateEmail;
-use App\GeneratedDataTransferObject\UserDataProvider;
+use App\Components\User\Business\Model\Verification\ValidateRegistrationEmail;
+use App\DataTransferObject\ErrorDataProvider;
+use App\DataTransferObject\UserDataProvider;
 use App\Components\User\Persistence\Mapper\UserMapper;
 use App\Components\User\Persistence\Repository\UserRepository;
 use App\Entity\User as UserEntity;
@@ -13,7 +14,7 @@ use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
 class validateEmailTest extends KernelTestCase
 {
-    private validateEmail $validateEmail;
+    private ValidateRegistrationEmail $validateEmail;
     private ?EntityManager $entityManager;
 
     protected function setUp(): void
@@ -29,7 +30,7 @@ class validateEmailTest extends KernelTestCase
         $userMapper = new UserMapper();
         $userEntityRepository = self::$container->get(\App\Repository\UserRepository::class);
         $userRepository = new UserRepository($userEntityRepository, $userMapper);
-        $this->validateEmail = new validateEmail($userRepository);
+        $this->validateEmail = new ValidateRegistrationEmail($userRepository);
 
         $currentTime = new \DateTime();
 
@@ -61,25 +62,28 @@ class validateEmailTest extends KernelTestCase
     public function testGetErrors(): void
     {
         $userDTO = new UserDataProvider();
+        $errorDataProvider = new ErrorDataProvider();
 
         $userDTO->setEmail('email@valantic.com');
 
-        $errors = $this->validateEmail->getErrors($userDTO);
+        $errorDataProvider = $this->validateEmail->getErrors($userDTO, $errorDataProvider);
 
-        self::assertEmpty($errors);
+        self::assertEmpty($errorDataProvider->getErrors());
 
+        $errorDataProvider->unsetErrors();
         $userDTO->setEmail('test@nexus-united.com');
 
-        $errors = $this->validateEmail->getErrors($userDTO);
+        $errorDataProvider = $this->validateEmail->getErrors($userDTO, $errorDataProvider);
 
-        self::assertCount(1, $errors);
-        self::assertSame('Email is already taken', $errors[0]);
+        self::assertCount(1, $errorDataProvider->getErrors());
+        self::assertSame('Email is already taken', $errorDataProvider->getErrors()[0]);
 
+        $errorDataProvider->unsetErrors();
         $userDTO->setEmail('test@nexus.com');
 
-        $errors = $this->validateEmail->getErrors($userDTO);
+        $errorDataProvider = $this->validateEmail->getErrors($userDTO, $errorDataProvider);
 
-        self::assertCount(1, $errors);
-        self::assertSame('Email is not valid', $errors[0]);
+        self::assertCount(1, $errorDataProvider->getErrors());
+        self::assertSame('Email is not valid', $errorDataProvider->getErrors()[0]);
     }
 }

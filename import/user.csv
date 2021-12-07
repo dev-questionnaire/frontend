@@ -1,2 +1,0 @@
-email;password;roles
-admin@email.com;admin;ROLE_ADMIN,ROLE_USER

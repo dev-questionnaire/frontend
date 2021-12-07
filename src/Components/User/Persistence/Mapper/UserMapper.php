@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace App\Components\User\Persistence\Mapper;
 
-use App\GeneratedDataTransferObject\UserDataProvider;
+use App\DataTransferObject\UserDataProvider;
 use App\Entity\User;
 
 class UserMapper

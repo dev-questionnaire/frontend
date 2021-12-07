@@ -3,26 +3,29 @@ declare(strict_types=1);
 
 namespace App\Components\User\Business;
 
-use App\GeneratedDataTransferObject\UserDataProvider;
+use App\Components\User\Business\Model\UserInterface;
+use App\DataTransferObject\UserDataProvider;
 
 class FacadeUser
 {
-    public function __construct(private FactoryUser $factoryUser)
+    public function __construct(
+        private UserInterface $user,
+    )
     {
     }
 
     public function create(UserDataProvider $userDataProvider): array
     {
-        return $this->factoryUser->createCreateUser()->create($userDataProvider);
+        return $this->user->create($userDataProvider);
     }
 
     public function update(UserDataProvider $userDataProvider): array
     {
-        return $this->factoryUser->createUpdateUser()->update($userDataProvider);
+        return $this->user->update($userDataProvider);
     }
 
     public function delete(int $id): void
     {
-        $this->factoryUser->createDeleteUser()->delete($id);
+        $this->user->delete($id);
     }
 }

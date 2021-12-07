@@ -8,7 +8,7 @@ use App\Components\Exam\Persistence\EntityManager\ExamEntityManagerInterface;
 use App\Components\Exam\Persistence\Mapper\ExamMapperEntity;
 use App\Components\Exam\Persistence\Repository\ExamRepository;
 use App\Components\Exam\Persistence\Repository\ExamRepositoryInterface;
-use App\GeneratedDataTransferObject\ExamDataProvider;
+use App\DataTransferObject\ExamDataProvider;
 use Doctrine\ORM\EntityManager;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
@@ -63,24 +63,11 @@ class ExamEntityManagerAndRepositoryTest extends KernelTestCase
         self::assertSame($currentDate, $examDTO->getCreatedAt());
         self::assertSame($currentDate, $examDTO->getUpdatedAt());
 
-        $examDTO = new ExamDataProvider();
-        $examDTO->setName('testExamDate')
-            ->setCreatedAt('07.12.2021')
-            ->setUpdatedAt('08.12.2021');
-
-        $this->examEntityManager->create($examDTO);
-
-        $examDTO = $this->examRepository->getByName('testExamDate');
-
-        self::assertSame('testExamDate', $examDTO->getName());
-        self::assertSame('07.12.2021', $examDTO->getCreatedAt());
-        self::assertSame('08.12.2021', $examDTO->getUpdatedAt());
-
         self::assertInstanceOf(ExamDataProvider::class, $this->examRepository->getById($examDTO->getId()));
 
         $examDataProviderList = $this->examRepository->getAll();
 
-        self::assertCount(2, $examDataProviderList);
+        self::assertCount(1, $examDataProviderList);
     }
 
     public function testGetNegativ(): void

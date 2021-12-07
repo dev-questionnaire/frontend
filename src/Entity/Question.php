@@ -8,10 +8,24 @@ use Gedmo\Timestampable\Traits\TimestampableEntity;
 
 /**
  * @ORM\Entity(repositoryClass=QuestionRepository::class)
+ * @ORM\HasLifecycleCallbacks
  */
 class Question
 {
     use TimestampableEntity;
+
+    /**
+     * @ORM\PrePersist()
+     * @ORM\PreUpdate()
+     */
+    public function updatedTimestamps(): void
+    {
+        $this->setUpdatedAt(new \DateTime());
+
+        if ($this->getCreatedAt() === null) {
+            $this->setCreatedAt(new \DateTime());
+        }
+    }
 
     /**
      * @ORM\Id

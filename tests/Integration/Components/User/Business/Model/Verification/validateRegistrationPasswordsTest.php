@@ -3,15 +3,16 @@ declare(strict_types=1);
 
 namespace App\Tests\Integration\Components\User\Business\Model\Verification;
 
-use App\Components\User\Business\Model\Verification\validateRegistrationPasswords;
+use App\Components\User\Business\Model\Verification\ValidatePasswords;
+use App\DataTransferObject\ErrorDataProvider;
 use App\Entity\User as UserEntity;
-use App\GeneratedDataTransferObject\UserDataProvider;
+use App\DataTransferObject\UserDataProvider;
 use Doctrine\ORM\EntityManager;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
 class validateRegistrationPasswordsTest extends KernelTestCase
 {
-    private ?validateRegistrationPasswords $validatePassword;
+    private ?ValidatePasswords $validatePassword;
     private ?EntityManager $entityManager;
 
     protected function setUp(): void
@@ -24,7 +25,7 @@ class validateRegistrationPasswordsTest extends KernelTestCase
             ->get('doctrine')
             ->getManager();
 
-        $this->validatePassword = new validateRegistrationPasswords();
+        $this->validatePassword = new ValidatePasswords();
 
         $currentTime = new \DateTime();
 
@@ -58,18 +59,22 @@ class validateRegistrationPasswordsTest extends KernelTestCase
     public function testGetErrors(): void
     {
         $userDTO = new UserDataProvider();
+        $errorDataProvider = new ErrorDataProvider();
 
         $userDTO->setPassword('!aA45678')
             ->setVerificationPassword('!aA45678');
 
-        $errors = $this->validatePassword->getErrors($userDTO);
+        $errorDataProvider = $this->validatePassword->getErrors($userDTO, $errorDataProvider);
 
-        self::assertEmpty($errors);
+        self::assertEmpty($errorDataProvider->getErrors());
 
+        $errorDataProvider->unsetErrors();
         $userDTO->setPassword('45678')
             ->setVerificationPassword('!aA45678');
 
-        $errors = $this->validatePassword->getErrors($userDTO);
+        $errorDataProvider = $this->validatePassword->getErrors($userDTO, $errorDataProvider);
+
+        $errors = $errorDataProvider->getErrors();
 
         self::assertSame('Password too short!', $errors[0]);
         self::assertSame('Password must include at least one lowercase letter!', $errors[1]);
@@ -77,11 +82,13 @@ class validateRegistrationPasswordsTest extends KernelTestCase
         self::assertSame('Password must include at one special character!', $errors[3]);
         self::assertSame('Password musst match Verification Password', $errors[4]);
 
+        $errorDataProvider->unsetErrors();
+
         $userDTO->setPassword('aA!aaaaa')
             ->setVerificationPassword('aA!aaaaa');
 
-        $errors = $this->validatePassword->getErrors($userDTO);
+        $errorDataProvider = $this->validatePassword->getErrors($userDTO, $errorDataProvider);
 
-        self::assertSame('Password must include at least one number!', $errors[0]);
+        self::assertSame('Password must include at least one number!', $errorDataProvider->getErrors()[0]);
     }
 }

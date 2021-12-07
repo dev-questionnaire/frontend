@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace App\Components\Exam\Persistence\Repository;
 
-use App\GeneratedDataTransferObject\ExamDataProvider;
+use App\DataTransferObject\ExamDataProvider;
 
 interface ExamRepositoryInterface
 {
