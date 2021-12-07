@@ -2,6 +2,7 @@
 
 namespace App\Command;
 
+use App\Service\Import\ExamImport;
 use App\Service\Import\UserImport;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
@@ -17,7 +18,7 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 )]
 class ImportCSVsCommand extends Command
 {
-    public function __construct(private UserImport $userImport)
+    public function __construct(private UserImport $userImport, private ExamImport $examImport)
     {
         parent::__construct();
     }
@@ -35,6 +36,11 @@ class ImportCSVsCommand extends Command
 
         if ($input->getOption('import')) {
             $countedImports = $this->userImport->import(__DIR__ . '/../../import/user.csv');
+
+            $importedExams = $this->examImport->import(__DIR__ . '/../../import/exam.csv');
+
+            $countedImports[0] += $importedExams[0];
+            $countedImports[1] += $importedExams[1];
 
             $io->success('Imported ' . $countedImports[0] . ' of ' . $countedImports[1] . ' records successfully!');
 
