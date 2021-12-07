@@ -66,6 +66,18 @@ class UserEntityManagerRepositoryTest extends KernelTestCase
         self::assertSame($currentDate, $userDTO->getCreatedAt());
         self::assertSame($currentDate, $userDTO->getUpdatedAt());
 
+        $userDTO->setEmail('testDate@email.com')
+            ->setCreatedAt('07.12.2021')
+            ->setUpdatedAt('08.12.2021');
+
+        $this->userEntityManager->create($userDTO);
+
+        $userDTO = $this->userRepository->getByEmail('testDate@email.com');
+
+        self::assertSame('testDate@email.com', $userDTO->getEmail());
+        self::assertSame('07.12.2021', $userDTO->getCreatedAt());
+        self::assertSame('08.12.2021', $userDTO->getUpdatedAt());
+
         $userId = $userDTO->getId();
 
         self::assertInstanceOf(UserDataProvider::class, $this->userRepository->getById($userId));

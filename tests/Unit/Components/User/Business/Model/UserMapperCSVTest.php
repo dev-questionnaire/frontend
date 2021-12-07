@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Tests\Integration\Components\User\Business\Model;
+namespace App\Tests\Unit\Components\User\Business\Model;
 
 use App\Components\User\Business\Model\UserMapperCSV;
 use PHPUnit\Framework\TestCase;

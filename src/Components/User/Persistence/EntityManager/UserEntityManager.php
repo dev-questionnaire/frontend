@@ -19,11 +19,20 @@ class UserEntityManager implements UserEntityManagerInterface
         $userEntity = new User();
         $currentDate = new \DateTime();
 
+
         $userEntity->setEmail($userDataProvider->getEmail())
             ->setPassword(password_hash($userDataProvider->getPassword(), PASSWORD_DEFAULT))
-            ->setRoles($userDataProvider->getRoles())
-            ->setCreatedAt($currentDate)
-            ->setUpdatedAt($currentDate);
+            ->setRoles($userDataProvider->getRoles());
+
+        if ($userDataProvider->getCreatedAt() === '' || $userDataProvider->getUpdatedAt() === '') {
+            $userEntity
+                ->setCreatedAt($currentDate)
+                ->setUpdatedAt($currentDate);
+        } else {
+            $userEntity
+                ->setCreatedAt(date_create_from_format('d.m.Y', $userDataProvider->getCreatedAt()))
+                ->setUpdatedAt(date_create_from_format('d.m.Y', $userDataProvider->getUpdatedAt()));
+        }
 
         $this->entityManager->persist($userEntity);
         $this->entityManager->flush();

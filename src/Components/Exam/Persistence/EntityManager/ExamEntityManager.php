@@ -11,7 +11,7 @@ use Doctrine\ORM\EntityManagerInterface;
 class ExamEntityManager implements ExamEntityManagerInterface
 {
     public function __construct(
-        private EntityManagerInterface $entityManager,
+        private EntityManagerInterface  $entityManager,
         private ExamRepositoryInterface $examRepository,
     )
     {
@@ -22,9 +22,17 @@ class ExamEntityManager implements ExamEntityManagerInterface
         $examEntity = new Exam();
         $currentDate = new \DateTime();
 
-        $examEntity->setName($examDataProvider->getName())
-            ->setCreatedAt($currentDate)
-            ->setUpdatedAt($currentDate);
+        $examEntity->setName($examDataProvider->getName());
+
+        if ($examDataProvider->getCreatedAt() === '' || $examDataProvider->getUpdatedAt() === '') {
+            $examEntity
+                ->setCreatedAt($currentDate)
+                ->setUpdatedAt($currentDate);
+        } else {
+            $examEntity
+                ->setCreatedAt(date_create_from_format('d.m.Y', $examDataProvider->getCreatedAt()))
+                ->setUpdatedAt(date_create_from_format('d.m.Y', $examDataProvider->getUpdatedAt()));
+        }
 
         $this->entityManager->persist($examEntity);
         $this->entityManager->flush();
@@ -32,11 +40,11 @@ class ExamEntityManager implements ExamEntityManagerInterface
 
     public function update(ExamDataProvider $examDataProvider): void
     {
-        //TODO
+        //TODO make update method
     }
 
     public function delete(int $id): void
     {
-        //TODO
+        //TODO make delete method
     }
 }
