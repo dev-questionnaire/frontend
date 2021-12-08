@@ -23,7 +23,7 @@ final class QuestionDataProvider extends \Xervice\DataProvider\Business\Model\Da
     protected $updatedAt = '';
 
     /** @var int */
-    protected $exam_id;
+    protected $examId;
 
 
     /**
@@ -234,19 +234,19 @@ final class QuestionDataProvider extends \Xervice\DataProvider\Business\Model\Da
     /**
      * @return int
      */
-    public function getExam_id(): ?int
+    public function getExamId(): ?int
     {
-        return $this->exam_id;
+        return $this->examId;
     }
 
 
     /**
-     * @param int $exam_id
+     * @param int $examId
      * @return QuestionDataProvider
      */
-    public function setExam_id(?int $exam_id = null)
+    public function setExamId(?int $examId = null)
     {
-        $this->exam_id = $exam_id;
+        $this->examId = $examId;
 
         return $this;
     }
@@ -255,9 +255,9 @@ final class QuestionDataProvider extends \Xervice\DataProvider\Business\Model\Da
     /**
      * @return QuestionDataProvider
      */
-    public function unsetExam_id()
+    public function unsetExamId()
     {
-        $this->exam_id = null;
+        $this->examId = null;
 
         return $this;
     }
@@ -266,9 +266,9 @@ final class QuestionDataProvider extends \Xervice\DataProvider\Business\Model\Da
     /**
      * @return bool
      */
-    public function hasExam_id()
+    public function hasExamId()
     {
-        return ($this->exam_id !== null && $this->exam_id !== []);
+        return ($this->examId !== null && $this->examId !== []);
     }
 
 
@@ -328,9 +328,9 @@ final class QuestionDataProvider extends \Xervice\DataProvider\Business\Model\Da
             'is_dataprovider' => false,
             'isCamelCase' => false,
           ),
-          'exam_id' =>
+          'examId' =>
           array (
-            'name' => 'exam_id',
+            'name' => 'examId',
             'allownull' => true,
             'default' => '',
             'type' => 'int',
