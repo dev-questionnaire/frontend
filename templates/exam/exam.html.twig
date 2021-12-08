@@ -1,4 +1,16 @@
 {% extends "base.html.twig" %}
+{% block stylesheets %}
+    <link rel="stylesheet" type="text/css" href="/css/exam.css">
+{% endblock %}
 {% block body %}
-    <p>In the future exams will be displayed here!</p>
+    <div id="exams">
+        {%  for exam in examList %}
+            <div>
+                <a href="#" title="{{ exam.name }}">
+                    <img src="/images/exam/examThumbnail.png" alt="{{ exam.name }}">
+                </a>
+                <p>//{{ exam.name }}</p>
+            </div>
+        {% endfor %}
+    </div>
 {% endblock %}
