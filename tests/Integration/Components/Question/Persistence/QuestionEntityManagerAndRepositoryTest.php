@@ -92,6 +92,8 @@ class QuestionEntityManagerAndRepositoryTest extends KernelTestCase
         self::assertSame('f', $questionDTO->getAnswers()['Question2']);
         self::assertSame('f', $questionDTO->getAnswers()['Question3']);
         self::assertSame('c', $questionDTO->getAnswers()['Question4']);
+        self::assertSame($currentDate, $questionDTO->getCreatedAt());
+        self::assertSame($currentDate, $questionDTO->getUpdatedAt());
         self::assertSame(1, $questionDTO->getExamId());
 
         self::assertInstanceOf(QuestionDataProvider::class, $this->questionRepository->getById(1));
