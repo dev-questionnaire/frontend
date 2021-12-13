@@ -5,25 +5,25 @@ namespace App\DataTransferObject;
 /**
  * Auto generated data provider
  */
-final class QuestionDataProvider extends \Xervice\DataProvider\Business\Model\DataProvider\AbstractDataProvider implements \Xervice\DataProvider\Business\Model\DataProvider\DataProviderInterface
+final class ExamQuestionDataProvider extends \Xervice\DataProvider\Business\Model\DataProvider\AbstractDataProvider implements \Xervice\DataProvider\Business\Model\DataProvider\DataProviderInterface
 {
     /** @var int */
     protected $id;
 
-    /** @var string */
-    protected $name;
+    /** @var int */
+    protected $examId;
 
     /** @var array */
-    protected $answers;
+    protected $question;
+
+    /** @var bool */
+    protected $correct;
 
     /** @var string */
     protected $createdAt = '';
 
     /** @var string */
     protected $updatedAt = '';
-
-    /** @var int */
-    protected $examId;
 
 
     /**
@@ -37,7 +37,7 @@ final class QuestionDataProvider extends \Xervice\DataProvider\Business\Model\Da
 
     /**
      * @param int $id
-     * @return QuestionDataProvider
+     * @return ExamQuestionDataProvider
      */
     public function setId(?int $id = null)
     {
@@ -48,7 +48,7 @@ final class QuestionDataProvider extends \Xervice\DataProvider\Business\Model\Da
 
 
     /**
-     * @return QuestionDataProvider
+     * @return ExamQuestionDataProvider
      */
     public function unsetId()
     {
@@ -68,32 +68,32 @@ final class QuestionDataProvider extends \Xervice\DataProvider\Business\Model\Da
 
 
     /**
-     * @return string
+     * @return int
      */
-    public function getName(): ?string
+    public function getExamId(): ?int
     {
-        return $this->name;
+        return $this->examId;
     }
 
 
     /**
-     * @param string $name
-     * @return QuestionDataProvider
+     * @param int $examId
+     * @return ExamQuestionDataProvider
      */
-    public function setName(?string $name = null)
+    public function setExamId(?int $examId = null)
     {
-        $this->name = $name;
+        $this->examId = $examId;
 
         return $this;
     }
 
 
     /**
-     * @return QuestionDataProvider
+     * @return ExamQuestionDataProvider
      */
-    public function unsetName()
+    public function unsetExamId()
     {
-        $this->name = null;
+        $this->examId = null;
 
         return $this;
     }
@@ -102,39 +102,39 @@ final class QuestionDataProvider extends \Xervice\DataProvider\Business\Model\Da
     /**
      * @return bool
      */
-    public function hasName()
+    public function hasExamId()
     {
-        return ($this->name !== null && $this->name !== []);
+        return ($this->examId !== null && $this->examId !== []);
     }
 
 
     /**
      * @return array
      */
-    public function getAnswers(): array
+    public function getQuestion(): array
     {
-        return $this->answers;
+        return $this->question;
     }
 
 
     /**
-     * @param array $answers
-     * @return QuestionDataProvider
+     * @param array $question
+     * @return ExamQuestionDataProvider
      */
-    public function setAnswers(array $answers)
+    public function setQuestion(array $question)
     {
-        $this->answers = $answers;
+        $this->question = $question;
 
         return $this;
     }
 
 
     /**
-     * @return QuestionDataProvider
+     * @return ExamQuestionDataProvider
      */
-    public function unsetAnswers()
+    public function unsetQuestion()
     {
-        $this->answers = null;
+        $this->question = null;
 
         return $this;
     }
@@ -143,9 +143,50 @@ final class QuestionDataProvider extends \Xervice\DataProvider\Business\Model\Da
     /**
      * @return bool
      */
-    public function hasAnswers()
+    public function hasQuestion()
     {
-        return ($this->answers !== null && $this->answers !== []);
+        return ($this->question !== null && $this->question !== []);
+    }
+
+
+    /**
+     * @return bool
+     */
+    public function getCorrect(): ?bool
+    {
+        return $this->correct;
+    }
+
+
+    /**
+     * @param bool $correct
+     * @return ExamQuestionDataProvider
+     */
+    public function setCorrect(?bool $correct = null)
+    {
+        $this->correct = $correct;
+
+        return $this;
+    }
+
+
+    /**
+     * @return ExamQuestionDataProvider
+     */
+    public function unsetCorrect()
+    {
+        $this->correct = null;
+
+        return $this;
+    }
+
+
+    /**
+     * @return bool
+     */
+    public function hasCorrect()
+    {
+        return ($this->correct !== null && $this->correct !== []);
     }
 
 
@@ -160,7 +201,7 @@ final class QuestionDataProvider extends \Xervice\DataProvider\Business\Model\Da
 
     /**
      * @param string $createdAt
-     * @return QuestionDataProvider
+     * @return ExamQuestionDataProvider
      */
     public function setCreatedAt(string $createdAt = '')
     {
@@ -171,7 +212,7 @@ final class QuestionDataProvider extends \Xervice\DataProvider\Business\Model\Da
 
 
     /**
-     * @return QuestionDataProvider
+     * @return ExamQuestionDataProvider
      */
     public function unsetCreatedAt()
     {
@@ -201,7 +242,7 @@ final class QuestionDataProvider extends \Xervice\DataProvider\Business\Model\Da
 
     /**
      * @param string $updatedAt
-     * @return QuestionDataProvider
+     * @return ExamQuestionDataProvider
      */
     public function setUpdatedAt(string $updatedAt = '')
     {
@@ -212,7 +253,7 @@ final class QuestionDataProvider extends \Xervice\DataProvider\Business\Model\Da
 
 
     /**
-     * @return QuestionDataProvider
+     * @return ExamQuestionDataProvider
      */
     public function unsetUpdatedAt()
     {
@@ -232,47 +273,6 @@ final class QuestionDataProvider extends \Xervice\DataProvider\Business\Model\Da
 
 
     /**
-     * @return int
-     */
-    public function getExamId(): ?int
-    {
-        return $this->examId;
-    }
-
-
-    /**
-     * @param int $examId
-     * @return QuestionDataProvider
-     */
-    public function setExamId(?int $examId = null)
-    {
-        $this->examId = $examId;
-
-        return $this;
-    }
-
-
-    /**
-     * @return QuestionDataProvider
-     */
-    public function unsetExamId()
-    {
-        $this->examId = null;
-
-        return $this;
-    }
-
-
-    /**
-     * @return bool
-     */
-    public function hasExamId()
-    {
-        return ($this->examId !== null && $this->examId !== []);
-    }
-
-
-    /**
      * @return array
      */
     protected function getElements(): array
@@ -288,22 +288,32 @@ final class QuestionDataProvider extends \Xervice\DataProvider\Business\Model\Da
             'is_dataprovider' => false,
             'isCamelCase' => false,
           ),
-          'name' =>
+          'examId' =>
           array (
-            'name' => 'name',
+            'name' => 'examId',
             'allownull' => true,
             'default' => '',
-            'type' => 'string',
+            'type' => 'int',
             'is_collection' => false,
             'is_dataprovider' => false,
             'isCamelCase' => false,
           ),
-          'answers' =>
+          'question' =>
           array (
-            'name' => 'answers',
+            'name' => 'question',
             'allownull' => false,
             'default' => '',
             'type' => 'array',
+            'is_collection' => false,
+            'is_dataprovider' => false,
+            'isCamelCase' => false,
+          ),
+          'correct' =>
+          array (
+            'name' => 'correct',
+            'allownull' => true,
+            'default' => '',
+            'type' => 'bool',
             'is_collection' => false,
             'is_dataprovider' => false,
             'isCamelCase' => false,
@@ -324,16 +334,6 @@ final class QuestionDataProvider extends \Xervice\DataProvider\Business\Model\Da
             'allownull' => false,
             'default' => '\'\'',
             'type' => 'string',
-            'is_collection' => false,
-            'is_dataprovider' => false,
-            'isCamelCase' => false,
-          ),
-          'examId' =>
-          array (
-            'name' => 'examId',
-            'allownull' => true,
-            'default' => '',
-            'type' => 'int',
             'is_collection' => false,
             'is_dataprovider' => false,
             'isCamelCase' => false,

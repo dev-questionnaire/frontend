@@ -42,7 +42,6 @@ final class ErrorDataProvider extends \Xervice\DataProvider\Business\Model\DataP
         return $this;
     }
 
-
     /**
      * @return ErrorDataProvider
      */

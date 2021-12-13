@@ -2,15 +2,15 @@
 
 namespace App\Entity;
 
-use App\Repository\QuestionRepository;
+use App\Repository\ExamQuestionRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 
 /**
- * @ORM\Entity(repositoryClass=QuestionRepository::class)
+ * @ORM\Entity(repositoryClass=ExamQuestionRepository::class)
  * @ORM\HasLifecycleCallbacks
  */
-class Question
+class ExamQuestion
 {
     use TimestampableEntity;
 
@@ -35,48 +35,24 @@ class Question
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $name;
-
-    /**
-     * @ORM\Column(type="json")
-     */
-    private $answers = [];
-
-    /**
      * @ORM\ManyToOne(targetEntity=Exam::class)
      * @ORM\JoinColumn(nullable=false)
      */
     private $exam;
 
+    /**
+     * @ORM\Column(type="string")
+     */
+    private $question;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $correct;
+
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getName(): ?string
-    {
-        return $this->name;
-    }
-
-    public function setName(string $name): self
-    {
-        $this->name = $name;
-
-        return $this;
-    }
-
-    public function getAnswers(): ?array
-    {
-        return $this->answers;
-    }
-
-    public function setAnswers(array $answers): self
-    {
-        $this->answers = $answers;
-
-        return $this;
     }
 
     public function getExam(): ?Exam
@@ -87,6 +63,30 @@ class Question
     public function setExam(?Exam $exam): self
     {
         $this->exam = $exam;
+
+        return $this;
+    }
+
+    public function getQuestion(): ?string
+    {
+        return $this->question;
+    }
+
+    public function setQuestion(string $question): self
+    {
+        $this->question = $question;
+
+        return $this;
+    }
+
+    public function getCorrect(): ?bool
+    {
+        return $this->correct;
+    }
+
+    public function setCorrect(bool $correct): self
+    {
+        $this->correct = $correct;
 
         return $this;
     }

@@ -40,11 +40,13 @@ class AppFixturesTest extends KernelTestCase
 
         $connection = $this->entityManager->getConnection();
 
+        $connection->executeQuery('SET FOREIGN_KEY_CHECKS = 0');
         $connection->executeQuery('DELETE FROM exam');
         $connection->executeQuery('ALTER TABLE exam AUTO_INCREMENT=0');
 
         $connection->executeQuery('DELETE FROM user');
         $connection->executeQuery('ALTER TABLE user AUTO_INCREMENT=0');
+        $connection->executeQuery('SET FOREIGN_KEY_CHECKS = 1');
 
         $connection->close();
 
