@@ -23,3 +23,14 @@ services:
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
+
+    # Custom
+    App\Components\User\Business\Model\ValidateCreate:
+        arguments:
+            - '@App\Components\User\Business\Model\Verification\ValidateRegistrationEmail'
+            - '@App\Components\User\Business\Model\Verification\ValidatePasswords'
+
+    App\Components\User\Business\Model\ValidateUpdate:
+        arguments:
+            - '@App\Components\User\Business\Model\Verification\ValidateUpdateEmail'
+            - '@App\Components\User\Business\Model\Verification\ValidatePasswords'

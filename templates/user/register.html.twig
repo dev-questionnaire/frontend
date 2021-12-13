@@ -1,0 +1,18 @@
+{% extends "base.html.twig" %}
+{% block stylesheets %}
+    <link rel="stylesheet" type="text/css" href="/css/form.css">
+{% endblock %}
+{% block title %}Register{% endblock %}
+{% block headline %}Register{% endblock %}
+{% block body %}
+    <p>Register</p>
+    {{ form(form) }}
+    {% if errors is not empty %}
+        <p>Errors:</p>
+        <ul>
+            {% for error in errors %}
+                <li>{{ error }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+{% endblock %}

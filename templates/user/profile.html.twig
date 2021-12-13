@@ -1,0 +1,20 @@
+{% extends "base.html.twig" %}
+{% block stylesheets %}
+    <link rel="stylesheet" type="text/css" href="/css/form.css">
+{% endblock %}
+{% block title %}Profile{% endblock %}
+{% block headline %}Profile{% endblock %}
+{% block body %}
+    <h2>{{ app.user.email }}</h2>
+    <p>Edit profile:</p>
+    {{ form(form) }}
+    {% if errors is not empty %}
+        <p>Errors:</p>
+        <ul>
+            {% for error in errors %}
+                <li>{{ error }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+    <a href="{{ path("app_user_delete") }}">delete account</a>
+{% endblock %}

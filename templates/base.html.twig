@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Exams{% endblock %}</title>
+    <link rel="stylesheet" type="text/css" href="/css/base.css">
+    {% block stylesheets %}{% endblock %}
+<body>
+<header>
+    <div id="headline">
+        <div>
+            <a href="{{ path("app_exam") }}"><h1>Azubi Exams</h1></a>
+            <h1> | </h1>
+            <h1>{% block headline %}Exams{% endblock %}</h1>
+        </div>
+        <div>
+            {% if not app.user %}
+                <a href="{{ path("app_login") }}">Log In</a>
+                <a href="{{ path("app_user_register") }}">Register</a>
+            {% else %}
+                <a href="{{ path("app_user_profile") }}">{{ app.user.email }}</a>
+                <a href="{{ path("app_logout") }}">Log Out</a>
+            {% endif %}
+        </div>
+    </div>
+    <hr/>
+</header>
+<div id="body">
+    {% block body %}
+    {% endblock %}
+</div>
+<footer>
+    <hr/>
+    <div id="footer">
+        <a href="#">Impressum</a>
+    </div>
+</footer>
+</body>
+</html>
