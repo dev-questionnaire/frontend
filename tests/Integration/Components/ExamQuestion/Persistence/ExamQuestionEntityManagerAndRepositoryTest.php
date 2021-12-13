@@ -7,9 +7,9 @@ use App\Components\Exam\Persistence\EntityManager\ExamEntityManager;
 use App\Components\Exam\Persistence\EntityManager\ExamEntityManagerInterface;
 use App\Components\ExamQuestion\Persistence\EntityManager\ExamQuestionEntityManager;
 use App\Components\ExamQuestion\Persistence\EntityManager\ExamQuestionEntityManagerInterface;
-use App\Components\ExamQuestion\Persistence\Mapper\ExamQuestionMapper;
+use App\Components\ExamQuestion\Persistence\Mapper\QuestionMapper;
 use App\Components\ExamQuestion\Persistence\Repository\ExamQuestionRepository;
-use App\Components\ExamQuestion\Persistence\Repository\ExamQuestionRepositoryInterface;
+use App\Components\ExamQuestion\Persistence\Repository\QuestionRepositoryInterface;
 use App\DataTransferObject\ExamDataProvider;
 use App\DataTransferObject\ExamQuestionDataProvider;
 use App\Repository\ExamRepository;
@@ -21,7 +21,7 @@ class ExamQuestionEntityManagerAndRepositoryTest extends KernelTestCase
     private ?EntityManagerInterface $entityManager;
     private ?ExamEntityManagerInterface $examEntityManager;
     private ?ExamQuestionEntityManagerInterface $examQuestionEntityManager;
-    private ?ExamQuestionRepositoryInterface $examQuestionRepository;
+    private ?QuestionRepositoryInterface $examQuestionRepository;
 
     protected function setUp(): void
     {
@@ -33,7 +33,7 @@ class ExamQuestionEntityManagerAndRepositoryTest extends KernelTestCase
             ->get('doctrine')
             ->getManager();
 
-        $this->examQuestionRepository = new ExamQuestionRepository(self::$container->get(\App\Repository\AnswerRepository::class), self::$container->get(ExamRepository::class) ,new ExamQuestionMapper());
+        $this->examQuestionRepository = new ExamQuestionRepository(self::$container->get(\App\Repository\AnswerRepository::class), self::$container->get(ExamRepository::class) ,new QuestionMapper());
         $this->examQuestionEntityManager = new ExamQuestionEntityManager($this->entityManager, self::$container->get(ExamRepository::class));
         $this->examEntityManager = new ExamEntityManager($this->entityManager);
     }

@@ -10,10 +10,6 @@ exam_controller:
     resource: ../../src/Components/Exam/Communication/
     type: annotation
 
-question_controller:
-    resource: ../../src/Components/Answer/Communication/
-    type: annotation
-
 kernel:
     resource: ../../src/Kernel.php
     type: annotation

@@ -7,14 +7,14 @@ use App\Components\Exam\Persistence\EntityManager\ExamEntityManager;
 use App\Components\Exam\Persistence\EntityManager\ExamEntityManagerInterface;
 use App\Components\ExamQuestion\Persistence\EntityManager\ExamQuestionEntityManager;
 use App\Components\ExamQuestion\Persistence\EntityManager\ExamQuestionEntityManagerInterface;
-use App\Components\ExamQuestion\Persistence\Mapper\ExamQuestionMapper;
+use App\Components\ExamQuestion\Persistence\Mapper\QuestionMapper;
 use App\Components\ExamQuestion\Persistence\Repository\ExamQuestionRepository;
-use App\Components\ExamQuestion\Persistence\Repository\ExamQuestionRepositoryInterface;
-use App\Components\UserExam\Persistence\EntityManager\UserExamEntityManager;
-use App\Components\UserExam\Persistence\EntityManager\UserExamEntityManagerInterface;
-use App\Components\UserExam\Persistence\Mapper\UserExamMapper;
-use App\Components\UserExam\Persistence\Repository\UserExamRepository;
-use App\Components\UserExam\Persistence\Repository\UserExamRepositoryInterface;
+use App\Components\ExamQuestion\Persistence\Repository\QuestionRepositoryInterface;
+use App\Components\UserExam\Persistence\EntityManager\UserQuestionEntityManager;
+use App\Components\UserExam\Persistence\EntityManager\UserQuestionEntityManagerInterface;
+use App\Components\UserExam\Persistence\Mapper\UserQuestionMapper;
+use App\Components\UserExam\Persistence\Repository\UserQuestionRepository;
+use App\Components\UserExam\Persistence\Repository\UserQuestionRepositoryInterface;
 use App\DataTransferObject\ExamDataProvider;
 use App\DataTransferObject\ExamQuestionDataProvider;
 use App\DataTransferObject\UserExamDataProvider;
@@ -30,8 +30,8 @@ class UserExamEntityManagerAndRepositoryTest extends KernelTestCase
 {
     private ?EntityManagerInterface $entityManager;
     private ?ExamQuestionEntityManagerInterface $examQuestionEntityManager;
-    private ?UserExamEntityManagerInterface $userExamEntityManager;
-    private ?UserExamRepositoryInterface $userExamRepository;
+    private ?UserQuestionEntityManagerInterface $userExamEntityManager;
+    private ?UserQuestionRepositoryInterface $userExamRepository;
 
     protected function setUp(): void
     {
@@ -43,13 +43,13 @@ class UserExamEntityManagerAndRepositoryTest extends KernelTestCase
             ->get('doctrine')
             ->getManager();
 
-        $this->userExamRepository = new UserExamRepository(
+        $this->userExamRepository = new UserQuestionRepository(
             self::$container->get(\App\Repository\UserQuestionRepository::class),
             self::$container->get(UserRepository::class),
             self::$container->get(\App\Repository\ExamAnswerRepository::class),
-            new UserExamMapper()
+            new UserQuestionMapper()
         );
-        $this->userExamEntityManager = new UserExamEntityManager(
+        $this->userExamEntityManager = new UserQuestionEntityManager(
             $this->entityManager,
             self::$container->get(\App\Repository\UserExamRepository::class),
             self::$container->get(UserRepository::class),

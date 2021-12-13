@@ -25,14 +25,4 @@ class ExamEntityManager implements ExamEntityManagerInterface
         $this->entityManager->persist($examEntity);
         $this->entityManager->flush();
     }
-
-    public function update(ExamDataProvider $examDataProvider): void
-    {
-        //TODO make update method
-    }
-
-    public function delete(int $id): void
-    {
-        //TODO make delete method
-    }
 }

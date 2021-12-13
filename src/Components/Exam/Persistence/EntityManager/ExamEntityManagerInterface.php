@@ -8,8 +8,4 @@ use App\DataTransferObject\ExamDataProvider;
 interface ExamEntityManagerInterface
 {
     public function create(ExamDataProvider $examDataProvider): void;
-
-    public function update(ExamDataProvider $examDataProvider): void;
-
-    public function delete(int $id): void;
 }
