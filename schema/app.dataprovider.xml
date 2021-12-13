@@ -42,18 +42,17 @@
     <DataProvider name="ExamQuestion">
         <DataElement name="id" type="int" allownull="false" />
         <DataElement name="examId" type="int" allownull="false" />
-        <DataElement name="question" type="array" />
-        <DataElement name="correct" type="bool" allownull="true"/>
+        <DataElement name="question" type="string" />
+        <DataElement name="correct" type="bool" allownull="true" />
         <DataElement name="createdAt" type="string" default="''"/>
         <DataElement name="updatedAt" type="string" default="''"/>
-
     </DataProvider>
 
     <DataProvider name="UserExam">
         <DataElement name="id" type="int" allownull="false" />
         <DataElement name="userId" type="int" allownull="false" />
         <DataElement name="examQuestionId" type="int" allownull="false" />
-        <DataElement name="answer" type="bool" allownull="true" />
+        <DataElement name="answer" type="bool" allownull="true" default="null"/>
         <DataElement name="createdAt" type="string" default="''"/>
         <DataElement name="updatedAt" type="string" default="''"/>
     </DataProvider>

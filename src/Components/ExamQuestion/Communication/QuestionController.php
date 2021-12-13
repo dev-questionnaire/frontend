@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Components\Question\Communication;
+namespace App\Components\ExamQuestion\Communication;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;

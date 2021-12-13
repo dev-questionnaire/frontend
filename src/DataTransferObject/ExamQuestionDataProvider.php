@@ -13,7 +13,7 @@ final class ExamQuestionDataProvider extends \Xervice\DataProvider\Business\Mode
     /** @var int */
     protected $examId;
 
-    /** @var array */
+    /** @var string */
     protected $question;
 
     /** @var bool */
@@ -109,19 +109,19 @@ final class ExamQuestionDataProvider extends \Xervice\DataProvider\Business\Mode
 
 
     /**
-     * @return array
+     * @return string
      */
-    public function getQuestion(): array
+    public function getQuestion(): string
     {
         return $this->question;
     }
 
 
     /**
-     * @param array $question
+     * @param string $question
      * @return ExamQuestionDataProvider
      */
-    public function setQuestion(array $question)
+    public function setQuestion(string $question)
     {
         $this->question = $question;
 
@@ -303,7 +303,7 @@ final class ExamQuestionDataProvider extends \Xervice\DataProvider\Business\Mode
             'name' => 'question',
             'allownull' => false,
             'default' => '',
-            'type' => 'array',
+            'type' => 'string',
             'is_collection' => false,
             'is_dataprovider' => false,
             'isCamelCase' => false,

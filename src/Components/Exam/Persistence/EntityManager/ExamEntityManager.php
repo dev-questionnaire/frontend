@@ -12,7 +12,6 @@ class ExamEntityManager implements ExamEntityManagerInterface
 {
     public function __construct(
         private EntityManagerInterface  $entityManager,
-        private ExamRepositoryInterface $examRepository,
     )
     {
     }

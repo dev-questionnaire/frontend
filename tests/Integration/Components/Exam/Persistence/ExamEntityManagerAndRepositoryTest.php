@@ -29,7 +29,7 @@ class ExamEntityManagerAndRepositoryTest extends KernelTestCase
             ->getManager();
 
         $this->examRepository = new ExamRepository(self::$container->get(\App\Repository\ExamRepository::class), new ExamMapperEntity());
-        $this->examEntityManager = new ExamEntityManager($this->entityManager, $this->examRepository);
+        $this->examEntityManager = new ExamEntityManager($this->entityManager);
     }
 
     protected function tearDown(): void
