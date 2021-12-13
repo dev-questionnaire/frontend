@@ -15,9 +15,7 @@ class ExamController extends AbstractController
     {
     }
 
-    /**
-     * @Route ("/", name="app_exam")
-     */
+    #[Route("/", name: "app_exam")]
     public function index(): Response
     {
         $examList = $this->examRepository->getAll();

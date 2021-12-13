@@ -24,9 +24,7 @@ class UserController extends AbstractController
     {
     }
 
-    /**
-     * @Route ("/user/register", name="app_user_register")
-     */
+    #[Route("/user/register", name: "app_user_register")]
     public function register(Request $request): Response
     {
 
@@ -53,9 +51,7 @@ class UserController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route ("/user/profile", name="app_user_profile")
-     */
+    #[Route("/user/profile", name: "app_user_profile")]
     public function profile(UserInterface $user, Request $request): Response
     {
         $errors = [];
@@ -79,9 +75,7 @@ class UserController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route ("/user/delete", name="app_user_delete")
-     */
+    #[Route("/user/delete", name: "app_user_delete")]
     public function deleteUser(UserInterface $user): Response
     {
         $userDTO = $this->userRepository->getByEmail($user->getUserIdentifier());
