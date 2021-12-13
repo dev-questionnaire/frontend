@@ -5,17 +5,17 @@ namespace App\Components\UserExam\Persistence\Repository;
 
 use App\Components\UserExam\Persistence\Mapper\UserExamMapper;
 use App\DataTransferObject\UserExamDataProvider;
-use App\Entity\UserExam;
-use App\Repository\ExamQuestionRepository;
+use App\Entity\UserQuestion;
+use App\Repository\AnswerRepository;
 use App\Repository\UserRepository;
 
 class UserExamRepository implements UserExamRepositoryInterface
 {
     public function __construct(
-        private \App\Repository\UserExamRepository $userExamRepository,
-        private UserRepository $userRepository,
-        private ExamQuestionRepository $examQuestionRepository,
-        private UserExamMapper $mapper,
+        private \App\Repository\UserQuestionRepository $userExamRepository,
+        private UserRepository                         $userRepository,
+        private ExamAnswerRepository                   $examQuestionRepository,
+        private UserExamMapper                         $mapper,
     )
     {
     }
@@ -30,7 +30,7 @@ class UserExamRepository implements UserExamRepositoryInterface
             'examQuestion' => $examQuestion,
         ]);
 
-        if(!$userExam instanceof UserExam) {
+        if(!$userExam instanceof UserQuestion) {
             return null;
         }
 

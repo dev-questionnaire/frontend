@@ -4,11 +4,11 @@ declare(strict_types=1);
 namespace App\Components\UserExam\Persistence\Mapper;
 
 use App\DataTransferObject\UserExamDataProvider;
-use App\Entity\UserExam;
+use App\Entity\UserQuestion;
 
 class UserExamMapper
 {
-    public function map(UserExam $userExam): UserExamDataProvider
+    public function map(UserQuestion $userExam): UserExamDataProvider
     {
         $userExamDataProvider = new UserExamDataProvider();
 

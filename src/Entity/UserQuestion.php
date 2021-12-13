@@ -2,15 +2,15 @@
 
 namespace App\Entity;
 
-use App\Repository\UserExamRepository;
+use App\Repository\UserQuestionRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 
 /**
- * @ORM\Entity(repositoryClass=UserExamRepository::class)
+ * @ORM\Entity(repositoryClass=UserQuestionRepository::class)
  * @ORM\HasLifecycleCallbacks
  */
-class UserExam
+class UserQuestion
 {
     use TimestampableEntity;
 
@@ -35,12 +35,6 @@ class UserExam
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity=ExamQuestion::class)
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $examQuestion;
-
-    /**
      * @ORM\ManyToOne(targetEntity=User::class)
      * @ORM\JoinColumn(nullable=false)
      */
@@ -51,21 +45,15 @@ class UserExam
      */
     private $answer;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Question::class)
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $question;
+
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getExamQuestion(): ?ExamQuestion
-    {
-        return $this->examQuestion;
-    }
-
-    public function setExamQuestion(?ExamQuestion $examQuestion): self
-    {
-        $this->examQuestion = $examQuestion;
-
-        return $this;
     }
 
     public function getUser(): ?User
@@ -88,6 +76,18 @@ class UserExam
     public function setAnswer(?bool $answer): self
     {
         $this->answer = $answer;
+
+        return $this;
+    }
+
+    public function getQuestion(): ?Question
+    {
+        return $this->question;
+    }
+
+    public function setQuestion(?Question $question): self
+    {
+        $this->question = $question;
 
         return $this;
     }

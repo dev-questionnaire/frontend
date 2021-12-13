@@ -39,19 +39,27 @@
         <DataElement name="errors" type="array" default="[]"/>
     </DataProvider>
 
-    <DataProvider name="ExamQuestion">
+    <DataProvider name="Question">
         <DataElement name="id" type="int" allownull="false" />
         <DataElement name="examId" type="int" allownull="false" />
         <DataElement name="question" type="string" />
+        <DataElement name="createdAt" type="string" default="''"/>
+        <DataElement name="updatedAt" type="string" default="''"/>
+    </DataProvider>
+
+    <DataProvider name="Answer">
+        <DataElement name="id" type="int" allownull="false" />
+        <DataElement name="questionId" type="int" allownull="false" />
+        <DataElement name="answer" type="string" />
         <DataElement name="correct" type="bool" allownull="true" />
         <DataElement name="createdAt" type="string" default="''"/>
         <DataElement name="updatedAt" type="string" default="''"/>
     </DataProvider>
 
-    <DataProvider name="UserExam">
+    <DataProvider name="UserQuestion">
         <DataElement name="id" type="int" allownull="false" />
         <DataElement name="userId" type="int" allownull="false" />
-        <DataElement name="examQuestionId" type="int" allownull="false" />
+        <DataElement name="questionId" type="int" allownull="false" />
         <DataElement name="answer" type="bool" allownull="true" default="null"/>
         <DataElement name="createdAt" type="string" default="''"/>
         <DataElement name="updatedAt" type="string" default="''"/>

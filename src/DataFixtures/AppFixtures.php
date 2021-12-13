@@ -3,6 +3,7 @@
 namespace App\DataFixtures;
 
 use App\Entity\Exam;
+use App\Entity\Answer;
 use App\Entity\Question;
 use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
@@ -20,7 +21,7 @@ class AppFixtures extends Fixture
     public function load(ObjectManager $manager): void
     {
         $this->loadUser();
-        $this->loadExamAndQuestions();
+        $this->loadExamAndExamQuestionAndUserExam();
 
         foreach ($this->entityList as $entity) {
             $manager->persist($entity);
@@ -58,7 +59,7 @@ class AppFixtures extends Fixture
         $this->entityList[] = $user;
     }
 
-    private function loadExamAndQuestions(): void
+    private function loadExamAndExamQuestionAndUserExam(): void
     {
         $exam = new Exam();
 

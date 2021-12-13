@@ -33,7 +33,7 @@ class ExamQuestionEntityManagerAndRepositoryTest extends KernelTestCase
             ->get('doctrine')
             ->getManager();
 
-        $this->examQuestionRepository = new ExamQuestionRepository(self::$container->get(\App\Repository\ExamQuestionRepository::class), self::$container->get(ExamRepository::class) ,new ExamQuestionMapper());
+        $this->examQuestionRepository = new ExamQuestionRepository(self::$container->get(\App\Repository\AnswerRepository::class), self::$container->get(ExamRepository::class) ,new ExamQuestionMapper());
         $this->examQuestionEntityManager = new ExamQuestionEntityManager($this->entityManager, self::$container->get(ExamRepository::class));
         $this->examEntityManager = new ExamEntityManager($this->entityManager);
     }

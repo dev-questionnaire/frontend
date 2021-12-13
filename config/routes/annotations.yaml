@@ -11,7 +11,7 @@ exam_controller:
     type: annotation
 
 question_controller:
-    resource: ../../src/Components/ExamQuestion/Communication/
+    resource: ../../src/Components/Answer/Communication/
     type: annotation
 
 kernel:

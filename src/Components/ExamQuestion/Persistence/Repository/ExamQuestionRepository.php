@@ -10,9 +10,9 @@ use App\Repository\ExamRepository;
 class ExamQuestionRepository implements ExamQuestionRepositoryInterface
 {
     public function __construct(
-        private \App\Repository\ExamQuestionRepository $examQuestionRepository,
-        private ExamRepository $examRepository,
-        private ExamQuestionMapper $mapper,
+        private \App\Repository\AnswerRepository $examQuestionRepository,
+        private ExamRepository                   $examRepository,
+        private ExamQuestionMapper               $mapper,
     )
     {
     }

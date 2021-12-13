@@ -19,7 +19,7 @@ use App\DataTransferObject\ExamDataProvider;
 use App\DataTransferObject\ExamQuestionDataProvider;
 use App\DataTransferObject\UserExamDataProvider;
 use App\Entity\Exam;
-use App\Entity\ExamQuestion;
+use App\Entity\Answer;
 use App\Entity\User;
 use App\Repository\ExamRepository;
 use App\Repository\UserRepository;
@@ -44,16 +44,16 @@ class UserExamEntityManagerAndRepositoryTest extends KernelTestCase
             ->getManager();
 
         $this->userExamRepository = new UserExamRepository(
-            self::$container->get(\App\Repository\UserExamRepository::class),
+            self::$container->get(\App\Repository\UserQuestionRepository::class),
             self::$container->get(UserRepository::class),
-            self::$container->get(\App\Repository\ExamQuestionRepository::class),
+            self::$container->get(\App\Repository\ExamAnswerRepository::class),
             new UserExamMapper()
         );
         $this->userExamEntityManager = new UserExamEntityManager(
             $this->entityManager,
             self::$container->get(\App\Repository\UserExamRepository::class),
             self::$container->get(UserRepository::class),
-            self::$container->get(\App\Repository\ExamQuestionRepository::class),
+            self::$container->get(\App\Repository\QuestionAnswerRepository::class),
         );
         $this->examQuestionEntityManager = new ExamQuestionEntityManager($this->entityManager, self::$container->get(ExamRepository::class));
     }

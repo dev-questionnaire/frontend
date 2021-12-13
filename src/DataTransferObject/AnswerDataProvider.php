@@ -5,19 +5,19 @@ namespace App\DataTransferObject;
 /**
  * Auto generated data provider
  */
-final class UserExamDataProvider extends \Xervice\DataProvider\Business\Model\DataProvider\AbstractDataProvider implements \Xervice\DataProvider\Business\Model\DataProvider\DataProviderInterface
+final class AnswerDataProvider extends \Xervice\DataProvider\Business\Model\DataProvider\AbstractDataProvider implements \Xervice\DataProvider\Business\Model\DataProvider\DataProviderInterface
 {
     /** @var int */
     protected $id;
 
     /** @var int */
-    protected $userId;
+    protected $questionId;
 
-    /** @var int */
-    protected $examQuestionId;
+    /** @var string */
+    protected $answer;
 
     /** @var bool */
-    protected $answer;
+    protected $correct;
 
     /** @var string */
     protected $createdAt = '';
@@ -37,7 +37,7 @@ final class UserExamDataProvider extends \Xervice\DataProvider\Business\Model\Da
 
     /**
      * @param int $id
-     * @return UserExamDataProvider
+     * @return AnswerDataProvider
      */
     public function setId(?int $id = null)
     {
@@ -48,7 +48,7 @@ final class UserExamDataProvider extends \Xervice\DataProvider\Business\Model\Da
 
 
     /**
-     * @return UserExamDataProvider
+     * @return AnswerDataProvider
      */
     public function unsetId()
     {
@@ -70,71 +70,30 @@ final class UserExamDataProvider extends \Xervice\DataProvider\Business\Model\Da
     /**
      * @return int
      */
-    public function getUserId(): ?int
+    public function getQuestionId(): ?int
     {
-        return $this->userId;
+        return $this->questionId;
     }
 
 
     /**
-     * @param int $userId
-     * @return UserExamDataProvider
+     * @param int $questionId
+     * @return AnswerDataProvider
      */
-    public function setUserId(?int $userId = null)
+    public function setQuestionId(?int $questionId = null)
     {
-        $this->userId = $userId;
+        $this->questionId = $questionId;
 
         return $this;
     }
 
 
     /**
-     * @return UserExamDataProvider
+     * @return AnswerDataProvider
      */
-    public function unsetUserId()
+    public function unsetQuestionId()
     {
-        $this->userId = null;
-
-        return $this;
-    }
-
-
-    /**
-     * @return bool
-     */
-    public function hasUserId()
-    {
-        return ($this->userId !== null && $this->userId !== []);
-    }
-
-
-    /**
-     * @return int
-     */
-    public function getExamQuestionId(): ?int
-    {
-        return $this->examQuestionId;
-    }
-
-
-    /**
-     * @param int $examQuestionId
-     * @return UserExamDataProvider
-     */
-    public function setExamQuestionId(?int $examQuestionId = null)
-    {
-        $this->examQuestionId = $examQuestionId;
-
-        return $this;
-    }
-
-
-    /**
-     * @return UserExamDataProvider
-     */
-    public function unsetExamQuestionId()
-    {
-        $this->examQuestionId = null;
+        $this->questionId = null;
 
         return $this;
     }
@@ -143,26 +102,26 @@ final class UserExamDataProvider extends \Xervice\DataProvider\Business\Model\Da
     /**
      * @return bool
      */
-    public function hasExamQuestionId()
+    public function hasQuestionId()
     {
-        return ($this->examQuestionId !== null && $this->examQuestionId !== []);
+        return ($this->questionId !== null && $this->questionId !== []);
     }
 
 
     /**
-     * @return bool
+     * @return string
      */
-    public function getAnswer(): ?bool
+    public function getAnswer(): string
     {
         return $this->answer;
     }
 
 
     /**
-     * @param bool $answer
-     * @return UserExamDataProvider
+     * @param string $answer
+     * @return AnswerDataProvider
      */
-    public function setAnswer(?bool $answer = null)
+    public function setAnswer(string $answer)
     {
         $this->answer = $answer;
 
@@ -171,7 +130,7 @@ final class UserExamDataProvider extends \Xervice\DataProvider\Business\Model\Da
 
 
     /**
-     * @return UserExamDataProvider
+     * @return AnswerDataProvider
      */
     public function unsetAnswer()
     {
@@ -191,6 +150,47 @@ final class UserExamDataProvider extends \Xervice\DataProvider\Business\Model\Da
 
 
     /**
+     * @return bool
+     */
+    public function getCorrect(): ?bool
+    {
+        return $this->correct;
+    }
+
+
+    /**
+     * @param bool $correct
+     * @return AnswerDataProvider
+     */
+    public function setCorrect(?bool $correct = null)
+    {
+        $this->correct = $correct;
+
+        return $this;
+    }
+
+
+    /**
+     * @return AnswerDataProvider
+     */
+    public function unsetCorrect()
+    {
+        $this->correct = null;
+
+        return $this;
+    }
+
+
+    /**
+     * @return bool
+     */
+    public function hasCorrect()
+    {
+        return ($this->correct !== null && $this->correct !== []);
+    }
+
+
+    /**
      * @return string
      */
     public function getCreatedAt(): string
@@ -201,7 +201,7 @@ final class UserExamDataProvider extends \Xervice\DataProvider\Business\Model\Da
 
     /**
      * @param string $createdAt
-     * @return UserExamDataProvider
+     * @return AnswerDataProvider
      */
     public function setCreatedAt(string $createdAt = '')
     {
@@ -212,7 +212,7 @@ final class UserExamDataProvider extends \Xervice\DataProvider\Business\Model\Da
 
 
     /**
-     * @return UserExamDataProvider
+     * @return AnswerDataProvider
      */
     public function unsetCreatedAt()
     {
@@ -242,7 +242,7 @@ final class UserExamDataProvider extends \Xervice\DataProvider\Business\Model\Da
 
     /**
      * @param string $updatedAt
-     * @return UserExamDataProvider
+     * @return AnswerDataProvider
      */
     public function setUpdatedAt(string $updatedAt = '')
     {
@@ -253,7 +253,7 @@ final class UserExamDataProvider extends \Xervice\DataProvider\Business\Model\Da
 
 
     /**
-     * @return UserExamDataProvider
+     * @return AnswerDataProvider
      */
     public function unsetUpdatedAt()
     {
@@ -288,19 +288,9 @@ final class UserExamDataProvider extends \Xervice\DataProvider\Business\Model\Da
             'is_dataprovider' => false,
             'isCamelCase' => false,
           ),
-          'userId' =>
+          'questionId' =>
           array (
-            'name' => 'userId',
-            'allownull' => true,
-            'default' => '',
-            'type' => 'int',
-            'is_collection' => false,
-            'is_dataprovider' => false,
-            'isCamelCase' => false,
-          ),
-          'examQuestionId' =>
-          array (
-            'name' => 'examQuestionId',
+            'name' => 'questionId',
             'allownull' => true,
             'default' => '',
             'type' => 'int',
@@ -311,6 +301,16 @@ final class UserExamDataProvider extends \Xervice\DataProvider\Business\Model\Da
           'answer' =>
           array (
             'name' => 'answer',
+            'allownull' => false,
+            'default' => '',
+            'type' => 'string',
+            'is_collection' => false,
+            'is_dataprovider' => false,
+            'isCamelCase' => false,
+          ),
+          'correct' =>
+          array (
+            'name' => 'correct',
             'allownull' => true,
             'default' => '',
             'type' => 'bool',

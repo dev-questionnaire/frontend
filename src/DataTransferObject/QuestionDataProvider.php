@@ -5,7 +5,7 @@ namespace App\DataTransferObject;
 /**
  * Auto generated data provider
  */
-final class ExamQuestionDataProvider extends \Xervice\DataProvider\Business\Model\DataProvider\AbstractDataProvider implements \Xervice\DataProvider\Business\Model\DataProvider\DataProviderInterface
+final class QuestionDataProvider extends \Xervice\DataProvider\Business\Model\DataProvider\AbstractDataProvider implements \Xervice\DataProvider\Business\Model\DataProvider\DataProviderInterface
 {
     /** @var int */
     protected $id;
@@ -15,9 +15,6 @@ final class ExamQuestionDataProvider extends \Xervice\DataProvider\Business\Mode
 
     /** @var string */
     protected $question;
-
-    /** @var bool */
-    protected $correct;
 
     /** @var string */
     protected $createdAt = '';
@@ -37,7 +34,7 @@ final class ExamQuestionDataProvider extends \Xervice\DataProvider\Business\Mode
 
     /**
      * @param int $id
-     * @return ExamQuestionDataProvider
+     * @return QuestionDataProvider
      */
     public function setId(?int $id = null)
     {
@@ -48,7 +45,7 @@ final class ExamQuestionDataProvider extends \Xervice\DataProvider\Business\Mode
 
 
     /**
-     * @return ExamQuestionDataProvider
+     * @return QuestionDataProvider
      */
     public function unsetId()
     {
@@ -78,7 +75,7 @@ final class ExamQuestionDataProvider extends \Xervice\DataProvider\Business\Mode
 
     /**
      * @param int $examId
-     * @return ExamQuestionDataProvider
+     * @return QuestionDataProvider
      */
     public function setExamId(?int $examId = null)
     {
@@ -89,7 +86,7 @@ final class ExamQuestionDataProvider extends \Xervice\DataProvider\Business\Mode
 
 
     /**
-     * @return ExamQuestionDataProvider
+     * @return QuestionDataProvider
      */
     public function unsetExamId()
     {
@@ -119,7 +116,7 @@ final class ExamQuestionDataProvider extends \Xervice\DataProvider\Business\Mode
 
     /**
      * @param string $question
-     * @return ExamQuestionDataProvider
+     * @return QuestionDataProvider
      */
     public function setQuestion(string $question)
     {
@@ -130,7 +127,7 @@ final class ExamQuestionDataProvider extends \Xervice\DataProvider\Business\Mode
 
 
     /**
-     * @return ExamQuestionDataProvider
+     * @return QuestionDataProvider
      */
     public function unsetQuestion()
     {
@@ -150,47 +147,6 @@ final class ExamQuestionDataProvider extends \Xervice\DataProvider\Business\Mode
 
 
     /**
-     * @return bool
-     */
-    public function getCorrect(): ?bool
-    {
-        return $this->correct;
-    }
-
-
-    /**
-     * @param bool $correct
-     * @return ExamQuestionDataProvider
-     */
-    public function setCorrect(?bool $correct = null)
-    {
-        $this->correct = $correct;
-
-        return $this;
-    }
-
-
-    /**
-     * @return ExamQuestionDataProvider
-     */
-    public function unsetCorrect()
-    {
-        $this->correct = null;
-
-        return $this;
-    }
-
-
-    /**
-     * @return bool
-     */
-    public function hasCorrect()
-    {
-        return ($this->correct !== null && $this->correct !== []);
-    }
-
-
-    /**
      * @return string
      */
     public function getCreatedAt(): string
@@ -201,7 +157,7 @@ final class ExamQuestionDataProvider extends \Xervice\DataProvider\Business\Mode
 
     /**
      * @param string $createdAt
-     * @return ExamQuestionDataProvider
+     * @return QuestionDataProvider
      */
     public function setCreatedAt(string $createdAt = '')
     {
@@ -212,7 +168,7 @@ final class ExamQuestionDataProvider extends \Xervice\DataProvider\Business\Mode
 
 
     /**
-     * @return ExamQuestionDataProvider
+     * @return QuestionDataProvider
      */
     public function unsetCreatedAt()
     {
@@ -242,7 +198,7 @@ final class ExamQuestionDataProvider extends \Xervice\DataProvider\Business\Mode
 
     /**
      * @param string $updatedAt
-     * @return ExamQuestionDataProvider
+     * @return QuestionDataProvider
      */
     public function setUpdatedAt(string $updatedAt = '')
     {
@@ -253,7 +209,7 @@ final class ExamQuestionDataProvider extends \Xervice\DataProvider\Business\Mode
 
 
     /**
-     * @return ExamQuestionDataProvider
+     * @return QuestionDataProvider
      */
     public function unsetUpdatedAt()
     {
@@ -304,16 +260,6 @@ final class ExamQuestionDataProvider extends \Xervice\DataProvider\Business\Mode
             'allownull' => false,
             'default' => '',
             'type' => 'string',
-            'is_collection' => false,
-            'is_dataprovider' => false,
-            'isCamelCase' => false,
-          ),
-          'correct' =>
-          array (
-            'name' => 'correct',
-            'allownull' => true,
-            'default' => '',
-            'type' => 'bool',
             'is_collection' => false,
             'is_dataprovider' => false,
             'isCamelCase' => false,
