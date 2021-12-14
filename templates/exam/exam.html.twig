@@ -6,10 +6,10 @@
     <div id="exams">
         {%  for exam in examList %}
             <div>
-                <a href="{{ path("app_question", {exam: exam.name}) }}" title="{{ exam.name }}">
+                <a href="{{ path("app_question", {exam_id: exam.id}) }}" title="{{ exam.name }}">
                     <img src="/images/exam/examThumbnail.png" alt="{{ exam.name }}">
                 </a>
-                <h3>//<a href="{{ path('app_question', {exam: exam.name}) }}">{{ exam.name }}</a></h3>
+                <h3>//<a href="{{ path('app_question', {exam_id: exam.id}) }}">{{ exam.name }}</a></h3>
             </div>
         {% endfor %}
     </div>

@@ -1,14 +1,14 @@
 {% extends "base.html.twig" %}
-{% block title %}{{ question.name }}{% endblock %}
-{% block headline %}{{ question.name }}{% endblock %}
+{% block title %}{{ question.question }}{% endblock %}
+{% block headline %}{{ question.question }}{% endblock %}
 {% block body %}
     <div id="question">
-        <form action="{{ path("app_question", {exam: name, question: nextQuestion}) }}" method="post">
-                {% for key,answer in question.answers|keys %}
-                    <label for="{{ question.name }}_{{ key }}">{{ answer }}</label>
-                    <input type="checkbox" name="{{ question.name }}_{{ key }}" value="{{ answer }}">
+        <form action="{{ path("app_question", {exam_id: exam_id, question_id: nextQuestion}) }}" method="post">
+                {% for answer in answerList %}
+                    <label for="{{ question.question }}_{{ answer.answer }}">{{ answer.answer }}</label>
+                    <input type="checkbox" name="{{ question.question }}_{{ answer.answer }}" value="{{ answer.answer }}">
                 {% endfor %}
-            <input type="submit" name="sub_{{ question.name }}" value="Next question">
+            <input type="submit" name="sub_{{ question.question }}" value="Next question">
         </form>
     </div>
 {% endblock %}

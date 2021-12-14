@@ -21,7 +21,7 @@ class AppFixtures extends Fixture
     public function load(ObjectManager $manager): void
     {
         $this->loadUser();
-        $this->loadExamAndExamQuestionAndUserExam();
+        $this->loadExamAndQuestionAndAnswer();
 
         foreach ($this->entityList as $entity) {
             $manager->persist($entity);
@@ -59,7 +59,7 @@ class AppFixtures extends Fixture
         $this->entityList[] = $user;
     }
 
-    private function loadExamAndExamQuestionAndUserExam(): void
+    private function loadExamAndQuestionAndAnswer(): void
     {
         $exam = new Exam();
 
@@ -68,11 +68,28 @@ class AppFixtures extends Fixture
 
         $this->entityList[] = $exam;
 
-        $exam = new Exam();
+        $question = new Question();
+        $question
+            ->setExam($exam)
+            ->setQuestion('What does S in SOLID stand for?');
 
-        $exam
-            ->setName('Testing');
+        $this->entityList[] = $question;
 
-        $this->entityList[] = $exam;
+        $answer = new Answer();
+        $answer
+            ->setQuestion($question)
+            ->setAnswer('Single possibility')
+            ->setCorrect(true);
+
+        $this->entityList[] = $answer;
+
+        $answer = new Answer();
+        $answer
+            ->setQuestion($question)
+            ->setAnswer('Single like a pringle')
+            ->setCorrect(false);
+
+        $this->entityList[] = $answer;
     }
+
 }
