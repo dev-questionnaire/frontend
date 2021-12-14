@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -34,6 +36,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(length: 255)]
     private ?string $password;
+
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: UserQuestion::class)]
+    private $userQuestions;
+
+    public function __construct()
+    {
+        $this->userQuestions = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -131,5 +141,35 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         // If you store any temporary, sensitive data on the user, clear it here
         //$this->plainPassword = null;
+    }
+
+    /**
+     * @return Collection|UserQuestion[]
+     */
+    public function getUserQuestions(): Collection
+    {
+        return $this->userQuestions;
+    }
+
+    public function addNewUserQuestion(UserQuestion $newUserQuestion): self
+    {
+        if (!$this->userQuestions->contains($newUserQuestion)) {
+            $this->userQuestions[] = $newUserQuestion;
+            $newUserQuestion->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeNewUserQuestion(UserQuestion $newUserQuestion): self
+    {
+        if ($this->userQuestions->removeElement($newUserQuestion)) {
+            // set the owning side to null (unless already changed)
+            if ($newUserQuestion->getUser() === $this) {
+                $newUserQuestion->setUser(null);
+            }
+        }
+
+        return $this;
     }
 }

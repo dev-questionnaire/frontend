@@ -19,6 +19,34 @@ final class ExamDataProvider
     /** @var string */
     protected $updatedAt;
 
+    /**
+     * @var \App\DataTransferObject\QuestionDataProvider[]
+     */
+    protected array $questionDataProviders;
+
+    /**
+     * @return \App\DataTransferObject\QuestionDataProvider[]
+     */
+    public function getQuestionDataProviders(): array
+    {
+        return $this->questionDataProviders;
+    }
+
+    /**
+     * @param \App\DataTransferObject\QuestionDataProvider[] $questionDataProviders
+     */
+    public function setQuestionDataProviders(array $questionDataProviders): void
+    {
+        $this->questionDataProviders = $questionDataProviders;
+    }
+
+    /**
+     * @param \App\DataTransferObject\QuestionDataProvider $questionDataProvider
+     */
+    public function addQuestionDataProvider(QuestionDataProvider $questionDataProvider): void
+    {
+        $this->questionDataProviders[] = $questionDataProvider;
+    }
 
     /**
      * @return int

@@ -21,17 +21,20 @@ class Answer
         }
     }
 
-    #[ORM\Id, ORM\GeneratedValue, ORM\Column]
-    private ?int $id;
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: 'integer')]
+    private $id;
 
-    #[ORM\Column]
-    private ?string $answer;
+    #[ORM\Column(type: 'string', length: 255)]
+    private $answer;
 
-    #[ORM\Column]
-    private ?bool $correct;
+    #[ORM\Column(type: 'boolean')]
+    private $correct;
 
-    #[ORM\ManyToOne, ORM\JoinColumn(nullable: false)]
-    private ?Question $question;
+    #[ORM\ManyToOne(targetEntity: Question::class, inversedBy: 'answers')]
+    #[ORM\JoinColumn(nullable: false)]
+    private $question;
 
     public function getId(): ?int
     {

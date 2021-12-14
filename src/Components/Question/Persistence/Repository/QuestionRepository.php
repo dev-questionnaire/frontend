@@ -25,7 +25,7 @@ class QuestionRepository implements QuestionRepositoryInterface
         $questionDataProviderList = [];
 
         $exam = $this->examRepository->find($examId);
-
+        $exam->getQuestions();
         $questionList = $this->questionRepository->findBy(['exam' => $exam]);
 
         foreach ($questionList as $question) {

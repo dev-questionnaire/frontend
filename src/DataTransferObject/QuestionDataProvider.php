@@ -22,6 +22,34 @@ final class QuestionDataProvider
     /** @var string */
     protected $updatedAt;
 
+    /**
+     * @var \App\DataTransferObject\AnswerDataProvider[]
+     */
+    protected array $answerDataProviders;
+
+    /**
+     * @return \App\DataTransferObject\AnswerDataProvider[]
+     */
+    public function getAnswerDataProviders(): array
+    {
+        return $this->answerDataProviders;
+    }
+
+    /**
+     * @param \App\DataTransferObject\AnswerDataProvider[] $answerDataProviders
+     */
+    public function setAnswerDataProviders(array $answerDataProviders): void
+    {
+        $this->answerDataProviders = $answerDataProviders;
+    }
+
+    /**
+     * @param \App\DataTransferObject\AnswerDataProvider $answerDataProvider
+     */
+    public function addAnswerDataProvider(AnswerDataProvider $answerDataProvider): void
+    {
+        $this->answerDataProviders[] = $answerDataProvider;
+    }
 
     /**
      * @return int

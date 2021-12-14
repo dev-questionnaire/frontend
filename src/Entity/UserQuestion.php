@@ -21,33 +21,25 @@ class UserQuestion
         }
     }
 
-    #[ORM\Id, ORM\GeneratedValue, ORM\Column]
-    private ?int $id;
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: 'integer')]
+    private $id;
 
-    #[ORM\ManyToOne, ORM\JoinColumn(nullable: false)]
-    private User $user;
+    #[ORM\Column(type: 'boolean', nullable: true)]
+    private $answer;
 
-    #[ORM\ManyToOne, ORM\JoinColumn(nullable: false)]
-    private Question $question;
+    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'userQuestions')]
+    #[ORM\JoinColumn(nullable: false)]
+    private $user;
 
-    #[ORM\Column(nullable: true)]
-    private ?bool $answer;
+    #[ORM\ManyToOne(targetEntity: Question::class, inversedBy: 'userQuestions')]
+    #[ORM\JoinColumn(nullable: false)]
+    private $question;
 
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getUser(): ?User
-    {
-        return $this->user;
-    }
-
-    public function setUser(?User $user): self
-    {
-        $this->user = $user;
-
-        return $this;
     }
 
     public function getAnswer(): ?bool
@@ -58,6 +50,18 @@ class UserQuestion
     public function setAnswer(?bool $answer): self
     {
         $this->answer = $answer;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }
