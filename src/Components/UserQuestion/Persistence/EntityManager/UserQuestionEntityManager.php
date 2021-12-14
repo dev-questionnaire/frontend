@@ -14,9 +14,9 @@ class UserQuestionEntityManager implements UserQuestionEntityManagerInterface
 {
     public function __construct(
         private EntityManagerInterface $entityManager,
-        private UserQuestionRepository $userExamRepository,
-        private UserRepository $userRepository,
-        private QuestionRepository $questionRepository,
+        private UserQuestionRepository $userQuestionRepository,
+        private UserRepository         $userRepository,
+        private QuestionRepository     $questionRepository,
     )
     {
     }
@@ -26,22 +26,22 @@ class UserQuestionEntityManager implements UserQuestionEntityManagerInterface
         $user = $this->userRepository->find($userQuestionDataProvider->getUserId());
         $question = $this->questionRepository->find($userQuestionDataProvider->getQuestionId());
 
-        $userExam = new UserQuestion();
+        $userQuestion = new UserQuestion();
 
-        $userExam
+        $userQuestion
             ->setUser($user)
             ->setQuestion($question)
             ->setAnswer($userQuestionDataProvider->getAnswer());
 
-        $this->entityManager->persist($userExam);
+        $this->entityManager->persist($userQuestion);
         $this->entityManager->flush();
     }
 
     public function updateAnswer(UserQuestionDataProvider $userQuestionDataProvider): void
     {
-        $userExam = $this->userExamRepository->find($userQuestionDataProvider->getId());
+        $userQuestion = $this->userQuestionRepository->find($userQuestionDataProvider->getId());
 
-        $userExam->setAnswer($userQuestionDataProvider->getAnswer());
+        $userQuestion->setAnswer($userQuestionDataProvider->getAnswer());
 
         $this->entityManager->flush();
     }
