@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <title>Dashboard for /home/philipphermes/dev-questionaire/frontend_symfony6/src</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="_css/bootstrap.min.css" rel="stylesheet" type="text/css">
+  <link href="_css/nv.d3.min.css" rel="stylesheet" type="text/css">
+  <link href="_css/style.css" rel="stylesheet" type="text/css">
+  <link href="_css/custom.css" rel="stylesheet" type="text/css">
+ </head>
+ <body>
+  <header>
+   <div class="container-fluid">
+    <div class="row">
+     <div class="col-md-12">
+      <nav aria-label="breadcrumb">
+       <ol class="breadcrumb">
+         <li class="breadcrumb-item"><a href="index.html">/home/philipphermes/dev-questionaire/frontend_symfony6/src</a></li>
+         <li class="breadcrumb-item active">(Dashboard)</li>
+
+       </ol>
+      </nav>
+     </div>
+    </div>
+   </div>
+  </header>
+  <div class="container-fluid">
+   <div class="row">
+    <div class="col-md-12">
+     <h2>Classes</h2>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Coverage Distribution</h3>
+     <div id="classCoverageDistribution" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Complexity</h3>
+     <div id="classComplexity" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Insufficient Coverage</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Class</th>
+         <th class="text-right">Coverage</th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="Components/Exam/Communication/ExamController.php.html#10">App\Components\Exam\Communication\ExamController</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Components/Question/Communication/QuestionController.php.html#9">App\Components\Question\Communication\QuestionController</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Components/User/Communication/Forms/Register.php.html#12">App\Components\User\Communication\Forms\Register</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Components/User/Communication/Forms/Update.php.html#12">App\Components\User\Communication\Forms\Update</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Components/User/Communication/UserController.php.html#20">App\Components\User\Communication\UserController</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Repository/UserRepository.php.html#18">App\Repository\UserRepository</a></td><td class="text-right">25%</td></tr>
+       <tr><td><a href="DataTransferObject/QuestionDataProvider.php.html#8">App\DataTransferObject\QuestionDataProvider</a></td><td class="text-right">45%</td></tr>
+       <tr><td><a href="DataTransferObject/AnswerDataProvider.php.html#8">App\DataTransferObject\AnswerDataProvider</a></td><td class="text-right">45%</td></tr>
+       <tr><td><a href="DataTransferObject/ExamDataProvider.php.html#8">App\DataTransferObject\ExamDataProvider</a></td><td class="text-right">48%</td></tr>
+       <tr><td><a href="DataTransferObject/UserQuestionDataProvider.php.html#8">App\DataTransferObject\UserQuestionDataProvider</a></td><td class="text-right">48%</td></tr>
+       <tr><td><a href="DataTransferObject/UserDataProvider.php.html#8">App\DataTransferObject\UserDataProvider</a></td><td class="text-right">48%</td></tr>
+       <tr><td><a href="DataTransferObject/ErrorDataProvider.php.html#8">App\DataTransferObject\ErrorDataProvider</a></td><td class="text-right">50%</td></tr>
+       <tr><td><a href="Controller/SecurityController.php.html#10">App\Controller\SecurityController</a></td><td class="text-right">66%</td></tr>
+       <tr><td><a href="Components/User/Business/Model/Verification/ValidateUpdateEmail.php.html#10">App\Components\User\Business\Model\Verification\ValidateUpdateEmail</a></td><td class="text-right">87%</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Project Risks</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Class</th>
+         <th class="text-right"><abbr title="Change Risk Anti-Patterns (CRAP) Index">CRAP</abbr></th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="DataTransferObject/UserDataProvider.php.html#8">App\DataTransferObject\UserDataProvider</a></td><td class="text-right">209</td></tr>
+       <tr><td><a href="DataTransferObject/AnswerDataProvider.php.html#8">App\DataTransferObject\AnswerDataProvider</a></td><td class="text-right">182</td></tr>
+       <tr><td><a href="DataTransferObject/UserQuestionDataProvider.php.html#8">App\DataTransferObject\UserQuestionDataProvider</a></td><td class="text-right">161</td></tr>
+       <tr><td><a href="DataTransferObject/QuestionDataProvider.php.html#8">App\DataTransferObject\QuestionDataProvider</a></td><td class="text-right">137</td></tr>
+       <tr><td><a href="Components/User/Communication/UserController.php.html#20">App\Components\User\Communication\UserController</a></td><td class="text-right">132</td></tr>
+       <tr><td><a href="DataTransferObject/ExamDataProvider.php.html#8">App\DataTransferObject\ExamDataProvider</a></td><td class="text-right">83</td></tr>
+       <tr><td><a href="DataTransferObject/ErrorDataProvider.php.html#8">App\DataTransferObject\ErrorDataProvider</a></td><td class="text-right">13</td></tr>
+       <tr><td><a href="Repository/UserRepository.php.html#18">App\Repository\UserRepository</a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Components/User/Business/Model/Verification/ValidateUpdateEmail.php.html#10">App\Components\User\Business\Model\Verification\ValidateUpdateEmail</a></td><td class="text-right">5</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-12">
+     <h2>Methods</h2>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Coverage Distribution</h3>
+     <div id="methodCoverageDistribution" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Complexity</h3>
+     <div id="methodComplexity" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Insufficient Coverage</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Method</th>
+         <th class="text-right">Coverage</th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="Components/Exam/Communication/ExamController.php.html#12"><abbr title="App\Components\Exam\Communication\ExamController::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Components/Exam/Communication/ExamController.php.html#18"><abbr title="App\Components\Exam\Communication\ExamController::index">index</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Components/Question/Communication/QuestionController.php.html#11"><abbr title="App\Components\Question\Communication\QuestionController::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Components/Question/Communication/QuestionController.php.html#20"><abbr title="App\Components\Question\Communication\QuestionController::index">index</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Components/User/Communication/Forms/Register.php.html#14"><abbr title="App\Components\User\Communication\Forms\Register::buildForm">buildForm</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Components/User/Communication/Forms/Update.php.html#14"><abbr title="App\Components\User\Communication\Forms\Update::buildForm">buildForm</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Components/User/Communication/UserController.php.html#23"><abbr title="App\Components\User\Communication\UserController::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Components/User/Communication/UserController.php.html#27"><abbr title="App\Components\User\Communication\UserController::register">register</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Components/User/Communication/UserController.php.html#54"><abbr title="App\Components\User\Communication\UserController::profile">profile</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Components/User/Communication/UserController.php.html#78"><abbr title="App\Components\User\Communication\UserController::deleteUser">deleteUser</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controller/SecurityController.php.html#20"><abbr title="App\Controller\SecurityController::logout">logout</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="DataTransferObject/AnswerDataProvider.php.html#32"><abbr title="App\DataTransferObject\AnswerDataProvider::getId">getId</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="DataTransferObject/AnswerDataProvider.php.html#53"><abbr title="App\DataTransferObject\AnswerDataProvider::unsetId">unsetId</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="DataTransferObject/AnswerDataProvider.php.html#64"><abbr title="App\DataTransferObject\AnswerDataProvider::hasId">hasId</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="DataTransferObject/AnswerDataProvider.php.html#94"><abbr title="App\DataTransferObject\AnswerDataProvider::unsetQuestionId">unsetQuestionId</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="DataTransferObject/AnswerDataProvider.php.html#105"><abbr title="App\DataTransferObject\AnswerDataProvider::hasQuestionId">hasQuestionId</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="DataTransferObject/AnswerDataProvider.php.html#135"><abbr title="App\DataTransferObject\AnswerDataProvider::unsetAnswer">unsetAnswer</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="DataTransferObject/AnswerDataProvider.php.html#146"><abbr title="App\DataTransferObject\AnswerDataProvider::hasAnswer">hasAnswer</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="DataTransferObject/AnswerDataProvider.php.html#176"><abbr title="App\DataTransferObject\AnswerDataProvider::unsetCorrect">unsetCorrect</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="DataTransferObject/AnswerDataProvider.php.html#187"><abbr title="App\DataTransferObject\AnswerDataProvider::hasCorrect">hasCorrect</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="DataTransferObject/AnswerDataProvider.php.html#217"><abbr title="App\DataTransferObject\AnswerDataProvider::unsetCreatedAt">unsetCreatedAt</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="DataTransferObject/AnswerDataProvider.php.html#228"><abbr title="App\DataTransferObject\AnswerDataProvider::hasCreatedAt">hasCreatedAt</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="DataTransferObject/AnswerDataProvider.php.html#258"><abbr title="App\DataTransferObject\AnswerDataProvider::unsetUpdatedAt">unsetUpdatedAt</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="DataTransferObject/AnswerDataProvider.php.html#269"><abbr title="App\DataTransferObject\AnswerDataProvider::hasUpdatedAt">hasUpdatedAt</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="DataTransferObject/AnswerDataProvider.php.html#278"><abbr title="App\DataTransferObject\AnswerDataProvider::getElements">getElements</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="DataTransferObject/ErrorDataProvider.php.html#27"><abbr title="App\DataTransferObject\ErrorDataProvider::setErrors">setErrors</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="DataTransferObject/ErrorDataProvider.php.html#49"><abbr title="App\DataTransferObject\ErrorDataProvider::hasErrors">hasErrors</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="DataTransferObject/ErrorDataProvider.php.html#68"><abbr title="App\DataTransferObject\ErrorDataProvider::getElements">getElements</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="DataTransferObject/ExamDataProvider.php.html#47"><abbr title="App\DataTransferObject\ExamDataProvider::unsetId">unsetId</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="DataTransferObject/ExamDataProvider.php.html#58"><abbr title="App\DataTransferObject\ExamDataProvider::hasId">hasId</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="DataTransferObject/ExamDataProvider.php.html#88"><abbr title="App\DataTransferObject\ExamDataProvider::unsetName">unsetName</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="DataTransferObject/ExamDataProvider.php.html#99"><abbr title="App\DataTransferObject\ExamDataProvider::hasName">hasName</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="DataTransferObject/ExamDataProvider.php.html#129"><abbr title="App\DataTransferObject\ExamDataProvider::unsetCreatedAt">unsetCreatedAt</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="DataTransferObject/ExamDataProvider.php.html#140"><abbr title="App\DataTransferObject\ExamDataProvider::hasCreatedAt">hasCreatedAt</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="DataTransferObject/ExamDataProvider.php.html#170"><abbr title="App\DataTransferObject\ExamDataProvider::unsetUpdatedAt">unsetUpdatedAt</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="DataTransferObject/ExamDataProvider.php.html#181"><abbr title="App\DataTransferObject\ExamDataProvider::hasUpdatedAt">hasUpdatedAt</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="DataTransferObject/ExamDataProvider.php.html#190"><abbr title="App\DataTransferObject\ExamDataProvider::getElements">getElements</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="DataTransferObject/QuestionDataProvider.php.html#29"><abbr title="App\DataTransferObject\QuestionDataProvider::getId">getId</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="DataTransferObject/QuestionDataProvider.php.html#50"><abbr title="App\DataTransferObject\QuestionDataProvider::unsetId">unsetId</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="DataTransferObject/QuestionDataProvider.php.html#61"><abbr title="App\DataTransferObject\QuestionDataProvider::hasId">hasId</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="DataTransferObject/QuestionDataProvider.php.html#91"><abbr title="App\DataTransferObject\QuestionDataProvider::unsetExamId">unsetExamId</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="DataTransferObject/QuestionDataProvider.php.html#102"><abbr title="App\DataTransferObject\QuestionDataProvider::hasExamId">hasExamId</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="DataTransferObject/QuestionDataProvider.php.html#132"><abbr title="App\DataTransferObject\QuestionDataProvider::unsetQuestion">unsetQuestion</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="DataTransferObject/QuestionDataProvider.php.html#143"><abbr title="App\DataTransferObject\QuestionDataProvider::hasQuestion">hasQuestion</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="DataTransferObject/QuestionDataProvider.php.html#173"><abbr title="App\DataTransferObject\QuestionDataProvider::unsetCreatedAt">unsetCreatedAt</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="DataTransferObject/QuestionDataProvider.php.html#184"><abbr title="App\DataTransferObject\QuestionDataProvider::hasCreatedAt">hasCreatedAt</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="DataTransferObject/QuestionDataProvider.php.html#214"><abbr title="App\DataTransferObject\QuestionDataProvider::unsetUpdatedAt">unsetUpdatedAt</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="DataTransferObject/QuestionDataProvider.php.html#225"><abbr title="App\DataTransferObject\QuestionDataProvider::hasUpdatedAt">hasUpdatedAt</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="DataTransferObject/QuestionDataProvider.php.html#234"><abbr title="App\DataTransferObject\QuestionDataProvider::getElements">getElements</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="DataTransferObject/UserDataProvider.php.html#56"><abbr title="App\DataTransferObject\UserDataProvider::unsetId">unsetId</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="DataTransferObject/UserDataProvider.php.html#67"><abbr title="App\DataTransferObject\UserDataProvider::hasId">hasId</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="DataTransferObject/UserDataProvider.php.html#97"><abbr title="App\DataTransferObject\UserDataProvider::unsetEmail">unsetEmail</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="DataTransferObject/UserDataProvider.php.html#108"><abbr title="App\DataTransferObject\UserDataProvider::hasEmail">hasEmail</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="DataTransferObject/UserDataProvider.php.html#138"><abbr title="App\DataTransferObject\UserDataProvider::unsetPassword">unsetPassword</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="DataTransferObject/UserDataProvider.php.html#149"><abbr title="App\DataTransferObject\UserDataProvider::hasPassword">hasPassword</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="DataTransferObject/UserDataProvider.php.html#179"><abbr title="App\DataTransferObject\UserDataProvider::unsetVerificationPassword">unsetVerificationPassword</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="DataTransferObject/UserDataProvider.php.html#190"><abbr title="App\DataTransferObject\UserDataProvider::hasVerificationPassword">hasVerificationPassword</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="DataTransferObject/UserDataProvider.php.html#220"><abbr title="App\DataTransferObject\UserDataProvider::unsetRoles">unsetRoles</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="DataTransferObject/UserDataProvider.php.html#231"><abbr title="App\DataTransferObject\UserDataProvider::hasRoles">hasRoles</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="DataTransferObject/UserDataProvider.php.html#261"><abbr title="App\DataTransferObject\UserDataProvider::unsetCreatedAt">unsetCreatedAt</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="DataTransferObject/UserDataProvider.php.html#272"><abbr title="App\DataTransferObject\UserDataProvider::hasCreatedAt">hasCreatedAt</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="DataTransferObject/UserDataProvider.php.html#302"><abbr title="App\DataTransferObject\UserDataProvider::unsetUpdatedAt">unsetUpdatedAt</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="DataTransferObject/UserDataProvider.php.html#313"><abbr title="App\DataTransferObject\UserDataProvider::hasUpdatedAt">hasUpdatedAt</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="DataTransferObject/UserDataProvider.php.html#322"><abbr title="App\DataTransferObject\UserDataProvider::getElements">getElements</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="DataTransferObject/UserQuestionDataProvider.php.html#53"><abbr title="App\DataTransferObject\UserQuestionDataProvider::unsetId">unsetId</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="DataTransferObject/UserQuestionDataProvider.php.html#64"><abbr title="App\DataTransferObject\UserQuestionDataProvider::hasId">hasId</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="DataTransferObject/UserQuestionDataProvider.php.html#94"><abbr title="App\DataTransferObject\UserQuestionDataProvider::unsetUserId">unsetUserId</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="DataTransferObject/UserQuestionDataProvider.php.html#105"><abbr title="App\DataTransferObject\UserQuestionDataProvider::hasUserId">hasUserId</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="DataTransferObject/UserQuestionDataProvider.php.html#135"><abbr title="App\DataTransferObject\UserQuestionDataProvider::unsetQuestionId">unsetQuestionId</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="DataTransferObject/UserQuestionDataProvider.php.html#146"><abbr title="App\DataTransferObject\UserQuestionDataProvider::hasQuestionId">hasQuestionId</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="DataTransferObject/UserQuestionDataProvider.php.html#176"><abbr title="App\DataTransferObject\UserQuestionDataProvider::unsetAnswer">unsetAnswer</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="DataTransferObject/UserQuestionDataProvider.php.html#187"><abbr title="App\DataTransferObject\UserQuestionDataProvider::hasAnswer">hasAnswer</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="DataTransferObject/UserQuestionDataProvider.php.html#217"><abbr title="App\DataTransferObject\UserQuestionDataProvider::unsetCreatedAt">unsetCreatedAt</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="DataTransferObject/UserQuestionDataProvider.php.html#228"><abbr title="App\DataTransferObject\UserQuestionDataProvider::hasCreatedAt">hasCreatedAt</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="DataTransferObject/UserQuestionDataProvider.php.html#258"><abbr title="App\DataTransferObject\UserQuestionDataProvider::unsetUpdatedAt">unsetUpdatedAt</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="DataTransferObject/UserQuestionDataProvider.php.html#269"><abbr title="App\DataTransferObject\UserQuestionDataProvider::hasUpdatedAt">hasUpdatedAt</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="DataTransferObject/UserQuestionDataProvider.php.html#278"><abbr title="App\DataTransferObject\UserQuestionDataProvider::getElements">getElements</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Entity/User.php.html#130"><abbr title="App\Entity\User::eraseCredentials">eraseCredentials</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Repository/UserRepository.php.html#28"><abbr title="App\Repository\UserRepository::upgradePassword">upgradePassword</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Components/User/Business/Model/Verification/ValidateUpdateEmail.php.html#16"><abbr title="App\Components\User\Business\Model\Verification\ValidateUpdateEmail::getErrors">getErrors</abbr></a></td><td class="text-right">83%</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Project Risks</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Method</th>
+         <th class="text-right"><abbr title="Change Risk Anti-Patterns (CRAP) Index">CRAP</abbr></th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="Components/User/Communication/UserController.php.html#54"><abbr title="App\Components\User\Communication\UserController::profile">profile</abbr></a></td><td class="text-right">30</td></tr>
+       <tr><td><a href="Components/User/Communication/UserController.php.html#27"><abbr title="App\Components\User\Communication\UserController::register">register</abbr></a></td><td class="text-right">20</td></tr>
+       <tr><td><a href="DataTransferObject/AnswerDataProvider.php.html#64"><abbr title="App\DataTransferObject\AnswerDataProvider::hasId">hasId</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="DataTransferObject/AnswerDataProvider.php.html#105"><abbr title="App\DataTransferObject\AnswerDataProvider::hasQuestionId">hasQuestionId</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="DataTransferObject/AnswerDataProvider.php.html#146"><abbr title="App\DataTransferObject\AnswerDataProvider::hasAnswer">hasAnswer</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="DataTransferObject/AnswerDataProvider.php.html#187"><abbr title="App\DataTransferObject\AnswerDataProvider::hasCorrect">hasCorrect</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="DataTransferObject/AnswerDataProvider.php.html#228"><abbr title="App\DataTransferObject\AnswerDataProvider::hasCreatedAt">hasCreatedAt</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="DataTransferObject/AnswerDataProvider.php.html#269"><abbr title="App\DataTransferObject\AnswerDataProvider::hasUpdatedAt">hasUpdatedAt</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="DataTransferObject/ErrorDataProvider.php.html#49"><abbr title="App\DataTransferObject\ErrorDataProvider::hasErrors">hasErrors</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="DataTransferObject/ExamDataProvider.php.html#58"><abbr title="App\DataTransferObject\ExamDataProvider::hasId">hasId</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="DataTransferObject/ExamDataProvider.php.html#99"><abbr title="App\DataTransferObject\ExamDataProvider::hasName">hasName</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="DataTransferObject/ExamDataProvider.php.html#140"><abbr title="App\DataTransferObject\ExamDataProvider::hasCreatedAt">hasCreatedAt</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="DataTransferObject/ExamDataProvider.php.html#181"><abbr title="App\DataTransferObject\ExamDataProvider::hasUpdatedAt">hasUpdatedAt</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="DataTransferObject/QuestionDataProvider.php.html#61"><abbr title="App\DataTransferObject\QuestionDataProvider::hasId">hasId</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="DataTransferObject/QuestionDataProvider.php.html#102"><abbr title="App\DataTransferObject\QuestionDataProvider::hasExamId">hasExamId</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="DataTransferObject/QuestionDataProvider.php.html#143"><abbr title="App\DataTransferObject\QuestionDataProvider::hasQuestion">hasQuestion</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="DataTransferObject/QuestionDataProvider.php.html#184"><abbr title="App\DataTransferObject\QuestionDataProvider::hasCreatedAt">hasCreatedAt</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="DataTransferObject/QuestionDataProvider.php.html#225"><abbr title="App\DataTransferObject\QuestionDataProvider::hasUpdatedAt">hasUpdatedAt</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="DataTransferObject/UserDataProvider.php.html#67"><abbr title="App\DataTransferObject\UserDataProvider::hasId">hasId</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="DataTransferObject/UserDataProvider.php.html#108"><abbr title="App\DataTransferObject\UserDataProvider::hasEmail">hasEmail</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="DataTransferObject/UserDataProvider.php.html#149"><abbr title="App\DataTransferObject\UserDataProvider::hasPassword">hasPassword</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="DataTransferObject/UserDataProvider.php.html#190"><abbr title="App\DataTransferObject\UserDataProvider::hasVerificationPassword">hasVerificationPassword</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="DataTransferObject/UserDataProvider.php.html#231"><abbr title="App\DataTransferObject\UserDataProvider::hasRoles">hasRoles</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="DataTransferObject/UserDataProvider.php.html#272"><abbr title="App\DataTransferObject\UserDataProvider::hasCreatedAt">hasCreatedAt</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="DataTransferObject/UserDataProvider.php.html#313"><abbr title="App\DataTransferObject\UserDataProvider::hasUpdatedAt">hasUpdatedAt</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="DataTransferObject/UserQuestionDataProvider.php.html#64"><abbr title="App\DataTransferObject\UserQuestionDataProvider::hasId">hasId</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="DataTransferObject/UserQuestionDataProvider.php.html#105"><abbr title="App\DataTransferObject\UserQuestionDataProvider::hasUserId">hasUserId</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="DataTransferObject/UserQuestionDataProvider.php.html#146"><abbr title="App\DataTransferObject\UserQuestionDataProvider::hasQuestionId">hasQuestionId</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="DataTransferObject/UserQuestionDataProvider.php.html#187"><abbr title="App\DataTransferObject\UserQuestionDataProvider::hasAnswer">hasAnswer</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="DataTransferObject/UserQuestionDataProvider.php.html#228"><abbr title="App\DataTransferObject\UserQuestionDataProvider::hasCreatedAt">hasCreatedAt</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="DataTransferObject/UserQuestionDataProvider.php.html#269"><abbr title="App\DataTransferObject\UserQuestionDataProvider::hasUpdatedAt">hasUpdatedAt</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Repository/UserRepository.php.html#28"><abbr title="App\Repository\UserRepository::upgradePassword">upgradePassword</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Components/User/Business/Model/Verification/ValidateUpdateEmail.php.html#16"><abbr title="App\Components\User\Business\Model\Verification\ValidateUpdateEmail::getErrors">getErrors</abbr></a></td><td class="text-right">4</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+   </div>
+   <footer>
+    <hr/>
+    <p>
+     <small>Generated by <a href="https://github.com/sebastianbergmann/php-code-coverage" target="_top">php-code-coverage 9.2.10</a> using <a href="https://secure.php.net/" target="_top">PHP 8.0.13</a> and <a href="https://phpunit.de/">PHPUnit 9.5.10</a> at Tue Dec 14 8:12:01 UTC 2021.</small>
+    </p>
+   </footer>
+  </div>
+  <script src="_js/jquery.min.js" type="text/javascript"></script>
+  <script src="_js/d3.min.js" type="text/javascript"></script>
+  <script src="_js/nv.d3.min.js" type="text/javascript"></script>
+  <script type="text/javascript">
+$(document).ready(function() {
+  nv.addGraph(function() {
+    var chart = nv.models.multiBarChart();
+    chart.tooltips(false)
+      .showControls(false)
+      .showLegend(false)
+      .reduceXTicks(false)
+      .staggerLabels(true)
+      .yAxis.tickFormat(d3.format('d'));
+
+    d3.select('#classCoverageDistribution svg')
+      .datum(getCoverageDistributionData([5,0,0,1,0,5,1,1,0,1,1,31], "Class Coverage"))
+      .transition().duration(500).call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  nv.addGraph(function() {
+    var chart = nv.models.multiBarChart();
+    chart.tooltips(false)
+      .showControls(false)
+      .showLegend(false)
+      .reduceXTicks(false)
+      .staggerLabels(true)
+      .yAxis.tickFormat(d3.format('d'));
+
+    d3.select('#methodCoverageDistribution svg')
+      .datum(getCoverageDistributionData([79,0,0,0,0,0,0,0,0,1,0,153], "Method Coverage"))
+      .transition().duration(500).call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  function getCoverageDistributionData(data, label) {
+    var labels = [
+      '0%',
+      '0-10%',
+      '10-20%',
+      '20-30%',
+      '30-40%',
+      '40-50%',
+      '50-60%',
+      '60-70%',
+      '70-80%',
+      '80-90%',
+      '90-100%',
+      '100%'
+    ];
+    var values = [];
+    $.each(labels, function(key) {
+      values.push({x: labels[key], y: data[key]});
+    });
+
+    return [
+      {
+        key: label,
+        values: values,
+        color: "#4572A7"
+      }
+    ];
+  }
+  nv.addGraph(function() {
+    var chart = nv.models.scatterChart()
+      .showDistX(true)
+      .showDistY(true)
+      .showLegend(false)
+      .forceX([0, 100]);
+    chart.tooltipContent(function(graph) {
+      return '<p>' + graph.point.class + '</p>';
+    });
+
+    chart.xAxis.axisLabel('Code Coverage (in percent)');
+    chart.yAxis.axisLabel('Cyclomatic Complexity');
+
+    d3.select('#classComplexity svg')
+      .datum(getComplexityData([[100,2,"<a href=\"Components\/Answer\/Persistence\/EntityManager\/AnswerEntityManager.php.html#12\">App\\Components\\Answer\\Persistence\\EntityManager\\AnswerEntityManager<\/a>"],[100,1,"<a href=\"Components\/Answer\/Persistence\/Mapper\/AnswerMapper.php.html#9\">App\\Components\\Answer\\Persistence\\Mapper\\AnswerMapper<\/a>"],[100,3,"<a href=\"Components\/Answer\/Persistence\/Repository\/AnswerRepository.php.html#10\">App\\Components\\Answer\\Persistence\\Repository\\AnswerRepository<\/a>"],[0,2,"<a href=\"Components\/Exam\/Communication\/ExamController.php.html#10\">App\\Components\\Exam\\Communication\\ExamController<\/a>"],[100,2,"<a href=\"Components\/Exam\/Persistence\/EntityManager\/ExamEntityManager.php.html#11\">App\\Components\\Exam\\Persistence\\EntityManager\\ExamEntityManager<\/a>"],[100,1,"<a href=\"Components\/Exam\/Persistence\/Mapper\/ExamMapperEntity.php.html#9\">App\\Components\\Exam\\Persistence\\Mapper\\ExamMapperEntity<\/a>"],[100,7,"<a href=\"Components\/Exam\/Persistence\/Repository\/ExamRepository.php.html#10\">App\\Components\\Exam\\Persistence\\Repository\\ExamRepository<\/a>"],[0,2,"<a href=\"Components\/Question\/Communication\/QuestionController.php.html#9\">App\\Components\\Question\\Communication\\QuestionController<\/a>"],[100,2,"<a href=\"Components\/Question\/Persistence\/EntityManager\/QuestionEntityManager.php.html#11\">App\\Components\\Question\\Persistence\\EntityManager\\QuestionEntityManager<\/a>"],[100,1,"<a href=\"Components\/Question\/Persistence\/Mapper\/QuestionMapper.php.html#9\">App\\Components\\Question\\Persistence\\Mapper\\QuestionMapper<\/a>"],[100,3,"<a href=\"Components\/Question\/Persistence\/Repository\/QuestionRepository.php.html#10\">App\\Components\\Question\\Persistence\\Repository\\QuestionRepository<\/a>"],[100,4,"<a href=\"Components\/User\/Business\/FacadeUser.php.html#9\">App\\Components\\User\\Business\\FacadeUser<\/a>"],[100,6,"<a href=\"Components\/User\/Business\/Model\/User.php.html#10\">App\\Components\\User\\Business\\Model\\User<\/a>"],[100,3,"<a href=\"Components\/User\/Business\/Model\/ValidateCreate.php.html#10\">App\\Components\\User\\Business\\Model\\ValidateCreate<\/a>"],[100,3,"<a href=\"Components\/User\/Business\/Model\/ValidateUpdate.php.html#10\">App\\Components\\User\\Business\\Model\\ValidateUpdate<\/a>"],[100,7,"<a href=\"Components\/User\/Business\/Model\/Verification\/ValidatePasswords.php.html#9\">App\\Components\\User\\Business\\Model\\Verification\\ValidatePasswords<\/a>"],[100,5,"<a href=\"Components\/User\/Business\/Model\/Verification\/ValidateRegistrationEmail.php.html#10\">App\\Components\\User\\Business\\Model\\Verification\\ValidateRegistrationEmail<\/a>"],[87.5,5,"<a href=\"Components\/User\/Business\/Model\/Verification\/ValidateUpdateEmail.php.html#10\">App\\Components\\User\\Business\\Model\\Verification\\ValidateUpdateEmail<\/a>"],[0,1,"<a href=\"Components\/User\/Communication\/Forms\/Register.php.html#12\">App\\Components\\User\\Communication\\Forms\\Register<\/a>"],[0,1,"<a href=\"Components\/User\/Communication\/Forms\/Update.php.html#12\">App\\Components\\User\\Communication\\Forms\\Update<\/a>"],[0,11,"<a href=\"Components\/User\/Communication\/UserController.php.html#20\">App\\Components\\User\\Communication\\UserController<\/a>"],[100,4,"<a href=\"Components\/User\/Persistence\/EntityManager\/UserEntityManager.php.html#12\">App\\Components\\User\\Persistence\\EntityManager\\UserEntityManager<\/a>"],[100,1,"<a href=\"Components\/User\/Persistence\/Mapper\/UserMapper.php.html#9\">App\\Components\\User\\Persistence\\Mapper\\UserMapper<\/a>"],[100,6,"<a href=\"Components\/User\/Persistence\/Repository\/UserRepository.php.html#11\">App\\Components\\User\\Persistence\\Repository\\UserRepository<\/a>"],[100,3,"<a href=\"Components\/UserQuestion\/Persistence\/EntityManager\/UserQuestionEntityManager.php.html#13\">App\\Components\\UserQuestion\\Persistence\\EntityManager\\UserQuestionEntityManager<\/a>"],[100,1,"<a href=\"Components\/UserQuestion\/Persistence\/Mapper\/UserQuestionMapper.php.html#9\">App\\Components\\UserQuestion\\Persistence\\Mapper\\UserQuestionMapper<\/a>"],[100,3,"<a href=\"Components\/UserQuestion\/Persistence\/Repository\/UserQuestionRepository.php.html#12\">App\\Components\\UserQuestion\\Persistence\\Repository\\UserQuestionRepository<\/a>"],[66.66666666666666,2,"<a href=\"Controller\/SecurityController.php.html#10\">App\\Controller\\SecurityController<\/a>"],[100,5,"<a href=\"DataFixtures\/AppFixtures.php.html#13\">App\\DataFixtures\\AppFixtures<\/a>"],[45.94594594594595,31,"<a href=\"DataTransferObject\/AnswerDataProvider.php.html#8\">App\\DataTransferObject\\AnswerDataProvider<\/a>"],[50,7,"<a href=\"DataTransferObject\/ErrorDataProvider.php.html#8\">App\\DataTransferObject\\ErrorDataProvider<\/a>"],[48,21,"<a href=\"DataTransferObject\/ExamDataProvider.php.html#8\">App\\DataTransferObject\\ExamDataProvider<\/a>"],[45.16129032258064,26,"<a href=\"DataTransferObject\/QuestionDataProvider.php.html#8\">App\\DataTransferObject\\QuestionDataProvider<\/a>"],[48.837209302325576,36,"<a href=\"DataTransferObject\/UserDataProvider.php.html#8\">App\\DataTransferObject\\UserDataProvider<\/a>"],[48.64864864864865,31,"<a href=\"DataTransferObject\/UserQuestionDataProvider.php.html#8\">App\\DataTransferObject\\UserQuestionDataProvider<\/a>"],[100,9,"<a href=\"Entity\/Answer.php.html#9\">App\\Entity\\Answer<\/a>"],[100,5,"<a href=\"Entity\/Exam.php.html#9\">App\\Entity\\Exam<\/a>"],[100,7,"<a href=\"Entity\/Question.php.html#10\">App\\Entity\\Question<\/a>"],[95.45454545454545,14,"<a href=\"Entity\/User.php.html#11\">App\\Entity\\User<\/a>"],[100,9,"<a href=\"Entity\/UserQuestion.php.html#9\">App\\Entity\\UserQuestion<\/a>"],[100,0,"<a href=\"Kernel.php.html#8\">App\\Kernel<\/a>"],[100,1,"<a href=\"Repository\/AnswerRepository.php.html#15\">App\\Repository\\AnswerRepository<\/a>"],[100,1,"<a href=\"Repository\/ExamRepository.php.html#15\">App\\Repository\\ExamRepository<\/a>"],[100,1,"<a href=\"Repository\/QuestionRepository.php.html#16\">App\\Repository\\QuestionRepository<\/a>"],[100,1,"<a href=\"Repository\/UserQuestionRepository.php.html#15\">App\\Repository\\UserQuestionRepository<\/a>"],[25,3,"<a href=\"Repository\/UserRepository.php.html#18\">App\\Repository\\UserRepository<\/a>"]], 'Class Complexity'))
+      .transition()
+      .duration(500)
+      .call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  nv.addGraph(function() {
+    var chart = nv.models.scatterChart()
+      .showDistX(true)
+      .showDistY(true)
+      .showLegend(false)
+      .forceX([0, 100]);
+    chart.tooltipContent(function(graph) {
+      return '<p>' + graph.point.class + '</p>';
+    });
+
+    chart.xAxis.axisLabel('Code Coverage (in percent)');
+    chart.yAxis.axisLabel('Method Complexity');
+
+    d3.select('#methodComplexity svg')
+      .datum(getComplexityData([[100,1,"<a href=\"Components\/Answer\/Persistence\/EntityManager\/AnswerEntityManager.php.html#14\">App\\Components\\Answer\\Persistence\\EntityManager\\AnswerEntityManager::__construct<\/a>"],[100,1,"<a href=\"Components\/Answer\/Persistence\/EntityManager\/AnswerEntityManager.php.html#21\">App\\Components\\Answer\\Persistence\\EntityManager\\AnswerEntityManager::create<\/a>"],[100,1,"<a href=\"Components\/Answer\/Persistence\/Mapper\/AnswerMapper.php.html#11\">App\\Components\\Answer\\Persistence\\Mapper\\AnswerMapper::map<\/a>"],[100,1,"<a href=\"Components\/Answer\/Persistence\/Repository\/AnswerRepository.php.html#12\">App\\Components\\Answer\\Persistence\\Repository\\AnswerRepository::__construct<\/a>"],[100,2,"<a href=\"Components\/Answer\/Persistence\/Repository\/AnswerRepository.php.html#23\">App\\Components\\Answer\\Persistence\\Repository\\AnswerRepository::getByQuestion<\/a>"],[0,1,"<a href=\"Components\/Exam\/Communication\/ExamController.php.html#12\">App\\Components\\Exam\\Communication\\ExamController::__construct<\/a>"],[0,1,"<a href=\"Components\/Exam\/Communication\/ExamController.php.html#18\">App\\Components\\Exam\\Communication\\ExamController::index<\/a>"],[100,1,"<a href=\"Components\/Exam\/Persistence\/EntityManager\/ExamEntityManager.php.html#13\">App\\Components\\Exam\\Persistence\\EntityManager\\ExamEntityManager::__construct<\/a>"],[100,1,"<a href=\"Components\/Exam\/Persistence\/EntityManager\/ExamEntityManager.php.html#19\">App\\Components\\Exam\\Persistence\\EntityManager\\ExamEntityManager::create<\/a>"],[100,1,"<a href=\"Components\/Exam\/Persistence\/Mapper\/ExamMapperEntity.php.html#11\">App\\Components\\Exam\\Persistence\\Mapper\\ExamMapperEntity::map<\/a>"],[100,1,"<a href=\"Components\/Exam\/Persistence\/Repository\/ExamRepository.php.html#12\">App\\Components\\Exam\\Persistence\\Repository\\ExamRepository::__construct<\/a>"],[100,2,"<a href=\"Components\/Exam\/Persistence\/Repository\/ExamRepository.php.html#19\">App\\Components\\Exam\\Persistence\\Repository\\ExamRepository::getById<\/a>"],[100,2,"<a href=\"Components\/Exam\/Persistence\/Repository\/ExamRepository.php.html#30\">App\\Components\\Exam\\Persistence\\Repository\\ExamRepository::getByName<\/a>"],[100,2,"<a href=\"Components\/Exam\/Persistence\/Repository\/ExamRepository.php.html#44\">App\\Components\\Exam\\Persistence\\Repository\\ExamRepository::getAll<\/a>"],[0,1,"<a href=\"Components\/Question\/Communication\/QuestionController.php.html#11\">App\\Components\\Question\\Communication\\QuestionController::__construct<\/a>"],[0,1,"<a href=\"Components\/Question\/Communication\/QuestionController.php.html#20\">App\\Components\\Question\\Communication\\QuestionController::index<\/a>"],[100,1,"<a href=\"Components\/Question\/Persistence\/EntityManager\/QuestionEntityManager.php.html#13\">App\\Components\\Question\\Persistence\\EntityManager\\QuestionEntityManager::__construct<\/a>"],[100,1,"<a href=\"Components\/Question\/Persistence\/EntityManager\/QuestionEntityManager.php.html#20\">App\\Components\\Question\\Persistence\\EntityManager\\QuestionEntityManager::create<\/a>"],[100,1,"<a href=\"Components\/Question\/Persistence\/Mapper\/QuestionMapper.php.html#11\">App\\Components\\Question\\Persistence\\Mapper\\QuestionMapper::map<\/a>"],[100,1,"<a href=\"Components\/Question\/Persistence\/Repository\/QuestionRepository.php.html#12\">App\\Components\\Question\\Persistence\\Repository\\QuestionRepository::__construct<\/a>"],[100,2,"<a href=\"Components\/Question\/Persistence\/Repository\/QuestionRepository.php.html#23\">App\\Components\\Question\\Persistence\\Repository\\QuestionRepository::getByExamId<\/a>"],[100,1,"<a href=\"Components\/User\/Business\/FacadeUser.php.html#11\">App\\Components\\User\\Business\\FacadeUser::__construct<\/a>"],[100,1,"<a href=\"Components\/User\/Business\/FacadeUser.php.html#17\">App\\Components\\User\\Business\\FacadeUser::create<\/a>"],[100,1,"<a href=\"Components\/User\/Business\/FacadeUser.php.html#22\">App\\Components\\User\\Business\\FacadeUser::update<\/a>"],[100,1,"<a href=\"Components\/User\/Business\/FacadeUser.php.html#27\">App\\Components\\User\\Business\\FacadeUser::delete<\/a>"],[100,1,"<a href=\"Components\/User\/Business\/Model\/User.php.html#12\">App\\Components\\User\\Business\\Model\\User::__construct<\/a>"],[100,2,"<a href=\"Components\/User\/Business\/Model\/User.php.html#20\">App\\Components\\User\\Business\\Model\\User::create<\/a>"],[100,2,"<a href=\"Components\/User\/Business\/Model\/User.php.html#31\">App\\Components\\User\\Business\\Model\\User::update<\/a>"],[100,1,"<a href=\"Components\/User\/Business\/Model\/User.php.html#42\">App\\Components\\User\\Business\\Model\\User::delete<\/a>"],[100,1,"<a href=\"Components\/User\/Business\/Model\/ValidateCreate.php.html#17\">App\\Components\\User\\Business\\Model\\ValidateCreate::__construct<\/a>"],[100,2,"<a href=\"Components\/User\/Business\/Model\/ValidateCreate.php.html#22\">App\\Components\\User\\Business\\Model\\ValidateCreate::getErrors<\/a>"],[100,1,"<a href=\"Components\/User\/Business\/Model\/ValidateUpdate.php.html#17\">App\\Components\\User\\Business\\Model\\ValidateUpdate::__construct<\/a>"],[100,2,"<a href=\"Components\/User\/Business\/Model\/ValidateUpdate.php.html#22\">App\\Components\\User\\Business\\Model\\ValidateUpdate::getErrors<\/a>"],[100,7,"<a href=\"Components\/User\/Business\/Model\/Verification\/ValidatePasswords.php.html#11\">App\\Components\\User\\Business\\Model\\Verification\\ValidatePasswords::getErrors<\/a>"],[100,1,"<a href=\"Components\/User\/Business\/Model\/Verification\/ValidateRegistrationEmail.php.html#12\">App\\Components\\User\\Business\\Model\\Verification\\ValidateRegistrationEmail::__construct<\/a>"],[100,4,"<a href=\"Components\/User\/Business\/Model\/Verification\/ValidateRegistrationEmail.php.html#16\">App\\Components\\User\\Business\\Model\\Verification\\ValidateRegistrationEmail::getErrors<\/a>"],[100,1,"<a href=\"Components\/User\/Business\/Model\/Verification\/ValidateUpdateEmail.php.html#12\">App\\Components\\User\\Business\\Model\\Verification\\ValidateUpdateEmail::__construct<\/a>"],[83.33333333333334,4,"<a href=\"Components\/User\/Business\/Model\/Verification\/ValidateUpdateEmail.php.html#16\">App\\Components\\User\\Business\\Model\\Verification\\ValidateUpdateEmail::getErrors<\/a>"],[0,1,"<a href=\"Components\/User\/Communication\/Forms\/Register.php.html#14\">App\\Components\\User\\Communication\\Forms\\Register::buildForm<\/a>"],[0,1,"<a href=\"Components\/User\/Communication\/Forms\/Update.php.html#14\">App\\Components\\User\\Communication\\Forms\\Update::buildForm<\/a>"],[0,1,"<a href=\"Components\/User\/Communication\/UserController.php.html#23\">App\\Components\\User\\Communication\\UserController::__construct<\/a>"],[0,4,"<a href=\"Components\/User\/Communication\/UserController.php.html#27\">App\\Components\\User\\Communication\\UserController::register<\/a>"],[0,5,"<a href=\"Components\/User\/Communication\/UserController.php.html#54\">App\\Components\\User\\Communication\\UserController::profile<\/a>"],[0,1,"<a href=\"Components\/User\/Communication\/UserController.php.html#78\">App\\Components\\User\\Communication\\UserController::deleteUser<\/a>"],[100,1,"<a href=\"Components\/User\/Persistence\/EntityManager\/UserEntityManager.php.html#14\">App\\Components\\User\\Persistence\\EntityManager\\UserEntityManager::__construct<\/a>"],[100,1,"<a href=\"Components\/User\/Persistence\/EntityManager\/UserEntityManager.php.html#22\">App\\Components\\User\\Persistence\\EntityManager\\UserEntityManager::create<\/a>"],[100,1,"<a href=\"Components\/User\/Persistence\/EntityManager\/UserEntityManager.php.html#41\">App\\Components\\User\\Persistence\\EntityManager\\UserEntityManager::update<\/a>"],[100,1,"<a href=\"Components\/User\/Persistence\/EntityManager\/UserEntityManager.php.html#59\">App\\Components\\User\\Persistence\\EntityManager\\UserEntityManager::delete<\/a>"],[100,1,"<a href=\"Components\/User\/Persistence\/Mapper\/UserMapper.php.html#11\">App\\Components\\User\\Persistence\\Mapper\\UserMapper::map<\/a>"],[100,1,"<a href=\"Components\/User\/Persistence\/Repository\/UserRepository.php.html#13\">App\\Components\\User\\Persistence\\Repository\\UserRepository::__construct<\/a>"],[100,2,"<a href=\"Components\/User\/Persistence\/Repository\/UserRepository.php.html#20\">App\\Components\\User\\Persistence\\Repository\\UserRepository::getById<\/a>"],[100,2,"<a href=\"Components\/User\/Persistence\/Repository\/UserRepository.php.html#31\">App\\Components\\User\\Persistence\\Repository\\UserRepository::getByEmail<\/a>"],[100,1,"<a href=\"Components\/User\/Persistence\/Repository\/UserRepository.php.html#42\">App\\Components\\User\\Persistence\\Repository\\UserRepository::checkEmailTaken<\/a>"],[100,1,"<a href=\"Components\/UserQuestion\/Persistence\/EntityManager\/UserQuestionEntityManager.php.html#15\">App\\Components\\UserQuestion\\Persistence\\EntityManager\\UserQuestionEntityManager::__construct<\/a>"],[100,1,"<a href=\"Components\/UserQuestion\/Persistence\/EntityManager\/UserQuestionEntityManager.php.html#24\">App\\Components\\UserQuestion\\Persistence\\EntityManager\\UserQuestionEntityManager::create<\/a>"],[100,1,"<a href=\"Components\/UserQuestion\/Persistence\/EntityManager\/UserQuestionEntityManager.php.html#40\">App\\Components\\UserQuestion\\Persistence\\EntityManager\\UserQuestionEntityManager::updateAnswer<\/a>"],[100,1,"<a href=\"Components\/UserQuestion\/Persistence\/Mapper\/UserQuestionMapper.php.html#11\">App\\Components\\UserQuestion\\Persistence\\Mapper\\UserQuestionMapper::map<\/a>"],[100,1,"<a href=\"Components\/UserQuestion\/Persistence\/Repository\/UserQuestionRepository.php.html#14\">App\\Components\\UserQuestion\\Persistence\\Repository\\UserQuestionRepository::__construct<\/a>"],[100,2,"<a href=\"Components\/UserQuestion\/Persistence\/Repository\/UserQuestionRepository.php.html#23\">App\\Components\\UserQuestion\\Persistence\\Repository\\UserQuestionRepository::getByExamQuestionAndUser<\/a>"],[100,1,"<a href=\"Controller\/SecurityController.php.html#12\">App\\Controller\\SecurityController::login<\/a>"],[0,1,"<a href=\"Controller\/SecurityController.php.html#20\">App\\Controller\\SecurityController::logout<\/a>"],[100,1,"<a href=\"DataFixtures\/AppFixtures.php.html#17\">App\\DataFixtures\\AppFixtures::__construct<\/a>"],[100,2,"<a href=\"DataFixtures\/AppFixtures.php.html#21\">App\\DataFixtures\\AppFixtures::load<\/a>"],[100,1,"<a href=\"DataFixtures\/AppFixtures.php.html#33\">App\\DataFixtures\\AppFixtures::loadUser<\/a>"],[100,1,"<a href=\"DataFixtures\/AppFixtures.php.html#62\">App\\DataFixtures\\AppFixtures::loadExamAndExamQuestionAndUserExam<\/a>"],[0,1,"<a href=\"DataTransferObject\/AnswerDataProvider.php.html#32\">App\\DataTransferObject\\AnswerDataProvider::getId<\/a>"],[100,1,"<a href=\"DataTransferObject\/AnswerDataProvider.php.html#42\">App\\DataTransferObject\\AnswerDataProvider::setId<\/a>"],[0,1,"<a href=\"DataTransferObject\/AnswerDataProvider.php.html#53\">App\\DataTransferObject\\AnswerDataProvider::unsetId<\/a>"],[0,2,"<a href=\"DataTransferObject\/AnswerDataProvider.php.html#64\">App\\DataTransferObject\\AnswerDataProvider::hasId<\/a>"],[100,1,"<a href=\"DataTransferObject\/AnswerDataProvider.php.html#73\">App\\DataTransferObject\\AnswerDataProvider::getQuestionId<\/a>"],[100,1,"<a href=\"DataTransferObject\/AnswerDataProvider.php.html#83\">App\\DataTransferObject\\AnswerDataProvider::setQuestionId<\/a>"],[0,1,"<a href=\"DataTransferObject\/AnswerDataProvider.php.html#94\">App\\DataTransferObject\\AnswerDataProvider::unsetQuestionId<\/a>"],[0,2,"<a href=\"DataTransferObject\/AnswerDataProvider.php.html#105\">App\\DataTransferObject\\AnswerDataProvider::hasQuestionId<\/a>"],[100,1,"<a href=\"DataTransferObject\/AnswerDataProvider.php.html#114\">App\\DataTransferObject\\AnswerDataProvider::getAnswer<\/a>"],[100,1,"<a href=\"DataTransferObject\/AnswerDataProvider.php.html#124\">App\\DataTransferObject\\AnswerDataProvider::setAnswer<\/a>"],[0,1,"<a href=\"DataTransferObject\/AnswerDataProvider.php.html#135\">App\\DataTransferObject\\AnswerDataProvider::unsetAnswer<\/a>"],[0,2,"<a href=\"DataTransferObject\/AnswerDataProvider.php.html#146\">App\\DataTransferObject\\AnswerDataProvider::hasAnswer<\/a>"],[100,1,"<a href=\"DataTransferObject\/AnswerDataProvider.php.html#155\">App\\DataTransferObject\\AnswerDataProvider::getCorrect<\/a>"],[100,1,"<a href=\"DataTransferObject\/AnswerDataProvider.php.html#165\">App\\DataTransferObject\\AnswerDataProvider::setCorrect<\/a>"],[0,1,"<a href=\"DataTransferObject\/AnswerDataProvider.php.html#176\">App\\DataTransferObject\\AnswerDataProvider::unsetCorrect<\/a>"],[0,2,"<a href=\"DataTransferObject\/AnswerDataProvider.php.html#187\">App\\DataTransferObject\\AnswerDataProvider::hasCorrect<\/a>"],[100,1,"<a href=\"DataTransferObject\/AnswerDataProvider.php.html#196\">App\\DataTransferObject\\AnswerDataProvider::getCreatedAt<\/a>"],[100,1,"<a href=\"DataTransferObject\/AnswerDataProvider.php.html#206\">App\\DataTransferObject\\AnswerDataProvider::setCreatedAt<\/a>"],[0,1,"<a href=\"DataTransferObject\/AnswerDataProvider.php.html#217\">App\\DataTransferObject\\AnswerDataProvider::unsetCreatedAt<\/a>"],[0,2,"<a href=\"DataTransferObject\/AnswerDataProvider.php.html#228\">App\\DataTransferObject\\AnswerDataProvider::hasCreatedAt<\/a>"],[100,1,"<a href=\"DataTransferObject\/AnswerDataProvider.php.html#237\">App\\DataTransferObject\\AnswerDataProvider::getUpdatedAt<\/a>"],[100,1,"<a href=\"DataTransferObject\/AnswerDataProvider.php.html#247\">App\\DataTransferObject\\AnswerDataProvider::setUpdatedAt<\/a>"],[0,1,"<a href=\"DataTransferObject\/AnswerDataProvider.php.html#258\">App\\DataTransferObject\\AnswerDataProvider::unsetUpdatedAt<\/a>"],[0,2,"<a href=\"DataTransferObject\/AnswerDataProvider.php.html#269\">App\\DataTransferObject\\AnswerDataProvider::hasUpdatedAt<\/a>"],[0,1,"<a href=\"DataTransferObject\/AnswerDataProvider.php.html#278\">App\\DataTransferObject\\AnswerDataProvider::getElements<\/a>"],[100,1,"<a href=\"DataTransferObject\/ErrorDataProvider.php.html#17\">App\\DataTransferObject\\ErrorDataProvider::getErrors<\/a>"],[0,1,"<a href=\"DataTransferObject\/ErrorDataProvider.php.html#27\">App\\DataTransferObject\\ErrorDataProvider::setErrors<\/a>"],[100,1,"<a href=\"DataTransferObject\/ErrorDataProvider.php.html#38\">App\\DataTransferObject\\ErrorDataProvider::unsetErrors<\/a>"],[0,2,"<a href=\"DataTransferObject\/ErrorDataProvider.php.html#49\">App\\DataTransferObject\\ErrorDataProvider::hasErrors<\/a>"],[100,1,"<a href=\"DataTransferObject\/ErrorDataProvider.php.html#59\">App\\DataTransferObject\\ErrorDataProvider::addError<\/a>"],[0,1,"<a href=\"DataTransferObject\/ErrorDataProvider.php.html#68\">App\\DataTransferObject\\ErrorDataProvider::getElements<\/a>"],[100,1,"<a href=\"DataTransferObject\/ExamDataProvider.php.html#26\">App\\DataTransferObject\\ExamDataProvider::getId<\/a>"],[100,1,"<a href=\"DataTransferObject\/ExamDataProvider.php.html#36\">App\\DataTransferObject\\ExamDataProvider::setId<\/a>"],[0,1,"<a href=\"DataTransferObject\/ExamDataProvider.php.html#47\">App\\DataTransferObject\\ExamDataProvider::unsetId<\/a>"],[0,2,"<a href=\"DataTransferObject\/ExamDataProvider.php.html#58\">App\\DataTransferObject\\ExamDataProvider::hasId<\/a>"],[100,1,"<a href=\"DataTransferObject\/ExamDataProvider.php.html#67\">App\\DataTransferObject\\ExamDataProvider::getName<\/a>"],[100,1,"<a href=\"DataTransferObject\/ExamDataProvider.php.html#77\">App\\DataTransferObject\\ExamDataProvider::setName<\/a>"],[0,1,"<a href=\"DataTransferObject\/ExamDataProvider.php.html#88\">App\\DataTransferObject\\ExamDataProvider::unsetName<\/a>"],[0,2,"<a href=\"DataTransferObject\/ExamDataProvider.php.html#99\">App\\DataTransferObject\\ExamDataProvider::hasName<\/a>"],[100,1,"<a href=\"DataTransferObject\/ExamDataProvider.php.html#108\">App\\DataTransferObject\\ExamDataProvider::getCreatedAt<\/a>"],[100,1,"<a href=\"DataTransferObject\/ExamDataProvider.php.html#118\">App\\DataTransferObject\\ExamDataProvider::setCreatedAt<\/a>"],[0,1,"<a href=\"DataTransferObject\/ExamDataProvider.php.html#129\">App\\DataTransferObject\\ExamDataProvider::unsetCreatedAt<\/a>"],[0,2,"<a href=\"DataTransferObject\/ExamDataProvider.php.html#140\">App\\DataTransferObject\\ExamDataProvider::hasCreatedAt<\/a>"],[100,1,"<a href=\"DataTransferObject\/ExamDataProvider.php.html#149\">App\\DataTransferObject\\ExamDataProvider::getUpdatedAt<\/a>"],[100,1,"<a href=\"DataTransferObject\/ExamDataProvider.php.html#159\">App\\DataTransferObject\\ExamDataProvider::setUpdatedAt<\/a>"],[0,1,"<a href=\"DataTransferObject\/ExamDataProvider.php.html#170\">App\\DataTransferObject\\ExamDataProvider::unsetUpdatedAt<\/a>"],[0,2,"<a href=\"DataTransferObject\/ExamDataProvider.php.html#181\">App\\DataTransferObject\\ExamDataProvider::hasUpdatedAt<\/a>"],[0,1,"<a href=\"DataTransferObject\/ExamDataProvider.php.html#190\">App\\DataTransferObject\\ExamDataProvider::getElements<\/a>"],[0,1,"<a href=\"DataTransferObject\/QuestionDataProvider.php.html#29\">App\\DataTransferObject\\QuestionDataProvider::getId<\/a>"],[100,1,"<a href=\"DataTransferObject\/QuestionDataProvider.php.html#39\">App\\DataTransferObject\\QuestionDataProvider::setId<\/a>"],[0,1,"<a href=\"DataTransferObject\/QuestionDataProvider.php.html#50\">App\\DataTransferObject\\QuestionDataProvider::unsetId<\/a>"],[0,2,"<a href=\"DataTransferObject\/QuestionDataProvider.php.html#61\">App\\DataTransferObject\\QuestionDataProvider::hasId<\/a>"],[100,1,"<a href=\"DataTransferObject\/QuestionDataProvider.php.html#70\">App\\DataTransferObject\\QuestionDataProvider::getExamId<\/a>"],[100,1,"<a href=\"DataTransferObject\/QuestionDataProvider.php.html#80\">App\\DataTransferObject\\QuestionDataProvider::setExamId<\/a>"],[0,1,"<a href=\"DataTransferObject\/QuestionDataProvider.php.html#91\">App\\DataTransferObject\\QuestionDataProvider::unsetExamId<\/a>"],[0,2,"<a href=\"DataTransferObject\/QuestionDataProvider.php.html#102\">App\\DataTransferObject\\QuestionDataProvider::hasExamId<\/a>"],[100,1,"<a href=\"DataTransferObject\/QuestionDataProvider.php.html#111\">App\\DataTransferObject\\QuestionDataProvider::getQuestion<\/a>"],[100,1,"<a href=\"DataTransferObject\/QuestionDataProvider.php.html#121\">App\\DataTransferObject\\QuestionDataProvider::setQuestion<\/a>"],[0,1,"<a href=\"DataTransferObject\/QuestionDataProvider.php.html#132\">App\\DataTransferObject\\QuestionDataProvider::unsetQuestion<\/a>"],[0,2,"<a href=\"DataTransferObject\/QuestionDataProvider.php.html#143\">App\\DataTransferObject\\QuestionDataProvider::hasQuestion<\/a>"],[100,1,"<a href=\"DataTransferObject\/QuestionDataProvider.php.html#152\">App\\DataTransferObject\\QuestionDataProvider::getCreatedAt<\/a>"],[100,1,"<a href=\"DataTransferObject\/QuestionDataProvider.php.html#162\">App\\DataTransferObject\\QuestionDataProvider::setCreatedAt<\/a>"],[0,1,"<a href=\"DataTransferObject\/QuestionDataProvider.php.html#173\">App\\DataTransferObject\\QuestionDataProvider::unsetCreatedAt<\/a>"],[0,2,"<a href=\"DataTransferObject\/QuestionDataProvider.php.html#184\">App\\DataTransferObject\\QuestionDataProvider::hasCreatedAt<\/a>"],[100,1,"<a href=\"DataTransferObject\/QuestionDataProvider.php.html#193\">App\\DataTransferObject\\QuestionDataProvider::getUpdatedAt<\/a>"],[100,1,"<a href=\"DataTransferObject\/QuestionDataProvider.php.html#203\">App\\DataTransferObject\\QuestionDataProvider::setUpdatedAt<\/a>"],[0,1,"<a href=\"DataTransferObject\/QuestionDataProvider.php.html#214\">App\\DataTransferObject\\QuestionDataProvider::unsetUpdatedAt<\/a>"],[0,2,"<a href=\"DataTransferObject\/QuestionDataProvider.php.html#225\">App\\DataTransferObject\\QuestionDataProvider::hasUpdatedAt<\/a>"],[0,1,"<a href=\"DataTransferObject\/QuestionDataProvider.php.html#234\">App\\DataTransferObject\\QuestionDataProvider::getElements<\/a>"],[100,1,"<a href=\"DataTransferObject\/UserDataProvider.php.html#35\">App\\DataTransferObject\\UserDataProvider::getId<\/a>"],[100,1,"<a href=\"DataTransferObject\/UserDataProvider.php.html#45\">App\\DataTransferObject\\UserDataProvider::setId<\/a>"],[0,1,"<a href=\"DataTransferObject\/UserDataProvider.php.html#56\">App\\DataTransferObject\\UserDataProvider::unsetId<\/a>"],[0,2,"<a href=\"DataTransferObject\/UserDataProvider.php.html#67\">App\\DataTransferObject\\UserDataProvider::hasId<\/a>"],[100,1,"<a href=\"DataTransferObject\/UserDataProvider.php.html#76\">App\\DataTransferObject\\UserDataProvider::getEmail<\/a>"],[100,1,"<a href=\"DataTransferObject\/UserDataProvider.php.html#86\">App\\DataTransferObject\\UserDataProvider::setEmail<\/a>"],[0,1,"<a href=\"DataTransferObject\/UserDataProvider.php.html#97\">App\\DataTransferObject\\UserDataProvider::unsetEmail<\/a>"],[0,2,"<a href=\"DataTransferObject\/UserDataProvider.php.html#108\">App\\DataTransferObject\\UserDataProvider::hasEmail<\/a>"],[100,1,"<a href=\"DataTransferObject\/UserDataProvider.php.html#117\">App\\DataTransferObject\\UserDataProvider::getPassword<\/a>"],[100,1,"<a href=\"DataTransferObject\/UserDataProvider.php.html#127\">App\\DataTransferObject\\UserDataProvider::setPassword<\/a>"],[0,1,"<a href=\"DataTransferObject\/UserDataProvider.php.html#138\">App\\DataTransferObject\\UserDataProvider::unsetPassword<\/a>"],[0,2,"<a href=\"DataTransferObject\/UserDataProvider.php.html#149\">App\\DataTransferObject\\UserDataProvider::hasPassword<\/a>"],[100,1,"<a href=\"DataTransferObject\/UserDataProvider.php.html#158\">App\\DataTransferObject\\UserDataProvider::getVerificationPassword<\/a>"],[100,1,"<a href=\"DataTransferObject\/UserDataProvider.php.html#168\">App\\DataTransferObject\\UserDataProvider::setVerificationPassword<\/a>"],[0,1,"<a href=\"DataTransferObject\/UserDataProvider.php.html#179\">App\\DataTransferObject\\UserDataProvider::unsetVerificationPassword<\/a>"],[0,2,"<a href=\"DataTransferObject\/UserDataProvider.php.html#190\">App\\DataTransferObject\\UserDataProvider::hasVerificationPassword<\/a>"],[100,1,"<a href=\"DataTransferObject\/UserDataProvider.php.html#199\">App\\DataTransferObject\\UserDataProvider::getRoles<\/a>"],[100,1,"<a href=\"DataTransferObject\/UserDataProvider.php.html#209\">App\\DataTransferObject\\UserDataProvider::setRoles<\/a>"],[0,1,"<a href=\"DataTransferObject\/UserDataProvider.php.html#220\">App\\DataTransferObject\\UserDataProvider::unsetRoles<\/a>"],[0,2,"<a href=\"DataTransferObject\/UserDataProvider.php.html#231\">App\\DataTransferObject\\UserDataProvider::hasRoles<\/a>"],[100,1,"<a href=\"DataTransferObject\/UserDataProvider.php.html#240\">App\\DataTransferObject\\UserDataProvider::getCreatedAt<\/a>"],[100,1,"<a href=\"DataTransferObject\/UserDataProvider.php.html#250\">App\\DataTransferObject\\UserDataProvider::setCreatedAt<\/a>"],[0,1,"<a href=\"DataTransferObject\/UserDataProvider.php.html#261\">App\\DataTransferObject\\UserDataProvider::unsetCreatedAt<\/a>"],[0,2,"<a href=\"DataTransferObject\/UserDataProvider.php.html#272\">App\\DataTransferObject\\UserDataProvider::hasCreatedAt<\/a>"],[100,1,"<a href=\"DataTransferObject\/UserDataProvider.php.html#281\">App\\DataTransferObject\\UserDataProvider::getUpdatedAt<\/a>"],[100,1,"<a href=\"DataTransferObject\/UserDataProvider.php.html#291\">App\\DataTransferObject\\UserDataProvider::setUpdatedAt<\/a>"],[0,1,"<a href=\"DataTransferObject\/UserDataProvider.php.html#302\">App\\DataTransferObject\\UserDataProvider::unsetUpdatedAt<\/a>"],[0,2,"<a href=\"DataTransferObject\/UserDataProvider.php.html#313\">App\\DataTransferObject\\UserDataProvider::hasUpdatedAt<\/a>"],[0,1,"<a href=\"DataTransferObject\/UserDataProvider.php.html#322\">App\\DataTransferObject\\UserDataProvider::getElements<\/a>"],[100,1,"<a href=\"DataTransferObject\/UserQuestionDataProvider.php.html#32\">App\\DataTransferObject\\UserQuestionDataProvider::getId<\/a>"],[100,1,"<a href=\"DataTransferObject\/UserQuestionDataProvider.php.html#42\">App\\DataTransferObject\\UserQuestionDataProvider::setId<\/a>"],[0,1,"<a href=\"DataTransferObject\/UserQuestionDataProvider.php.html#53\">App\\DataTransferObject\\UserQuestionDataProvider::unsetId<\/a>"],[0,2,"<a href=\"DataTransferObject\/UserQuestionDataProvider.php.html#64\">App\\DataTransferObject\\UserQuestionDataProvider::hasId<\/a>"],[100,1,"<a href=\"DataTransferObject\/UserQuestionDataProvider.php.html#73\">App\\DataTransferObject\\UserQuestionDataProvider::getUserId<\/a>"],[100,1,"<a href=\"DataTransferObject\/UserQuestionDataProvider.php.html#83\">App\\DataTransferObject\\UserQuestionDataProvider::setUserId<\/a>"],[0,1,"<a href=\"DataTransferObject\/UserQuestionDataProvider.php.html#94\">App\\DataTransferObject\\UserQuestionDataProvider::unsetUserId<\/a>"],[0,2,"<a href=\"DataTransferObject\/UserQuestionDataProvider.php.html#105\">App\\DataTransferObject\\UserQuestionDataProvider::hasUserId<\/a>"],[100,1,"<a href=\"DataTransferObject\/UserQuestionDataProvider.php.html#114\">App\\DataTransferObject\\UserQuestionDataProvider::getQuestionId<\/a>"],[100,1,"<a href=\"DataTransferObject\/UserQuestionDataProvider.php.html#124\">App\\DataTransferObject\\UserQuestionDataProvider::setQuestionId<\/a>"],[0,1,"<a href=\"DataTransferObject\/UserQuestionDataProvider.php.html#135\">App\\DataTransferObject\\UserQuestionDataProvider::unsetQuestionId<\/a>"],[0,2,"<a href=\"DataTransferObject\/UserQuestionDataProvider.php.html#146\">App\\DataTransferObject\\UserQuestionDataProvider::hasQuestionId<\/a>"],[100,1,"<a href=\"DataTransferObject\/UserQuestionDataProvider.php.html#155\">App\\DataTransferObject\\UserQuestionDataProvider::getAnswer<\/a>"],[100,1,"<a href=\"DataTransferObject\/UserQuestionDataProvider.php.html#165\">App\\DataTransferObject\\UserQuestionDataProvider::setAnswer<\/a>"],[0,1,"<a href=\"DataTransferObject\/UserQuestionDataProvider.php.html#176\">App\\DataTransferObject\\UserQuestionDataProvider::unsetAnswer<\/a>"],[0,2,"<a href=\"DataTransferObject\/UserQuestionDataProvider.php.html#187\">App\\DataTransferObject\\UserQuestionDataProvider::hasAnswer<\/a>"],[100,1,"<a href=\"DataTransferObject\/UserQuestionDataProvider.php.html#196\">App\\DataTransferObject\\UserQuestionDataProvider::getCreatedAt<\/a>"],[100,1,"<a href=\"DataTransferObject\/UserQuestionDataProvider.php.html#206\">App\\DataTransferObject\\UserQuestionDataProvider::setCreatedAt<\/a>"],[0,1,"<a href=\"DataTransferObject\/UserQuestionDataProvider.php.html#217\">App\\DataTransferObject\\UserQuestionDataProvider::unsetCreatedAt<\/a>"],[0,2,"<a href=\"DataTransferObject\/UserQuestionDataProvider.php.html#228\">App\\DataTransferObject\\UserQuestionDataProvider::hasCreatedAt<\/a>"],[100,1,"<a href=\"DataTransferObject\/UserQuestionDataProvider.php.html#237\">App\\DataTransferObject\\UserQuestionDataProvider::getUpdatedAt<\/a>"],[100,1,"<a href=\"DataTransferObject\/UserQuestionDataProvider.php.html#247\">App\\DataTransferObject\\UserQuestionDataProvider::setUpdatedAt<\/a>"],[0,1,"<a href=\"DataTransferObject\/UserQuestionDataProvider.php.html#258\">App\\DataTransferObject\\UserQuestionDataProvider::unsetUpdatedAt<\/a>"],[0,2,"<a href=\"DataTransferObject\/UserQuestionDataProvider.php.html#269\">App\\DataTransferObject\\UserQuestionDataProvider::hasUpdatedAt<\/a>"],[0,1,"<a href=\"DataTransferObject\/UserQuestionDataProvider.php.html#278\">App\\DataTransferObject\\UserQuestionDataProvider::getElements<\/a>"],[100,2,"<a href=\"Entity\/Answer.php.html#14\">App\\Entity\\Answer::updatedTimestamps<\/a>"],[100,1,"<a href=\"Entity\/Answer.php.html#36\">App\\Entity\\Answer::getId<\/a>"],[100,1,"<a href=\"Entity\/Answer.php.html#41\">App\\Entity\\Answer::getAnswer<\/a>"],[100,1,"<a href=\"Entity\/Answer.php.html#46\">App\\Entity\\Answer::setAnswer<\/a>"],[100,1,"<a href=\"Entity\/Answer.php.html#53\">App\\Entity\\Answer::getCorrect<\/a>"],[100,1,"<a href=\"Entity\/Answer.php.html#58\">App\\Entity\\Answer::setCorrect<\/a>"],[100,1,"<a href=\"Entity\/Answer.php.html#65\">App\\Entity\\Answer::getQuestion<\/a>"],[100,1,"<a href=\"Entity\/Answer.php.html#70\">App\\Entity\\Answer::setQuestion<\/a>"],[100,2,"<a href=\"Entity\/Exam.php.html#14\">App\\Entity\\Exam::updatedTimestamps<\/a>"],[100,1,"<a href=\"Entity\/Exam.php.html#30\">App\\Entity\\Exam::getId<\/a>"],[100,1,"<a href=\"Entity\/Exam.php.html#35\">App\\Entity\\Exam::getName<\/a>"],[100,1,"<a href=\"Entity\/Exam.php.html#40\">App\\Entity\\Exam::setName<\/a>"],[100,2,"<a href=\"Entity\/Question.php.html#15\">App\\Entity\\Question::updatedTimestamps<\/a>"],[100,1,"<a href=\"Entity\/Question.php.html#34\">App\\Entity\\Question::getId<\/a>"],[100,1,"<a href=\"Entity\/Question.php.html#39\">App\\Entity\\Question::getQuestion<\/a>"],[100,1,"<a href=\"Entity\/Question.php.html#44\">App\\Entity\\Question::setQuestion<\/a>"],[100,1,"<a href=\"Entity\/Question.php.html#51\">App\\Entity\\Question::getExam<\/a>"],[100,1,"<a href=\"Entity\/Question.php.html#56\">App\\Entity\\Question::setExam<\/a>"],[100,2,"<a href=\"Entity\/User.php.html#16\">App\\Entity\\User::updatedTimestamps<\/a>"],[100,1,"<a href=\"Entity\/User.php.html#38\">App\\Entity\\User::getId<\/a>"],[100,1,"<a href=\"Entity\/User.php.html#43\">App\\Entity\\User::setId<\/a>"],[100,1,"<a href=\"Entity\/User.php.html#50\">App\\Entity\\User::getEmail<\/a>"],[100,1,"<a href=\"Entity\/User.php.html#55\">App\\Entity\\User::setEmail<\/a>"],[100,1,"<a href=\"Entity\/User.php.html#67\">App\\Entity\\User::getUserIdentifier<\/a>"],[100,1,"<a href=\"Entity\/User.php.html#75\">App\\Entity\\User::getUsername<\/a>"],[100,1,"<a href=\"Entity\/User.php.html#83\">App\\Entity\\User::getRoles<\/a>"],[100,1,"<a href=\"Entity\/User.php.html#92\">App\\Entity\\User::setRoles<\/a>"],[100,1,"<a href=\"Entity\/User.php.html#102\">App\\Entity\\User::getPassword<\/a>"],[100,1,"<a href=\"Entity\/User.php.html#107\">App\\Entity\\User::setPassword<\/a>"],[100,1,"<a href=\"Entity\/User.php.html#122\">App\\Entity\\User::getSalt<\/a>"],[0,1,"<a href=\"Entity\/User.php.html#130\">App\\Entity\\User::eraseCredentials<\/a>"],[100,2,"<a href=\"Entity\/UserQuestion.php.html#14\">App\\Entity\\UserQuestion::updatedTimestamps<\/a>"],[100,1,"<a href=\"Entity\/UserQuestion.php.html#36\">App\\Entity\\UserQuestion::getId<\/a>"],[100,1,"<a href=\"Entity\/UserQuestion.php.html#41\">App\\Entity\\UserQuestion::getUser<\/a>"],[100,1,"<a href=\"Entity\/UserQuestion.php.html#46\">App\\Entity\\UserQuestion::setUser<\/a>"],[100,1,"<a href=\"Entity\/UserQuestion.php.html#53\">App\\Entity\\UserQuestion::getAnswer<\/a>"],[100,1,"<a href=\"Entity\/UserQuestion.php.html#58\">App\\Entity\\UserQuestion::setAnswer<\/a>"],[100,1,"<a href=\"Entity\/UserQuestion.php.html#65\">App\\Entity\\UserQuestion::getQuestion<\/a>"],[100,1,"<a href=\"Entity\/UserQuestion.php.html#70\">App\\Entity\\UserQuestion::setQuestion<\/a>"],[100,1,"<a href=\"Repository\/AnswerRepository.php.html#17\">App\\Repository\\AnswerRepository::__construct<\/a>"],[100,1,"<a href=\"Repository\/ExamRepository.php.html#17\">App\\Repository\\ExamRepository::__construct<\/a>"],[100,1,"<a href=\"Repository\/QuestionRepository.php.html#18\">App\\Repository\\QuestionRepository::__construct<\/a>"],[100,1,"<a href=\"Repository\/UserQuestionRepository.php.html#17\">App\\Repository\\UserQuestionRepository::__construct<\/a>"],[100,1,"<a href=\"Repository\/UserRepository.php.html#20\">App\\Repository\\UserRepository::__construct<\/a>"],[0,2,"<a href=\"Repository\/UserRepository.php.html#28\">App\\Repository\\UserRepository::upgradePassword<\/a>"]], 'Method Complexity'))
+      .transition()
+      .duration(500)
+      .call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  function getComplexityData(data, label) {
+    var values = [];
+    $.each(data, function(key) {
+      var value = Math.round(data[key][0]*100) / 100;
+      values.push({
+        x: value,
+        y: data[key][1],
+        class: data[key][2],
+        size: 0.05,
+        shape: 'diamond'
+      });
+    });
+
+    return [
+      {
+        key: label,
+        values: values,
+        color: "#4572A7"
+      }
+    ];
+  }
+});
+  </script>
+ </body>
+</html>

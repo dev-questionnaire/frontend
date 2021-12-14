@@ -23,13 +23,14 @@ class UserEntityManagerRepositoryTest extends KernelTestCase
         parent::setUp();
 
         $kernel = self::bootKernel();
+        $container = static::getContainer();
 
         $this->entityManager = $kernel->getContainer()
             ->get('doctrine')
             ->getManager();
 
-        $this->userEntityManager = new UserEntityManager($this->entityManager, self::$container->get(\App\Repository\UserRepository::class), self::$container->get(UserPasswordHasherInterface::class));
-        $this->userRepository = new UserRepository(self::$container->get(\App\Repository\UserRepository::class), new UserMapper());
+        $this->userEntityManager = new UserEntityManager($this->entityManager, $container->get(\App\Repository\UserRepository::class), $container->get(UserPasswordHasherInterface::class));
+        $this->userRepository = new UserRepository($container->get(\App\Repository\UserRepository::class), new UserMapper());
     }
 
     protected function tearDown(): void

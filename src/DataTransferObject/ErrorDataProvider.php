@@ -8,7 +8,7 @@ namespace App\DataTransferObject;
 final class ErrorDataProvider
 {
     /** @var array */
-    protected $errors;
+    protected $errors = [];
 
 
     /**
@@ -53,10 +53,10 @@ final class ErrorDataProvider
 
 
     /**
-     * @param array $Error
+     * @param string $Error
      * @return ErrorDataProvider
      */
-    public function addError(array $Error)
+    public function addError(string $Error)
     {
         $this->errors[] = $Error; return $this;
     }

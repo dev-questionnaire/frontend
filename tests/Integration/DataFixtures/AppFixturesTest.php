@@ -23,15 +23,16 @@ class AppFixturesTest extends KernelTestCase
         parent::setUp();
 
         $kernel = self::bootKernel();
+        $container = static::getContainer();
 
         $this->entityManager = $kernel->getContainer()
             ->get('doctrine')
             ->getManager();
 
-        $this->examRepository = self::$container->get(ExamRepository::class);
-        $this->userRepository = self::$container->get(UserRepository::class);
-        $this->appFixtures = self::$container->get(AppFixtures::class);
-        $this->userPasswordHasher = self::$container->get(UserPasswordHasherInterface::class);
+        $this->examRepository = $container->get(ExamRepository::class);
+        $this->userRepository = $container->get(UserRepository::class);
+        $this->appFixtures = $container->get(AppFixtures::class);
+        $this->userPasswordHasher = $container->get(UserPasswordHasherInterface::class);
     }
 
     protected function tearDown(): void

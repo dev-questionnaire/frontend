@@ -22,13 +22,14 @@ class validateEmailTest extends KernelTestCase
         parent::setUp();
 
         $kernel = self::bootKernel();
+        $container = static::getContainer();
 
         $this->entityManager = $kernel->getContainer()
             ->get('doctrine')
             ->getManager();
 
         $userMapper = new UserMapper();
-        $userEntityRepository = self::$container->get(\App\Repository\UserRepository::class);
+        $userEntityRepository = $container->get(\App\Repository\UserRepository::class);
         $userRepository = new UserRepository($userEntityRepository, $userMapper);
         $this->validateEmail = new ValidateRegistrationEmail($userRepository);
 

@@ -20,13 +20,14 @@ class FacadeUserTest extends KernelTestCase
         parent::setUp();
 
         $kernel = self::bootKernel();
+        $container = static::getContainer();
 
         $this->entityManager = $kernel->getContainer()
             ->get('doctrine')
             ->getManager();
 
-        $this->facadeUser = self::$container->get(FacadeUser::class);
-        $this->userRepository = self::$container->get(UserRepositoryInterface::class);
+        $this->facadeUser = $container->get(FacadeUser::class);
+        $this->userRepository = $container->get(UserRepositoryInterface::class);
     }
 
     protected function tearDown(): void

@@ -1,27 +1,21 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Tests\Integration\Components\UserExam\Persistence;
+namespace App\Tests\Integration\Components\UserQuestion\Persistence;
 
-use App\Components\Exam\Persistence\EntityManager\ExamEntityManager;
-use App\Components\Exam\Persistence\EntityManager\ExamEntityManagerInterface;
-use App\Components\ExamQuestion\Persistence\EntityManager\ExamQuestionEntityManager;
-use App\Components\ExamQuestion\Persistence\EntityManager\ExamQuestionEntityManagerInterface;
-use App\Components\ExamQuestion\Persistence\Mapper\QuestionMapper;
-use App\Components\ExamQuestion\Persistence\Repository\ExamQuestionRepository;
-use App\Components\ExamQuestion\Persistence\Repository\QuestionRepositoryInterface;
-use App\Components\UserExam\Persistence\EntityManager\UserQuestionEntityManager;
-use App\Components\UserExam\Persistence\EntityManager\UserQuestionEntityManagerInterface;
-use App\Components\UserExam\Persistence\Mapper\UserQuestionMapper;
-use App\Components\UserExam\Persistence\Repository\UserQuestionRepository;
-use App\Components\UserExam\Persistence\Repository\UserQuestionRepositoryInterface;
-use App\DataTransferObject\ExamDataProvider;
-use App\DataTransferObject\ExamQuestionDataProvider;
-use App\DataTransferObject\UserExamDataProvider;
+use App\Components\Question\Persistence\EntityManager\QuestionEntityManager;
+use App\Components\Question\Persistence\EntityManager\QuestionEntityManagerInterface;
+use App\Components\UserQuestion\Persistence\EntityManager\UserQuestionEntityManager;
+use App\Components\UserQuestion\Persistence\EntityManager\UserQuestionEntityManagerInterface;
+use App\Components\UserQuestion\Persistence\Mapper\UserQuestionMapper;
+use App\Components\UserQuestion\Persistence\Repository\UserQuestionRepository;
+use App\Components\UserQuestion\Persistence\Repository\UserQuestionRepositoryInterface;
+use App\DataTransferObject\QuestionDataProvider;
+use App\DataTransferObject\UserQuestionDataProvider;
 use App\Entity\Exam;
-use App\Entity\Answer;
 use App\Entity\User;
 use App\Repository\ExamRepository;
+use App\Repository\QuestionRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
@@ -29,8 +23,8 @@ use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 class UserExamEntityManagerAndRepositoryTest extends KernelTestCase
 {
     private ?EntityManagerInterface $entityManager;
-    private ?ExamQuestionEntityManagerInterface $examQuestionEntityManager;
-    private ?UserQuestionEntityManagerInterface $userExamEntityManager;
+    private ?QuestionEntityManagerInterface $questionEntityManager;
+    private ?UserQuestionEntityManagerInterface $userQuestionEntityManager;
     private ?UserQuestionRepositoryInterface $userExamRepository;
 
     protected function setUp(): void
@@ -38,24 +32,27 @@ class UserExamEntityManagerAndRepositoryTest extends KernelTestCase
         parent::setUp();
 
         $kernel = self::bootKernel();
+        $container = static::getContainer();
 
         $this->entityManager = $kernel->getContainer()
             ->get('doctrine')
             ->getManager();
 
         $this->userExamRepository = new UserQuestionRepository(
-            self::$container->get(\App\Repository\UserQuestionRepository::class),
-            self::$container->get(UserRepository::class),
-            self::$container->get(\App\Repository\ExamAnswerRepository::class),
+            $container->get(\App\Repository\UserQuestionRepository::class),
+            $container->get(UserRepository::class),
+            $container->get(QuestionRepository::class),
             new UserQuestionMapper()
         );
-        $this->userExamEntityManager = new UserQuestionEntityManager(
+        $this->userQuestionEntityManager = new UserQuestionEntityManager(
             $this->entityManager,
-            self::$container->get(\App\Repository\UserExamRepository::class),
-            self::$container->get(UserRepository::class),
-            self::$container->get(\App\Repository\QuestionAnswerRepository::class),
+            $container->get(\App\Repository\UserQuestionRepository::class),
+            $container->get(UserRepository::class),
+            $container->get(QuestionRepository::class),
         );
-        $this->examQuestionEntityManager = new ExamQuestionEntityManager($this->entityManager, self::$container->get(ExamRepository::class));
+
+
+        $this->questionEntityManager = new QuestionEntityManager($this->entityManager, $container->get(ExamRepository::class));
     }
 
     protected function tearDown(): void
@@ -65,10 +62,10 @@ class UserExamEntityManagerAndRepositoryTest extends KernelTestCase
         $connection = $this->entityManager->getConnection();
 
         $connection->executeQuery('SET FOREIGN_KEY_CHECKS = 0');
-        $connection->executeQuery('DELETE FROM user_exam');
-        $connection->executeQuery('ALTER TABLE user_exam AUTO_INCREMENT=0');
-        $connection->executeQuery('DELETE FROM exam_question');
-        $connection->executeQuery('ALTER TABLE exam_question AUTO_INCREMENT=0');
+        $connection->executeQuery('DELETE FROM user_question');
+        $connection->executeQuery('ALTER TABLE user_question AUTO_INCREMENT=0');
+        $connection->executeQuery('DELETE FROM question');
+        $connection->executeQuery('ALTER TABLE question AUTO_INCREMENT=0');
         $connection->executeQuery('DELETE FROM user');
         $connection->executeQuery('ALTER TABLE user AUTO_INCREMENT=0');
         $connection->executeQuery('DELETE FROM exam');
@@ -77,8 +74,8 @@ class UserExamEntityManagerAndRepositoryTest extends KernelTestCase
 
         $connection->close();
 
-        $this->examQuestionEntityManager = null;
-        $this->userExamEntityManager = null;
+        $this->questionEntityManager = null;
+        $this->userQuestionEntityManager = null;
         $this->userExamRepository = null;
         $this->entityManager = null;
     }
@@ -100,62 +97,60 @@ class UserExamEntityManagerAndRepositoryTest extends KernelTestCase
         $this->entityManager->persist($exam);
         $this->entityManager->flush();
 
-        $examQuestionDataProvider = new ExamQuestionDataProvider();
-        $examQuestionDataProvider
+        $questionDataProvider = new QuestionDataProvider();
+        $questionDataProvider
             ->setExamId(1)
-            ->setQuestion('Question_1?')
-            ->setCorrect(true);
+            ->setQuestion('Question_1?');
 
-        $this->examQuestionEntityManager->create($examQuestionDataProvider);
+        $this->questionEntityManager->create($questionDataProvider);
 
-        $examQuestionDataProvider
+        $questionDataProvider
             ->setExamId(1)
-            ->setQuestion('Question_2?')
-            ->setCorrect(false);
+            ->setQuestion('Question_2?');
 
-        $this->examQuestionEntityManager->create($examQuestionDataProvider);
+        $this->questionEntityManager->create($questionDataProvider);
 
-        $userExamDataProvider = new UserExamDataProvider();
-        $userExamDataProvider
+        $userQuestionDataProvider = new UserQuestionDataProvider();
+        $userQuestionDataProvider
             ->setUserId(1)
-            ->setExamQuestionId(1)
+            ->setQuestionId(1)
             ->setAnswer(true);
 
-        $this->userExamEntityManager->create($userExamDataProvider);
+        $this->userQuestionEntityManager->create($userQuestionDataProvider);
 
-        $userExamDataProvider
+        $userQuestionDataProvider
             ->setUserId(1)
-            ->setExamQuestionId(2)
+            ->setQuestionId(2)
             ->setAnswer(null);
 
-        $this->userExamEntityManager->create($userExamDataProvider);
+        $this->userQuestionEntityManager->create($userQuestionDataProvider);
 
 
         $currentDate = (new \DateTime())->format('d.m.Y');
-        $userExamDataProvider = $this->userExamRepository->getByExamQuestionAndUser(1, 1);
+        $userQuestionDataProvider = $this->userExamRepository->getByExamQuestionAndUser(1, 1);
 
-        self::assertSame(1, $userExamDataProvider->getUserId());
-        self::assertSame(1, $userExamDataProvider->getExamQuestionId());
-        self::assertTrue($userExamDataProvider->getAnswer());
-        self::assertSame($currentDate, $userExamDataProvider->getCreatedAt());
-        self::assertSame($currentDate, $userExamDataProvider->getUpdatedAt());
+        self::assertSame(1, $userQuestionDataProvider->getUserId());
+        self::assertSame(1, $userQuestionDataProvider->getQuestionId());
+        self::assertTrue($userQuestionDataProvider->getAnswer());
+        self::assertSame($currentDate, $userQuestionDataProvider->getCreatedAt());
+        self::assertSame($currentDate, $userQuestionDataProvider->getUpdatedAt());
 
-        $userExamDataProvider = $this->userExamRepository->getByExamQuestionAndUser(1, 2);
+        $userQuestionDataProvider = $this->userExamRepository->getByExamQuestionAndUser(1, 2);
 
-        self::assertSame(1, $userExamDataProvider->getUserId());
-        self::assertSame(2, $userExamDataProvider->getExamQuestionId());
-        self::assertNull($userExamDataProvider->getAnswer());
-        self::assertSame($currentDate, $userExamDataProvider->getCreatedAt());
-        self::assertSame($currentDate, $userExamDataProvider->getUpdatedAt());
+        self::assertSame(1, $userQuestionDataProvider->getUserId());
+        self::assertSame(2, $userQuestionDataProvider->getQuestionId());
+        self::assertNull($userQuestionDataProvider->getAnswer());
+        self::assertSame($currentDate, $userQuestionDataProvider->getCreatedAt());
+        self::assertSame($currentDate, $userQuestionDataProvider->getUpdatedAt());
 
-        $userExamDataProvider
+        $userQuestionDataProvider
             ->setAnswer(false);
 
-        $this->userExamEntityManager->updateAnswer($userExamDataProvider);
+        $this->userQuestionEntityManager->updateAnswer($userQuestionDataProvider);
 
-        $userExamDataProvider = $this->userExamRepository->getByExamQuestionAndUser(1, 2);
+        $userQuestionDataProvider = $this->userExamRepository->getByExamQuestionAndUser(1, 2);
 
-        self::assertFalse($userExamDataProvider->getAnswer());
+        self::assertFalse($userQuestionDataProvider->getAnswer());
     }
 
     public function testUserExamNotFound(): void

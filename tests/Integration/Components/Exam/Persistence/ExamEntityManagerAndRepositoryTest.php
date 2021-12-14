@@ -23,12 +23,13 @@ class ExamEntityManagerAndRepositoryTest extends KernelTestCase
         parent::setUp();
 
         $kernel = self::bootKernel();
+        $container = static::getContainer();
 
         $this->entityManager = $kernel->getContainer()
             ->get('doctrine')
             ->getManager();
 
-        $this->examRepository = new ExamRepository(self::$container->get(\App\Repository\ExamRepository::class), new ExamMapperEntity());
+        $this->examRepository = new ExamRepository($container->get(\App\Repository\ExamRepository::class), new ExamMapperEntity());
         $this->examEntityManager = new ExamEntityManager($this->entityManager);
     }
 

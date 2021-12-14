@@ -84,7 +84,8 @@
     "require-dev": {
         "doctrine/doctrine-fixtures-bundle": "^3.4",
         "infection/infection": "^0.25.4",
-        "phpunit/phpunit": "^9.5",
+        "phpunit/phpunit": "^9",
+        "roave/security-advisories": "dev-latest",
         "symfony/maker-bundle": "^1.36",
         "symfony/phpunit-bridge": "^6.0",
         "symfony/web-profiler-bundle": "6.0.*"

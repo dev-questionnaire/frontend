@@ -18,11 +18,11 @@ class ValidateRegistrationEmail implements validateCollectionInterface
         $email = $userDTO->getEmail();
 
         if($this->userRepository->getByEmail($email) instanceof UserDataProvider) {
-            $errorDataProvider->setError("Email is already taken");
+            $errorDataProvider->addError("Email is already taken");
         }
 
         if(!str_contains($email, 'nexus-united.com') && !str_contains($email, 'valantic.com')) {
-            $errorDataProvider->setError("Email is not valid");
+            $errorDataProvider->addError("Email is not valid");
         }
 
         return $errorDataProvider;

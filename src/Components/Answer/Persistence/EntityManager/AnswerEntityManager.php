@@ -20,9 +20,7 @@ class AnswerEntityManager implements AnswerEntityManagerInterface
 
     public function create(AnswerDataProvider $answerDataProvider): void
     {
-        //$question = $this->questionRepository->find($answerDataProvider->getQuestionId());
-        $question = new Question();
-        $question->id = $answerDataProvider->getQuestionId();
+        $question = $this->questionRepository->find($answerDataProvider->getQuestionId());
 
         $answer = new Answer();
 

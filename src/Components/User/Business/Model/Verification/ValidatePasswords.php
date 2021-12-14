@@ -14,27 +14,27 @@ class ValidatePasswords implements validateCollectionInterface
         $verPassword = $userDTO->getVerificationPassword();
 
         if (strlen($password) < 8) {
-            $errorDataProvider->setError("Password too short!");
+            $errorDataProvider->addError("Password too short!");
         }
 
         if (!preg_match("#[\d]+#", $password)) {
-            $errorDataProvider->setError("Password must include at least one number!");
+            $errorDataProvider->addError("Password must include at least one number!");
         }
 
         if (!preg_match("#[a-z]+#", $password)) {
-            $errorDataProvider->setError("Password must include at least one lowercase letter!");
+            $errorDataProvider->addError("Password must include at least one lowercase letter!");
         }
 
         if (!preg_match("#[A-Z]+#", $password)) {
-            $errorDataProvider->setError("Password must include at least one uppercase letter!");
+            $errorDataProvider->addError("Password must include at least one uppercase letter!");
         }
 
         if (!preg_match("/[!@#$%^&*-]+/", $password)) {
-            $errorDataProvider->setError("Password must include at one special character!");
+            $errorDataProvider->addError("Password must include at one special character!");
         }
 
         if($password !== $verPassword) {
-            $errorDataProvider->setError("Password musst match Verification Password");
+            $errorDataProvider->addError("Password musst match Verification Password");
         }
 
         return $errorDataProvider;
