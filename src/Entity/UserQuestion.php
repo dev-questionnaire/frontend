@@ -33,8 +33,7 @@ class UserQuestion
     #[ORM\JoinColumn(nullable: false)]
     private $user;
 
-    #[ORM\ManyToOne(targetEntity: Question::class, inversedBy: 'userQuestions')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\Column(type: 'string')]
     private $question;
 
     public function getId(): ?int
@@ -66,12 +65,12 @@ class UserQuestion
         return $this;
     }
 
-    public function getQuestion(): ?Question
+    public function getQuestion(): ?string
     {
         return $this->question;
     }
 
-    public function setQuestion(?Question $question): self
+    public function setQuestion(?string $question): self
     {
         $this->question = $question;
 

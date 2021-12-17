@@ -7,130 +7,14 @@ namespace App\DataTransferObject;
  */
 final class QuestionDataProvider
 {
-    /** @var int */
-    protected $id;
-
-    /** @var int */
-    protected $examId;
-
     /** @var string */
     protected $question;
 
-    /** @var string */
-    protected $createdAt;
+    /** @var array */
+    protected $rightQuestions;
 
-    /** @var string */
-    protected $updatedAt;
-
-    /**
-     * @var \App\DataTransferObject\AnswerDataProvider[]
-     */
-    protected array $answerDataProviders;
-
-    /**
-     * @return \App\DataTransferObject\AnswerDataProvider[]
-     */
-    public function getAnswerDataProviders(): array
-    {
-        return $this->answerDataProviders;
-    }
-
-    /**
-     * @param \App\DataTransferObject\AnswerDataProvider[] $answerDataProviders
-     */
-    public function setAnswerDataProviders(array $answerDataProviders): void
-    {
-        $this->answerDataProviders = $answerDataProviders;
-    }
-
-    /**
-     * @param \App\DataTransferObject\AnswerDataProvider $answerDataProvider
-     */
-    public function addAnswerDataProvider(AnswerDataProvider $answerDataProvider): void
-    {
-        $this->answerDataProviders[] = $answerDataProvider;
-    }
-
-    /**
-     * @return int
-     */
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
-
-
-    /**
-     * @param int $id
-     * @return QuestionDataProvider
-     */
-    public function setId(?int $id = null)
-    {
-        $this->id = $id;
-
-        return $this;
-    }
-
-
-    /**
-     * @return QuestionDataProvider
-     */
-    public function unsetId()
-    {
-        $this->id = null;
-
-        return $this;
-    }
-
-
-    /**
-     * @return bool
-     */
-    public function hasId()
-    {
-        return ($this->id !== null && $this->id !== []);
-    }
-
-
-    /**
-     * @return int
-     */
-    public function getExamId(): ?int
-    {
-        return $this->examId;
-    }
-
-
-    /**
-     * @param int $examId
-     * @return QuestionDataProvider
-     */
-    public function setExamId(?int $examId = null)
-    {
-        $this->examId = $examId;
-
-        return $this;
-    }
-
-
-    /**
-     * @return QuestionDataProvider
-     */
-    public function unsetExamId()
-    {
-        $this->examId = null;
-
-        return $this;
-    }
-
-
-    /**
-     * @return bool
-     */
-    public function hasExamId()
-    {
-        return ($this->examId !== null && $this->examId !== []);
-    }
+    /** @var array */
+    protected $answers;
 
 
     /**
@@ -175,21 +59,21 @@ final class QuestionDataProvider
 
 
     /**
-     * @return string
+     * @return array
      */
-    public function getCreatedAt(): string
+    public function getRightQuestions(): array
     {
-        return $this->createdAt;
+        return $this->rightQuestions;
     }
 
 
     /**
-     * @param string $createdAt
+     * @param array $rightQuestions
      * @return QuestionDataProvider
      */
-    public function setCreatedAt(string $createdAt)
+    public function setRightQuestions(array $rightQuestions)
     {
-        $this->createdAt = $createdAt;
+        $this->rightQuestions = $rightQuestions;
 
         return $this;
     }
@@ -198,50 +82,9 @@ final class QuestionDataProvider
     /**
      * @return QuestionDataProvider
      */
-    public function unsetCreatedAt()
+    public function unsetRightQuestions()
     {
-        $this->createdAt = null;
-
-        return $this;
-    }
-
-
-    /**
-     * @return bool
-     */
-    public function hasCreatedAt()
-    {
-        return ($this->createdAt !== null && $this->createdAt !== []);
-    }
-
-
-    /**
-     * @return string
-     */
-    public function getUpdatedAt(): string
-    {
-        return $this->updatedAt;
-    }
-
-
-    /**
-     * @param string $updatedAt
-     * @return QuestionDataProvider
-     */
-    public function setUpdatedAt(string $updatedAt)
-    {
-        $this->updatedAt = $updatedAt;
-
-        return $this;
-    }
-
-
-    /**
-     * @return QuestionDataProvider
-     */
-    public function unsetUpdatedAt()
-    {
-        $this->updatedAt = null;
+        $this->rightQuestions = null;
 
         return $this;
     }
@@ -250,9 +93,50 @@ final class QuestionDataProvider
     /**
      * @return bool
      */
-    public function hasUpdatedAt()
+    public function hasRightQuestions()
     {
-        return ($this->updatedAt !== null && $this->updatedAt !== []);
+        return ($this->rightQuestions !== null && $this->rightQuestions !== []);
+    }
+
+
+    /**
+     * @return array
+     */
+    public function getAnswers(): array
+    {
+        return $this->answers;
+    }
+
+
+    /**
+     * @param array $answers
+     * @return QuestionDataProvider
+     */
+    public function setAnswers(array $answers)
+    {
+        $this->answers = $answers;
+
+        return $this;
+    }
+
+
+    /**
+     * @return QuestionDataProvider
+     */
+    public function unsetAnswers()
+    {
+        $this->answers = null;
+
+        return $this;
+    }
+
+
+    /**
+     * @return bool
+     */
+    public function hasAnswers()
+    {
+        return ($this->answers !== null && $this->answers !== []);
     }
 
 
@@ -262,56 +146,36 @@ final class QuestionDataProvider
     protected function getElements(): array
     {
         return array (
-          'id' =>
-          array (
-            'name' => 'id',
-            'allownull' => true,
-            'default' => '',
-            'type' => 'int',
-            'is_collection' => false,
-            'is_dataprovider' => false,
-            'isCamelCase' => false,
-          ),
-          'examId' =>
-          array (
-            'name' => 'examId',
-            'allownull' => true,
-            'default' => '',
-            'type' => 'int',
-            'is_collection' => false,
-            'is_dataprovider' => false,
-            'isCamelCase' => false,
-          ),
-          'question' =>
-          array (
-            'name' => 'question',
-            'allownull' => false,
-            'default' => '',
-            'type' => 'string',
-            'is_collection' => false,
-            'is_dataprovider' => false,
-            'isCamelCase' => false,
-          ),
-          'createdAt' =>
-          array (
-            'name' => 'createdAt',
-            'allownull' => false,
-            'default' => '',
-            'type' => 'string',
-            'is_collection' => false,
-            'is_dataprovider' => false,
-            'isCamelCase' => false,
-          ),
-          'updatedAt' =>
-          array (
-            'name' => 'updatedAt',
-            'allownull' => false,
-            'default' => '',
-            'type' => 'string',
-            'is_collection' => false,
-            'is_dataprovider' => false,
-            'isCamelCase' => false,
-          ),
+            'question' =>
+                array (
+                    'name' => 'question',
+                    'allownull' => false,
+                    'default' => '',
+                    'type' => 'string',
+                    'is_collection' => false,
+                    'is_dataprovider' => false,
+                    'isCamelCase' => false,
+                ),
+            'rightQuestions' =>
+                array (
+                    'name' => 'rightQuestions',
+                    'allownull' => false,
+                    'default' => '',
+                    'type' => 'array',
+                    'is_collection' => false,
+                    'is_dataprovider' => false,
+                    'isCamelCase' => false,
+                ),
+            'answers' =>
+                array (
+                    'name' => 'answers',
+                    'allownull' => false,
+                    'default' => '',
+                    'type' => 'array',
+                    'is_collection' => false,
+                    'is_dataprovider' => false,
+                    'isCamelCase' => false,
+                ),
         );
     }
 }

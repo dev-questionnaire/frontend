@@ -18,10 +18,10 @@ class ExamController extends AbstractController
     #[Route("/", name: "app_exam")]
     public function index(): Response
     {
-        $examList = $this->examRepository->getAll();
+        $examDataProviderList = $this->examRepository->getAll();
 
         return $this->render('exam/exam.html.twig', [
-            'examList' => $examList,
+            'examList' => $examDataProviderList,
         ]);
     }
 }

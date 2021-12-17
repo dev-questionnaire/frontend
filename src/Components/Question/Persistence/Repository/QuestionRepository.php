@@ -5,31 +5,40 @@ namespace App\Components\Question\Persistence\Repository;
 
 use App\Components\Question\Persistence\Mapper\QuestionMapper;
 use App\DataTransferObject\QuestionDataProvider;
-use App\Repository\ExamRepository;
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
+use Symfony\Component\Finder\Finder;
 
 class QuestionRepository implements QuestionRepositoryInterface
 {
+    private string $pathToFolder;
+
     public function __construct(
-        private \App\Repository\QuestionRepository $questionRepository,
-        private ExamRepository $examRepository,
-        private QuestionMapper $mapper,
+        private QuestionMapper $questionMapper,
+        ParameterBagInterface  $params
     )
     {
+        $this->pathToFolder = $params->get('app_content_folder');
     }
 
     /**
      * @return QuestionDataProvider[]
      */
-    public function getByExamId(int $examId): array
+    public function getByExam(string $exam): array
     {
         $questionDataProviderList = [];
 
-        $exam = $this->examRepository->find($examId);
-        $exam->getQuestions();
-        $questionList = $this->questionRepository->findBy(['exam' => $exam]);
+        if (empty($exam)) {
+            return [];
+        }
 
-        foreach ($questionList as $question) {
-            $questionDataProviderList[] = $this->mapper->map($question);
+        $fileList = (new Finder())
+            ->in($this->pathToFolder . '/' . $exam . '/')
+            ->name('*.json')
+            ->sortByName()
+            ->files()->contains('question');
+
+        foreach ($fileList as $file) {
+            $questionDataProviderList[] = $this->questionMapper->map($file->getPathname());
         }
 
         return $questionDataProviderList;

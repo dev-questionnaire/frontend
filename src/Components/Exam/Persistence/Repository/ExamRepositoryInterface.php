@@ -7,9 +7,7 @@ use App\DataTransferObject\ExamDataProvider;
 
 interface ExamRepositoryInterface
 {
-    public function getById(int $id): ?ExamDataProvider;
-
-    public function getByName(string $name): ?ExamDataProvider;
+    public function getByName(string $exam): ?ExamDataProvider;
 
     public function getAll(): array;
 }

@@ -3,10 +3,10 @@
 {% block headline %}{{ question.question }}{% endblock %}
 {% block body %}
     <div id="question">
-        <form action="{{ path("app_question", {exam_id: exam_id, question_index: nextQuestion}) }}" method="post">
-                {% for answer in answerList %}
-                    <label for="{{ question.question }}_{{ answer.answer }}">{{ answer.answer }}</label>
-                    <input type="checkbox" name="{{ question.question }}_{{ answer.answer }}" value="{{ answer.answer }}">
+        <form action="{{ path("app_question", {exam: exam, question_id: nextQuestionId}) }}" method="post">
+                {% for answer in question.answers %}
+                    <label for="{{ question.question }}_{{ answer }}">{{ answer }}</label>
+                    <input type="checkbox" name="{{ question.question }}_{{ answer }}" value="{{ answer }}">
                 {% endfor %}
             <input type="submit" name="sub_{{ question.question }}" value="Next question">
         </form>

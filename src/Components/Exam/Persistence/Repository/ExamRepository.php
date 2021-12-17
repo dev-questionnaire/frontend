@@ -3,39 +3,42 @@ declare(strict_types=1);
 
 namespace App\Components\Exam\Persistence\Repository;
 
-use App\Components\Exam\Persistence\Mapper\ExamMapperEntity;
-use App\Entity\Exam;
+use App\Components\Exam\Persistence\Mapper\ExamMapper;
 use App\DataTransferObject\ExamDataProvider;
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
+use Symfony\Component\Finder\Finder;
 
 class ExamRepository implements ExamRepositoryInterface
 {
+    private string $pathToFolder;
+
     public function __construct(
-        private \App\Repository\ExamRepository $examEntityRepository,
-        private ExamMapperEntity $examMapper,
+        private ExamMapper $examMapper,
+        ParameterBagInterface $params
     )
     {
+        $this->pathToFolder = $params->get('app_content_folder');
     }
 
-    public function getById(int $id): ?ExamDataProvider
+    public function getByName(string $exam): ?ExamDataProvider
     {
-        $examEntity = $this->examEntityRepository->find($id);
+        $examDataProvider = null;
 
-        if(!$examEntity instanceof Exam) {
+        if (empty($exam)) {
             return null;
         }
 
-        return $this->examMapper->map($examEntity);
-    }
+        $fileList = (new Finder())
+            ->in($this->pathToFolder . '/*/')
+            ->name('index.json')
+            ->sortByName()
+            ->files()->contains(['exam' => $exam]);
 
-    public function getByName(string $name): ?ExamDataProvider
-    {
-        $examEntity = $this->examEntityRepository->findOneBy(['name' => $name]);
-
-        if(!$examEntity instanceof Exam) {
-            return null;
+        foreach ($fileList as $file) {
+            $examDataProvider = $this->examMapper->map($file->getPathname());
         }
 
-        return $this->examMapper->map($examEntity);
+        return $examDataProvider;
     }
 
     /**
@@ -43,14 +46,17 @@ class ExamRepository implements ExamRepositoryInterface
      */
     public function getAll(): array
     {
-        $examDTOList = [];
+        $examDataProviderList = [];
 
-        $examEntities = $this->examEntityRepository->findAll();
+        $fileList = (new Finder())
+            ->in($this->pathToFolder . '/*/')
+            ->name('index.json')
+            ->sortByName();
 
-        foreach ($examEntities as $examEntity) {
-            $examDTOList[] = $this->examMapper->map($examEntity);
+        foreach ($fileList as $file) {
+            $examDataProviderList[] = $this->examMapper->map($file->getPathname());
         }
 
-        return $examDTOList;
+        return $examDataProviderList;
     }
 }
