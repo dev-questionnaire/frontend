@@ -34,6 +34,9 @@ class UserQuestion
     private $user;
 
     #[ORM\Column(type: 'string')]
+    private $examSlug;
+
+    #[ORM\Column(type: 'string')]
     private $questionSlug;
 
     public function getId(): ?int
@@ -61,6 +64,18 @@ class UserQuestion
     public function setUser(?User $user): self
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    public function getExamSlug(): ?string
+    {
+        return $this->examSlug;
+    }
+
+    public function setExamSlug(?string $examSlug): self
+    {
+        $this->examSlug = $examSlug;
 
         return $this;
     }

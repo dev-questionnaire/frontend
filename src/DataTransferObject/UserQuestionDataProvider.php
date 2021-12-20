@@ -16,6 +16,9 @@ final class UserQuestionDataProvider
     /** @var string */
     protected $questionSlug;
 
+    /** @var string */
+    protected $examSlug;
+
     /** @var bool */
     protected $answer = true;
 
@@ -148,6 +151,45 @@ final class UserQuestionDataProvider
         return ($this->questionSlug !== null && $this->questionSlug !== []);
     }
 
+    /**
+     * @return string
+     */
+    public function getExamSlug(): ?string
+    {
+        return $this->examSlug;
+    }
+
+
+    /**
+     * @param string $examSlug
+     * @return UserQuestionDataProvider
+     */
+    public function setExamSlug(?string $examSlug = null)
+    {
+        $this->examSlug = $examSlug;
+
+        return $this;
+    }
+
+
+    /**
+     * @return UserQuestionDataProvider
+     */
+    public function unsetExamSlug()
+    {
+        $this->examSlug = null;
+
+        return $this;
+    }
+
+
+    /**
+     * @return bool
+     */
+    public function hasExamSlug()
+    {
+        return ($this->examSlug !== null && $this->examSlug !== []);
+    }
 
     /**
      * @return bool
@@ -301,6 +343,16 @@ final class UserQuestionDataProvider
             'questionSlug' =>
                 array (
                     'name' => 'questionSlug',
+                    'allownull' => true,
+                    'default' => '',
+                    'type' => 'string',
+                    'is_collection' => false,
+                    'is_dataprovider' => false,
+                    'isCamelCase' => false,
+                ),
+            'examSlug' =>
+                array (
+                    'name' => 'examSlug',
                     'allownull' => true,
                     'default' => '',
                     'type' => 'string',

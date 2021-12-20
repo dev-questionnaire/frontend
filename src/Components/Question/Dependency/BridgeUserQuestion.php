@@ -14,9 +14,9 @@ class BridgeUserQuestion implements BridgeUserQuestionInterface
     {
     }
 
-    public function create(string $questionSlug, string $userEmail): void
+    public function create(string $questionSlug, string $examSlug, string $userEmail): void
     {
-        $this->facadeUserQuestion->create($questionSlug, $userEmail);
+        $this->facadeUserQuestion->create($questionSlug, $examSlug, $userEmail);
     }
 
     public function update(UserQuestionDataProvider $userQuestionDataProvider): void

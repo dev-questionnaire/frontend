@@ -7,7 +7,7 @@ use App\DataTransferObject\UserQuestionDataProvider;
 
 interface BridgeUserQuestionInterface
 {
-    public function create(string $questionSlug, string $userEmail): void;
+    public function create(string $questionSlug, string $examSlug, string $userEmail): void;
 
     public function update(UserQuestionDataProvider $userQuestionDataProvider): void;
 

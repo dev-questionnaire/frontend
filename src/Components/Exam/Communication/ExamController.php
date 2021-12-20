@@ -39,11 +39,13 @@ class ExamController extends AbstractController
 
         $questionDataProviderList = $this->bridgeQuestion->getByExamSlug($examSlug);
 
+        $userQuestionDataProviderList = $this->bridgeUserQuestion->getByUserAndExamIndexedByQuestionSlug($userEmail, $examSlug);
+
         $questionQuantity = count($questionDataProviderList);
         $countQuestions = 0;
 
-        foreach ($questionDataProviderList as $questionDataProvider) {
-            $userQuestionDataProvider = $this->bridgeUserQuestion->getByUserAndQuestion($userEmail, $questionDataProvider->getSlug());
+        foreach ($questionDataProviderList as $key => $questionDataProvider) {
+            $userQuestionDataProvider = $userQuestionDataProviderList[$questionDataProvider->getSlug()];
 
             if ($userQuestionDataProvider === null) {
                 return $this->redirectToRoute('app_question', ['examSlug' => $examSlug]);

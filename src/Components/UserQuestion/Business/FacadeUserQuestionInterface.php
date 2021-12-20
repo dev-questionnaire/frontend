@@ -7,11 +7,16 @@ use App\DataTransferObject\UserQuestionDataProvider;
 
 interface FacadeUserQuestionInterface
 {
-    public function create(string $questionSlug, string $userEmail): void;
+    public function create(string $questionSlug, string $examSlug, string $userEmail): void;
 
     public function update(UserQuestionDataProvider $userQuestionDataProvider): void;
 
     public function delete(int $id): void;
 
     public function getByUserAndQuestion(string $userEmail, string $questionSlug): ?UserQuestionDataProvider;
+
+    /**
+     * @return UserQuestionDataProvider[]
+     */
+    public function getByUserAndExamIndexedByQuestionSlug(string $userEmail, string $examSlug): array;
 }

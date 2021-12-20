@@ -1,10 +1,10 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Tests\Integration\Components\Question\Dependency;
+namespace App\Tests\Integration\Components\Exam\Dependency;
 
-use App\Components\Question\Dependency\BridgeUserQuestion;
-use App\Components\Question\Dependency\BridgeUserQuestionInterface;
+use App\Components\Exam\Dependency\BridgeUserQuestion;
+use App\Components\Exam\Dependency\BridgeUserQuestionInterface;
 use App\Components\UserQuestion\Business\FacadeUserQuestion;
 use App\Components\UserQuestion\Persistence\EntityManager\UserQuestionEntityManager;
 use App\Components\UserQuestion\Persistence\Mapper\UserQuestionMapper;
@@ -12,6 +12,7 @@ use App\Components\UserQuestion\Persistence\Repository\UserQuestionRepository;
 use App\Components\UserQuestion\Persistence\Repository\UserQuestionRepositoryInterface;
 use App\DataTransferObject\UserQuestionDataProvider;
 use App\Entity\User;
+use App\Entity\UserQuestion;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
@@ -49,7 +50,16 @@ class BridgeUserQuestionTest extends KernelTestCase
             ->setEmail('test@email.com')
             ->setRoles(['ROLE_USER'])
             ->setPassword('123');
+
+        $userQuestion = new UserQuestion();
+        $userQuestion
+            ->setUser($user)
+            ->setExamSlug('exam')
+            ->setQuestionSlug('question')
+            ->setAnswer(null);
+
         $this->entityManager->persist($user);
+        $this->entityManager->persist($userQuestion);
         $this->entityManager->flush();
     }
 
@@ -72,23 +82,12 @@ class BridgeUserQuestionTest extends KernelTestCase
         $this->entityManager = null;
     }
 
-    public function testCreateUpdateDeleteGet(): void
+    public function testGetByUserAndExamIndexedByQuestionSlug(): void
     {
-        $this->bridgeUserQuestion->create('slug', 'exam', 'test@email.com');
+        $userQuestionDataProviderList = $this->bridgeUserQuestion->getByUserAndExamIndexedByQuestionSlug('test@email.com', 'exam');
+        self::assertCount(1, $userQuestionDataProviderList);
+        self::assertInstanceOf(UserQuestionDataProvider::class, $userQuestionDataProviderList['question']);
 
-        $userQuestionDataProvider = $this->bridgeUserQuestion->getByUserAndQuestion('test@email.com', 'slug');
-
-        self::assertInstanceOf(UserQuestionDataProvider::class, $userQuestionDataProvider);
-        self::assertNull($userQuestionDataProvider->getAnswer());
-
-        $userQuestionDataProvider->setAnswer(false);
-
-        $this->bridgeUserQuestion->update($userQuestionDataProvider);
-
-        $userQuestionDataProvider = $this->bridgeUserQuestion->getByUserAndQuestion('test@email.com', 'slug');
-        self::assertFalse($userQuestionDataProvider->getAnswer());
-
-        $this->bridgeUserQuestion->delete($userQuestionDataProvider->getId());
-        self::assertNull($this->bridgeUserQuestion->getByUserAndQuestion('test@email.com', 'slug'));
+        self::assertEmpty($this->bridgeUserQuestion->getByUserAndExamIndexedByQuestionSlug('', ''));
     }
 }

@@ -14,8 +14,11 @@ class BridgeUserQuestion implements BridgeUserQuestionInterface
     {
     }
 
-    public function getByUserAndQuestion(string $userEmail, string $questionSlug): ?UserQuestionDataProvider
+    /**
+     * @return UserQuestionDataProvider[]
+     */
+    public function getByUserAndExamIndexedByQuestionSlug(string $userEmail, string $examSlug): array
     {
-        return $this->facadeUserQuestion->getByUserAndQuestion($userEmail, $questionSlug);
+        return $this->facadeUserQuestion->getByUserAndExamIndexedByQuestionSlug($userEmail, $examSlug);
     }
 }

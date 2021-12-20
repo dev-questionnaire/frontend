@@ -8,4 +8,9 @@ use App\DataTransferObject\UserQuestionDataProvider;
 interface UserQuestionRepositoryInterface
 {
     public function getByUserAndQuestion(string $userEmail, string $questionSlug): ?UserQuestionDataProvider;
+
+    /**
+     * @return UserQuestionDataProvider[]
+     */
+    public function getByUserAndExamIndexedByQuestionSlug(string $userEmail, string $examSlug): array;
 }

@@ -28,6 +28,7 @@ class UserQuestionEntityManager implements UserQuestionEntityManagerInterface
         $userQuestion
             ->setUser($user)
             ->setQuestionSlug($userQuestionDataProvider->getQuestionSlug())
+            ->setExamSlug($userQuestionDataProvider->getExamSlug())
             ->setAnswer($userQuestionDataProvider->getAnswer());
 
         $this->entityManager->persist($userQuestion);

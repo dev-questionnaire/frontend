@@ -67,31 +67,36 @@ class UserQuestionEntityManagerAndRepositoryTest extends KernelTestCase
         $userQuestionDataProvider = new UserQuestionDataProvider();
         $userQuestionDataProvider
             ->setUserEmail('test@email.com')
-            ->setQuestionSlug('slug')
+            ->setQuestionSlug('question')
+            ->setExamSlug('exam')
             ->setAnswer(null);
 
         $this->userQuestionEntityManager->create($userQuestionDataProvider);
 
-        $userQuestionDataProvider = $this->userQuestionRepository->getByUserAndQuestion('test@email.com', 'slug');
+        $userQuestionDataProvider = $this->userQuestionRepository->getByUserAndQuestion('test@email.com', 'question');
 
         $currentDate = (new \DateTime())->format('d.m.Y');
 
         self::assertSame(1, $userQuestionDataProvider->getId());
         self::assertSame('test@email.com', $userQuestionDataProvider->getUserEmail());
-        self::assertSame('slug', $userQuestionDataProvider->getQuestionSlug());
+        self::assertSame('question', $userQuestionDataProvider->getQuestionSlug());
+        self::assertSame('exam', $userQuestionDataProvider->getExamSlug());
         self::assertNull($userQuestionDataProvider->getAnswer());
         self::assertSame($currentDate, $userQuestionDataProvider->getCreatedAt());
         self::assertSame($currentDate, $userQuestionDataProvider->getUpdatedAt());
 
         $userQuestionDataProvider->setAnswer(false);
         $this->userQuestionEntityManager->updateAnswer($userQuestionDataProvider);
-        $userQuestionDataProvider = $this->userQuestionRepository->getByUserAndQuestion('test@email.com', 'slug');
+        $userQuestionDataProvider = $this->userQuestionRepository->getByUserAndQuestion('test@email.com', 'question');
 
         self::assertFalse($userQuestionDataProvider->getAnswer());
 
+        $userQuestionDataProviderList = $this->userQuestionRepository->getByUserAndExamIndexedByQuestionSlug('test@email.com', 'exam');
+        self::assertCount(1, $userQuestionDataProviderList);
+
         $this->userQuestionEntityManager->delete($userQuestionDataProvider->getId());
 
-        $userQuestionDataProvider = $this->userQuestionRepository->getByUserAndQuestion('test@email.com', 'slug');
+        $userQuestionDataProvider = $this->userQuestionRepository->getByUserAndQuestion('test@email.com', 'question');
         self::assertNull($userQuestionDataProvider);
     }
 }

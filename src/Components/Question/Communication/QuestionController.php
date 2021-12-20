@@ -34,7 +34,7 @@ class QuestionController extends AbstractController
 
         $userEmail = $user->getUserIdentifier();
 
-        $currentQuestionDataProvider = $this->getCurrentQuestion($questionDataProviderList, $userEmail);
+        $currentQuestionDataProvider = $this->getCurrentQuestion($questionDataProviderList, $examSlug, $userEmail);
 
         if($currentQuestionDataProvider === null)
         {
@@ -100,13 +100,13 @@ class QuestionController extends AbstractController
         ]);
     }
 
-    private function getCurrentQuestion(array $questionDataProviderList, string $userEmail): ?QuestionDataProvider
+    private function getCurrentQuestion(array $questionDataProviderList, string $examSlug, string $userEmail): ?QuestionDataProvider
     {
         foreach ($questionDataProviderList as $questionDataProvider) {
             $userQuestionDataProvider = $this->getUserQuestionDataProvider($userEmail, $questionDataProvider->getSlug());
 
             if ($userQuestionDataProvider === null) {
-                $this->bridgeUserQuestion->create($questionDataProvider->getSlug(), $userEmail);
+                $this->bridgeUserQuestion->create($questionDataProvider->getSlug(), $examSlug, $userEmail);
 
                 return $questionDataProvider;
             }

@@ -30,4 +30,22 @@ class UserQuestionRepository implements UserQuestionRepositoryInterface
 
         return $this->mapper->map($userQuestion);
     }
+
+    /**
+     * @return UserQuestionDataProvider[]
+     */
+    public function getByUserAndExamIndexedByQuestionSlug(string $userEmail, string $examSlug): array
+    {
+        $userQuestionDataProviderList = [];
+
+        $user = $this->userRepository->findOneBy(['email' => $userEmail]);
+
+        $userQuestionList = $this->userQuestionRepository->findBy(['examSlug' => $examSlug, 'user' => $user]);
+
+        foreach ($userQuestionList as $userQuestion) {
+            $userQuestionDataProviderList[$userQuestion->getQuestionSlug()] = $this->mapper->map($userQuestion);
+        }
+
+        return $userQuestionDataProviderList;
+    }
 }

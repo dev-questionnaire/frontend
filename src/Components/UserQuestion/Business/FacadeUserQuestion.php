@@ -16,14 +16,15 @@ class FacadeUserQuestion implements FacadeUserQuestionInterface
     {
     }
 
-    public function create(string $questionSlug, string $userEmail): void
+    public function create(string $questionSlug, string $examSlug, string $userEmail): void
     {
         $userQuestionDataProvider = new UserQuestionDataProvider();
 
         $userQuestionDataProvider
             ->setAnswer(null)
             ->setUserEmail($userEmail)
-            ->setQuestionSlug($questionSlug);
+            ->setQuestionSlug($questionSlug)
+            ->setExamSlug($examSlug);
 
         $this->userQuestionEntityManager->create($userQuestionDataProvider);
     }
@@ -41,5 +42,13 @@ class FacadeUserQuestion implements FacadeUserQuestionInterface
     public function getByUserAndQuestion(string $userEmail, string $questionSlug): ?UserQuestionDataProvider
     {
         return $this->userQuestionRepository->getByUserAndQuestion($userEmail, $questionSlug);
+    }
+
+    /**
+     * @return UserQuestionDataProvider[]
+     */
+    public function getByUserAndExamIndexedByQuestionSlug(string $userEmail, string $examSlug): array
+    {
+        return $this->userQuestionRepository->getByUserAndExamIndexedByQuestionSlug($userEmail, $examSlug);
     }
 }
