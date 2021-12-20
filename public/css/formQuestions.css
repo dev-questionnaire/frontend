@@ -1,0 +1,15 @@
+#form {
+    width:  10%;
+}
+
+#form {
+    display: flex;
+    flex-direction: column;
+}
+
+#form>div{
+    padding-top: 2.5%;
+    display: flex;
+    justify-content: space-between;
+}
+

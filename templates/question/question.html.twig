@@ -1,9 +1,10 @@
 {% extends "base.html.twig" %}
 {% block title %}{{ question.slug }}{% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" type="text/css" href="/css/formQuestions.css">
+{% endblock %}
 {% block headline %}{{ exam.name }}{% endblock %}
 {% block body %}
     <h2>{{ question.question }}</h2>
-    <div id="question">
-        {{ form(form) }}
-    </div>
+    {{ form(form) }}
 {% endblock %}
