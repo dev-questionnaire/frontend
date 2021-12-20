@@ -5,7 +5,6 @@ namespace App\Components\UserQuestion\Persistence\EntityManager;
 
 use App\DataTransferObject\UserQuestionDataProvider;
 use App\Entity\UserQuestion;
-use App\Repository\QuestionRepository;
 use App\Repository\UserQuestionRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -16,21 +15,19 @@ class UserQuestionEntityManager implements UserQuestionEntityManagerInterface
         private EntityManagerInterface $entityManager,
         private UserQuestionRepository $userQuestionRepository,
         private UserRepository         $userRepository,
-        private QuestionRepository     $questionRepository,
     )
     {
     }
 
     public function create(UserQuestionDataProvider $userQuestionDataProvider): void
     {
-        $user = $this->userRepository->find($userQuestionDataProvider->getUserId());
-        $question = $this->questionRepository->find($userQuestionDataProvider->getQuestionId());
+        $user = $this->userRepository->findOneBy(['email' => $userQuestionDataProvider->getUserEmail()]);
 
         $userQuestion = new UserQuestion();
 
         $userQuestion
             ->setUser($user)
-            ->setQuestion($question)
+            ->setQuestionSlug($userQuestionDataProvider->getQuestionSlug())
             ->setAnswer($userQuestionDataProvider->getAnswer());
 
         $this->entityManager->persist($userQuestion);
@@ -41,8 +38,20 @@ class UserQuestionEntityManager implements UserQuestionEntityManagerInterface
     {
         $userQuestion = $this->userQuestionRepository->find($userQuestionDataProvider->getId());
 
+        if(!$userQuestion instanceof UserQuestion) {
+            return;
+        }
+
         $userQuestion->setAnswer($userQuestionDataProvider->getAnswer());
 
+        $this->entityManager->flush();
+    }
+
+    public function delete(int $id): void
+    {
+        $userQuestion = $this->userQuestionRepository->find($id);
+
+        $this->entityManager->remove($userQuestion);
         $this->entityManager->flush();
     }
 }

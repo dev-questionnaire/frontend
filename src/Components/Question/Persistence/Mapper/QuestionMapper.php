@@ -15,7 +15,8 @@ class QuestionMapper
         $questionDataProvider
             ->setQuestion($question['question'])
             ->setRightQuestions($question['right_question'])
-            ->setAnswers($question['answer']);
+            ->setAnswers($question['answer'])
+            ->setSlug($question['slug']);
 
         return $questionDataProvider;
     }

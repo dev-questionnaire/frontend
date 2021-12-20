@@ -32,6 +32,7 @@ class QuestionRepositoryTest extends KernelTestCase
 
         self::assertCount(2, $questionDataProviderList);
 
+        self::assertSame('S_in_Solid', $questionDataProviderList[0]->getSlug());
         self::assertSame('What does S in SOLID mean?', $questionDataProviderList[0]->getQuestion());
         self::assertSame([0], $questionDataProviderList[0]->getRightQuestions());
 
@@ -45,6 +46,7 @@ class QuestionRepositoryTest extends KernelTestCase
 
         self::assertSame($answers, $questionDataProviderList[0]->getAnswers());
 
+        self::assertSame('O_in_Solid', $questionDataProviderList[1]->getSlug());
         self::assertSame('What does O in SOLID mean?', $questionDataProviderList[1]->getQuestion());
         self::assertSame([2], $questionDataProviderList[1]->getRightQuestions());
 

@@ -7,33 +7,27 @@ use App\Components\UserQuestion\Persistence\Mapper\UserQuestionMapper;
 use App\DataTransferObject\UserQuestionDataProvider;
 use App\Entity\UserQuestion;
 use App\Repository\UserRepository;
-use \App\Repository\QuestionRepository;
 
 class UserQuestionRepository implements UserQuestionRepositoryInterface
 {
     public function __construct(
-        private \App\Repository\UserQuestionRepository $userExamRepository,
         private UserRepository $userRepository,
-        private QuestionRepository $questionRepository,
+        private \App\Repository\UserQuestionRepository $userQuestionRepository,
         private UserQuestionMapper $mapper,
     )
     {
     }
 
-    public function getByExamQuestionAndUser(int $userId, int $questionId): ?UserQuestionDataProvider
+    public function getByUserAndExam(string $userEmail, string $questionSlug): ?UserQuestionDataProvider
     {
-        $user = $this->userRepository->find($userId);
-        $question = $this->questionRepository->find($questionId);
+        $user = $this->userRepository->findOneBy(['email' => $userEmail]);
 
-        $userExam = $this->userExamRepository->findOneBy([
-            'user' => $user,
-            'question' => $question,
-        ]);
+        $userQuestion = $this->userQuestionRepository->findOneBy(['questionSlug' => $questionSlug, 'user' => $user]);
 
-        if(!$userExam instanceof UserQuestion) {
+        if(!$userQuestion instanceof UserQuestion) {
             return null;
         }
 
-        return $this->mapper->map($userExam);
+        return $this->mapper->map($userQuestion);
     }
 }

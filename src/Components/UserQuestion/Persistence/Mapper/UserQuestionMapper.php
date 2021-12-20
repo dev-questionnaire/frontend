@@ -14,8 +14,8 @@ class UserQuestionMapper
 
         $userQuestionDataProvider
             ->setId($userQuestion->getId())
-            ->setUserId($userQuestion->getUser()->getId())
-            ->setQuestionId($userQuestion->getQuestion()->getId())
+            ->setUserEmail($userQuestion->getUser()->getUserIdentifier())
+            ->setQuestionSlug($userQuestion->getQuestionSlug())
             ->setAnswer($userQuestion->getAnswer())
             ->setCreatedAt($userQuestion->getCreatedAt()->format('d.m.Y'))
             ->setUpdatedAt($userQuestion->getUpdatedAt()->format('d.m.Y'));

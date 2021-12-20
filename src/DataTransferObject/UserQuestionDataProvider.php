@@ -10,11 +10,11 @@ final class UserQuestionDataProvider
     /** @var int */
     protected $id;
 
-    /** @var int */
-    protected $userId;
+    /** @var string */
+    protected $userEmail;
 
-    /** @var int */
-    protected $questionId;
+    /** @var string */
+    protected $questionSlug;
 
     /** @var bool */
     protected $answer = true;
@@ -68,21 +68,21 @@ final class UserQuestionDataProvider
 
 
     /**
-     * @return int
+     * @return string
      */
-    public function getUserId(): ?int
+    public function getUserEmail(): ?string
     {
-        return $this->userId;
+        return $this->userEmail;
     }
 
 
     /**
-     * @param int $userId
+     * @param string $userEmail
      * @return UserQuestionDataProvider
      */
-    public function setUserId(?int $userId = null)
+    public function setUserEmail(?string $userEmail = null)
     {
-        $this->userId = $userId;
+        $this->userEmail = $userEmail;
 
         return $this;
     }
@@ -91,50 +91,9 @@ final class UserQuestionDataProvider
     /**
      * @return UserQuestionDataProvider
      */
-    public function unsetUserId()
+    public function unsetUserEmail()
     {
-        $this->userId = null;
-
-        return $this;
-    }
-
-
-    /**
-     * @return bool
-     */
-    public function hasUserId()
-    {
-        return ($this->userId !== null && $this->userId !== []);
-    }
-
-
-    /**
-     * @return int
-     */
-    public function getQuestionId(): ?int
-    {
-        return $this->questionId;
-    }
-
-
-    /**
-     * @param int $questionId
-     * @return UserQuestionDataProvider
-     */
-    public function setQuestionId(?int $questionId = null)
-    {
-        $this->questionId = $questionId;
-
-        return $this;
-    }
-
-
-    /**
-     * @return UserQuestionDataProvider
-     */
-    public function unsetQuestionId()
-    {
-        $this->questionId = null;
+        $this->userEmail = null;
 
         return $this;
     }
@@ -143,9 +102,50 @@ final class UserQuestionDataProvider
     /**
      * @return bool
      */
-    public function hasQuestionId()
+    public function hasUserEmail()
     {
-        return ($this->questionId !== null && $this->questionId !== []);
+        return ($this->userEmail !== null && $this->userEmail !== []);
+    }
+
+
+    /**
+     * @return string
+     */
+    public function getQuestionSlug(): ?string
+    {
+        return $this->questionSlug;
+    }
+
+
+    /**
+     * @param string $questionSlug
+     * @return UserQuestionDataProvider
+     */
+    public function setQuestionSlug(?string $questionSlug = null)
+    {
+        $this->questionSlug = $questionSlug;
+
+        return $this;
+    }
+
+
+    /**
+     * @return UserQuestionDataProvider
+     */
+    public function unsetQuestionSlug()
+    {
+        $this->questionSlug = null;
+
+        return $this;
+    }
+
+
+    /**
+     * @return bool
+     */
+    public function hasQuestionSlug()
+    {
+        return ($this->questionSlug !== null && $this->questionSlug !== []);
     }
 
 
@@ -278,66 +278,66 @@ final class UserQuestionDataProvider
     protected function getElements(): array
     {
         return array (
-          'id' =>
-          array (
-            'name' => 'id',
-            'allownull' => true,
-            'default' => '',
-            'type' => 'int',
-            'is_collection' => false,
-            'is_dataprovider' => false,
-            'isCamelCase' => false,
-          ),
-          'userId' =>
-          array (
-            'name' => 'userId',
-            'allownull' => true,
-            'default' => '',
-            'type' => 'int',
-            'is_collection' => false,
-            'is_dataprovider' => false,
-            'isCamelCase' => false,
-          ),
-          'questionId' =>
-          array (
-            'name' => 'questionId',
-            'allownull' => true,
-            'default' => '',
-            'type' => 'int',
-            'is_collection' => false,
-            'is_dataprovider' => false,
-            'isCamelCase' => false,
-          ),
-          'answer' =>
-          array (
-            'name' => 'answer',
-            'allownull' => true,
-            'default' => 'null',
-            'type' => 'bool',
-            'is_collection' => false,
-            'is_dataprovider' => false,
-            'isCamelCase' => false,
-          ),
-          'createdAt' =>
-          array (
-            'name' => 'createdAt',
-            'allownull' => false,
-            'default' => '',
-            'type' => 'string',
-            'is_collection' => false,
-            'is_dataprovider' => false,
-            'isCamelCase' => false,
-          ),
-          'updatedAt' =>
-          array (
-            'name' => 'updatedAt',
-            'allownull' => false,
-            'default' => '',
-            'type' => 'string',
-            'is_collection' => false,
-            'is_dataprovider' => false,
-            'isCamelCase' => false,
-          ),
+            'id' =>
+                array (
+                    'name' => 'id',
+                    'allownull' => true,
+                    'default' => '',
+                    'type' => 'int',
+                    'is_collection' => false,
+                    'is_dataprovider' => false,
+                    'isCamelCase' => false,
+                ),
+            'userEmail' =>
+                array (
+                    'name' => 'userEmail',
+                    'allownull' => true,
+                    'default' => '',
+                    'type' => 'string',
+                    'is_collection' => false,
+                    'is_dataprovider' => false,
+                    'isCamelCase' => false,
+                ),
+            'questionSlug' =>
+                array (
+                    'name' => 'questionSlug',
+                    'allownull' => true,
+                    'default' => '',
+                    'type' => 'string',
+                    'is_collection' => false,
+                    'is_dataprovider' => false,
+                    'isCamelCase' => false,
+                ),
+            'answer' =>
+                array (
+                    'name' => 'answer',
+                    'allownull' => true,
+                    'default' => 'null',
+                    'type' => 'bool',
+                    'is_collection' => false,
+                    'is_dataprovider' => false,
+                    'isCamelCase' => false,
+                ),
+            'createdAt' =>
+                array (
+                    'name' => 'createdAt',
+                    'allownull' => false,
+                    'default' => '',
+                    'type' => 'string',
+                    'is_collection' => false,
+                    'is_dataprovider' => false,
+                    'isCamelCase' => false,
+                ),
+            'updatedAt' =>
+                array (
+                    'name' => 'updatedAt',
+                    'allownull' => false,
+                    'default' => '',
+                    'type' => 'string',
+                    'is_collection' => false,
+                    'is_dataprovider' => false,
+                    'isCamelCase' => false,
+                ),
         );
     }
 }

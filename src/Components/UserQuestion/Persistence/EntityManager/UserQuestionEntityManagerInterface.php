@@ -10,4 +10,6 @@ interface UserQuestionEntityManagerInterface
     public function create(UserQuestionDataProvider $userQuestionDataProvider): void;
 
     public function updateAnswer(UserQuestionDataProvider $userQuestionDataProvider): void;
+
+    public function delete(int $id): void;
 }

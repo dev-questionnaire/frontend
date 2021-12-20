@@ -16,6 +16,8 @@ final class QuestionDataProvider
     /** @var array */
     protected $answers;
 
+    /** @var string */
+    protected $slug;
 
     /**
      * @return string
@@ -139,6 +141,45 @@ final class QuestionDataProvider
         return ($this->answers !== null && $this->answers !== []);
     }
 
+    /**
+     * @return string
+     */
+    public function getSlug(): string
+    {
+        return $this->slug;
+    }
+
+
+    /**
+     * @param string $slug
+     * @return QuestionDataProvider
+     */
+    public function setSlug(string $slug)
+    {
+        $this->slug = $slug;
+
+        return $this;
+    }
+
+
+    /**
+     * @return QuestionDataProvider
+     */
+    public function unsetSlug()
+    {
+        $this->slug = null;
+
+        return $this;
+    }
+
+
+    /**
+     * @return bool
+     */
+    public function hasSlug()
+    {
+        return ($this->slug !== null && $this->slug !== []);
+    }
 
     /**
      * @return array
@@ -172,6 +213,16 @@ final class QuestionDataProvider
                     'allownull' => false,
                     'default' => '',
                     'type' => 'array',
+                    'is_collection' => false,
+                    'is_dataprovider' => false,
+                    'isCamelCase' => false,
+                ),
+            'slug' =>
+                array (
+                    'name' => 'slug',
+                    'allownull' => false,
+                    'default' => '',
+                    'type' => 'string',
                     'is_collection' => false,
                     'is_dataprovider' => false,
                     'isCamelCase' => false,
