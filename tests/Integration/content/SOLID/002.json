@@ -2,7 +2,7 @@
   "slug": "O_in_Solid",
   "question": "What does O in SOLID mean?",
   "right_question": [
-    2
+    "Open close"
   ],
   "answer": [
     "Open Relation",

@@ -7,5 +7,5 @@ use App\DataTransferObject\UserQuestionDataProvider;
 
 interface UserQuestionRepositoryInterface
 {
-    public function getByUserAndExam(string $userEmail, string $questionSlug): ?UserQuestionDataProvider;
+    public function getByUserAndQuestion(string $userEmail, string $questionSlug): ?UserQuestionDataProvider;
 }

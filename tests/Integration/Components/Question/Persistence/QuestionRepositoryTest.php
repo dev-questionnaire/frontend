@@ -18,7 +18,7 @@ class QuestionRepositoryTest extends KernelTestCase
         parent::setUp();
 
         $parameterBagStub = new ParameterBag([
-            'app_content_folder' => __DIR__ . '/content'
+            'app_content_folder' => __DIR__ . '/../../../content'
         ]);
         $this->questionRepository = new QuestionRepository(
             new QuestionMapper(),
@@ -34,7 +34,7 @@ class QuestionRepositoryTest extends KernelTestCase
 
         self::assertSame('S_in_Solid', $questionDataProviderList[0]->getSlug());
         self::assertSame('What does S in SOLID mean?', $questionDataProviderList[0]->getQuestion());
-        self::assertSame([0], $questionDataProviderList[0]->getRightQuestions());
+        self::assertSame(["Single possibility"], $questionDataProviderList[0]->getRightQuestions());
 
 
         $answers = [
@@ -48,7 +48,7 @@ class QuestionRepositoryTest extends KernelTestCase
 
         self::assertSame('O_in_Solid', $questionDataProviderList[1]->getSlug());
         self::assertSame('What does O in SOLID mean?', $questionDataProviderList[1]->getQuestion());
-        self::assertSame([2], $questionDataProviderList[1]->getRightQuestions());
+        self::assertSame(["Open close"], $questionDataProviderList[1]->getRightQuestions());
 
 
         $answers = [

@@ -18,7 +18,7 @@ class ExamRepositoryTest extends KernelTestCase
         parent::setUp();
 
         $parameterBagStub = new ParameterBag([
-            'app_content_folder' => __DIR__ . '/content'
+            'app_content_folder' => __DIR__ . '/../../../content'
         ]);
         $this->examRepository = new ExamRepository(
             new ExamMapper(),

@@ -72,7 +72,7 @@ class UserQuestionEntityManagerAndRepositoryTest extends KernelTestCase
 
         $this->userQuestionEntityManager->create($userQuestionDataProvider);
 
-        $userQuestionDataProvider = $this->userQuestionRepository->getByUserAndExam('test@email.com', 'slug');
+        $userQuestionDataProvider = $this->userQuestionRepository->getByUserAndQuestion('test@email.com', 'slug');
 
         $currentDate = (new \DateTime())->format('d.m.Y');
 
@@ -85,13 +85,13 @@ class UserQuestionEntityManagerAndRepositoryTest extends KernelTestCase
 
         $userQuestionDataProvider->setAnswer(false);
         $this->userQuestionEntityManager->updateAnswer($userQuestionDataProvider);
-        $userQuestionDataProvider = $this->userQuestionRepository->getByUserAndExam('test@email.com', 'slug');
+        $userQuestionDataProvider = $this->userQuestionRepository->getByUserAndQuestion('test@email.com', 'slug');
 
         self::assertFalse($userQuestionDataProvider->getAnswer());
 
         $this->userQuestionEntityManager->delete($userQuestionDataProvider->getId());
 
-        $userQuestionDataProvider = $this->userQuestionRepository->getByUserAndExam('test@email.com', 'slug');
+        $userQuestionDataProvider = $this->userQuestionRepository->getByUserAndQuestion('test@email.com', 'slug');
         self::assertNull($userQuestionDataProvider);
     }
 }

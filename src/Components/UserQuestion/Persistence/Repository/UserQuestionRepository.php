@@ -18,7 +18,7 @@ class UserQuestionRepository implements UserQuestionRepositoryInterface
     {
     }
 
-    public function getByUserAndExam(string $userEmail, string $questionSlug): ?UserQuestionDataProvider
+    public function getByUserAndQuestion(string $userEmail, string $questionSlug): ?UserQuestionDataProvider
     {
         $user = $this->userRepository->findOneBy(['email' => $userEmail]);
 
