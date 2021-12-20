@@ -7,7 +7,7 @@
         {%  for exam in examList %}
             <div>
                 <a href="{{ path("app_question", {examSlug: exam.slug}) }}" title="{{ exam.name }}">
-                    <img src="/images/exam/examThumbnail.png" alt="{{ exam.name }}">
+                    <img src="/images/examThumbnails/{{ exam.slug }}.jpg" alt="{{ exam.name }}">
                 </a>
                 <h3>//<a href="{{ path('app_question', {examSlug: exam.slug}) }}">{{ exam.name }}</a></h3>
             </div>
