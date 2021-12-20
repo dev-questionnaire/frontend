@@ -13,6 +13,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\User\UserInterface;
+use function Symfony\Component\String\b;
 
 class QuestionController extends AbstractController
 {
@@ -36,7 +37,7 @@ class QuestionController extends AbstractController
 
         if($currentQuestionDataProvider === null)
         {
-            return $this->redirectToRoute('app_exam');
+            return $this->redirectToRoute('app_exam_result', ['exam' => $exam]);
         }
 
         //Build Form
@@ -57,9 +58,14 @@ class QuestionController extends AbstractController
         if ($form->isSubmitted()) {
             $data = $form->getData();
 
-            $answer = false;
+            $answer = null;
 
             foreach ($data as $key => $value) {
+                if($answer === false)
+                {
+                    break;
+                }
+
                 if($value === false)
                 {
                     continue;
@@ -72,6 +78,7 @@ class QuestionController extends AbstractController
                         continue;
                     }
                     $answer = false;
+                    break;
                 }
             }
             $userQuestionDataProvider = $this->getUserQuestionDataProvider($userEmail, $currentQuestionDataProvider->getSlug());
