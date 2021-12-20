@@ -10,5 +10,5 @@ interface QuestionRepositoryInterface
     /**
      * @return QuestionDataProvider[]
      */
-    public function getByExam(string $exam): array;
+    public function getByExamSlug(string $examSlug): array;
 }

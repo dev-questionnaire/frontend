@@ -8,5 +8,5 @@ interface BridgeQuestionInterface
     /**
      * @return \App\DataTransferObject\QuestionDataProvider[]
      */
-    public function getByExam(string $exam): array;
+    public function getByExamSlug(string $exam): array;
 }

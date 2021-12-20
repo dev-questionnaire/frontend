@@ -28,11 +28,11 @@ class QuestionRepositoryTest extends KernelTestCase
 
     public function testGetByExamAndQuestionPositiv(): void
     {
-        $questionDataProviderList = $this->questionRepository->getByExam('SOLID');
+        $questionDataProviderList = $this->questionRepository->getByExamSlug('solid');
 
         self::assertCount(2, $questionDataProviderList);
 
-        self::assertSame('S_in_Solid', $questionDataProviderList[0]->getSlug());
+        self::assertSame('s_in_solid', $questionDataProviderList[0]->getSlug());
         self::assertSame('What does S in SOLID mean?', $questionDataProviderList[0]->getQuestion());
         self::assertSame(["Single possibility"], $questionDataProviderList[0]->getRightQuestions());
 
@@ -46,7 +46,7 @@ class QuestionRepositoryTest extends KernelTestCase
 
         self::assertSame($answers, $questionDataProviderList[0]->getAnswers());
 
-        self::assertSame('O_in_Solid', $questionDataProviderList[1]->getSlug());
+        self::assertSame('o_in_solid', $questionDataProviderList[1]->getSlug());
         self::assertSame('What does O in SOLID mean?', $questionDataProviderList[1]->getQuestion());
         self::assertSame(["Open close"], $questionDataProviderList[1]->getRightQuestions());
 
@@ -63,7 +63,7 @@ class QuestionRepositoryTest extends KernelTestCase
 
     public function testGetByExamAndQuestionNegativ(): void
     {
-        $questionDataProviderList = $this->questionRepository->getByExam('');
+        $questionDataProviderList = $this->questionRepository->getByExamSlug('');
 
         self::assertEmpty($questionDataProviderList);
     }

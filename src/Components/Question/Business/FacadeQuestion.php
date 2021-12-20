@@ -16,8 +16,8 @@ class FacadeQuestion implements FacadeQuestionInterface
     /**
      * @return \App\DataTransferObject\QuestionDataProvider[]
      */
-    public function getByExam(string $exam): array
+    public function getByExamSlug(string $slug): array
     {
-        return $this->questionRepository->getByExam($exam);
+        return $this->questionRepository->getByExamSlug($slug);
     }
 }

@@ -30,15 +30,14 @@ class ExamController extends AbstractController
         ]);
     }
 
-    #[Route("/{exam}/result", name: "app_exam_result")]
-    public function result(UserInterface $user, string $exam): Response
+    #[Route("/{examSlug}/result", name: "app_exam_result")]
+    public function result(UserInterface $user, string $examSlug): Response
     {
-        //TODO add Slug to exam to get Data with slug not with exam name!
         $userEmail = $user->getUserIdentifier();
 
-        $examDataProvider = $this->examRepository->getByName($exam);
+        $examDataProvider = $this->examRepository->getBySlug($examSlug);
 
-        $questionDataProviderList = $this->bridgeQuestion->getByExam($examDataProvider->getName());
+        $questionDataProviderList = $this->bridgeQuestion->getByExamSlug($examSlug);
 
         $questionQuantity = count($questionDataProviderList);
         $countQuestions = 0;
@@ -47,7 +46,7 @@ class ExamController extends AbstractController
             $userQuestionDataProvider = $this->bridgeUserQuestion->getByUserAndQuestion($userEmail, $questionDataProvider->getSlug());
 
             if ($userQuestionDataProvider === null) {
-                return $this->redirectToRoute('app_question', ['exam' => $exam]);
+                return $this->redirectToRoute('app_question', ['examSlug' => $examSlug]);
             }
 
             if ($userQuestionDataProvider->getAnswer() === true) {

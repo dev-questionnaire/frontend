@@ -20,11 +20,11 @@ class ExamRepository implements ExamRepositoryInterface
         $this->pathToFolder = $params->get('app_content_folder');
     }
 
-    public function getByName(string $exam): ?ExamDataProvider
+    public function getBySlug(string $slug): ?ExamDataProvider
     {
         $examDataProvider = null;
 
-        if (empty($exam)) {
+        if (empty($slug)) {
             return null;
         }
 
@@ -32,7 +32,7 @@ class ExamRepository implements ExamRepositoryInterface
             ->in($this->pathToFolder . '/*/')
             ->name('index.json')
             ->sortByName()
-            ->files()->contains(['exam' => $exam]);
+            ->files()->contains(['slug' => $slug]);
 
         foreach ($fileList as $file) {
             $examDataProvider = $this->examMapper->map($file->getPathname());

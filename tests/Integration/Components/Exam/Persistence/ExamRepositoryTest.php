@@ -33,22 +33,25 @@ class ExamRepositoryTest extends KernelTestCase
         self::assertCount(2, $examDataProviderList);
         self::assertSame('OOP', $examDataProviderList[0]->getName());
         self::assertSame('SOLID', $examDataProviderList[1]->getName());
+
+        self::assertSame('oop', $examDataProviderList[0]->getSlug());
+        self::assertSame('solid', $examDataProviderList[1]->getSlug());
     }
 
     public function testGetByNamePositiv(): void
     {
-        $examDataProvider = $this->examRepository->getByName('OOP');
+        $examDataProvider = $this->examRepository->getBySlug('oop');
 
         self::assertSame('OOP', $examDataProvider->getName());
     }
 
     public function testGetByNameNegativ(): void
     {
-        $result = $this->examRepository->getByName('Test');
+        $result = $this->examRepository->getBySlug('Test');
 
         self::assertNull($result);
 
-        $result = $this->examRepository->getByName('');
+        $result = $this->examRepository->getBySlug('');
 
         self::assertNull($result);
     }

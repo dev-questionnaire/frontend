@@ -11,6 +11,9 @@ final class ExamDataProvider
     /** @var string */
     protected $name;
 
+    /** @var string */
+    protected $slug;
+
     /**
      * @return string
      */
@@ -52,6 +55,46 @@ final class ExamDataProvider
     }
 
     /**
+     * @return string
+     */
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+
+    /**
+     * @param string $slug
+     * @return ExamDataProvider
+     */
+    public function setSlug(?string $slug = null)
+    {
+        $this->slug = $slug;
+
+        return $this;
+    }
+
+
+    /**
+     * @return ExamDataProvider
+     */
+    public function unsetSlug()
+    {
+        $this->slug = null;
+
+        return $this;
+    }
+
+
+    /**
+     * @return bool
+     */
+    public function hasSlug()
+    {
+        return ($this->slug !== null && $this->slug !== []);
+    }
+
+    /**
      * @return array
      */
     protected function getElements(): array
@@ -60,6 +103,16 @@ final class ExamDataProvider
             'name' =>
                 [
                     'name' => 'name',
+                    'allownull' => false,
+                    'default' => '',
+                    'type' => 'string',
+                    'is_collection' => false,
+                    'is_dataprovider' => false,
+                    'isCamelCase' => false,
+                ],
+            'slug' =>
+                [
+                    'name' => 'slug',
                     'allownull' => false,
                     'default' => '',
                     'type' => 'string',

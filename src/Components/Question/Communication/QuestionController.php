@@ -2,6 +2,7 @@
 
 namespace App\Components\Question\Communication;
 
+use App\Components\Question\Dependency\BridgeExamInterface;
 use App\Components\Question\Dependency\BridgeUserQuestionInterface;
 use App\Components\Question\Persistence\Repository\QuestionRepositoryInterface;
 use App\DataTransferObject\QuestionDataProvider;
@@ -13,23 +14,23 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\User\UserInterface;
-use function Symfony\Component\String\b;
 
 class QuestionController extends AbstractController
 {
     public function __construct(
         private QuestionRepositoryInterface $questionRepository,
         private BridgeUserQuestionInterface $bridgeUserQuestion,
+        private BridgeExamInterface $bridgeExam,
     )
     {
     }
 
     /**
-     * @Route ("/exam/{exam}/question", name="app_question")
+     * @Route ("/exam/{examSlug}/question", name="app_question")
      */
-    public function index(Request $request, UserInterface $user, string $exam): Response
+    public function index(Request $request, UserInterface $user, string $examSlug): Response
     {
-        $questionDataProviderList = $this->questionRepository->getByExam($exam);
+        $questionDataProviderList = $this->questionRepository->getByExamSlug($examSlug);
 
         $userEmail = $user->getUserIdentifier();
 
@@ -37,7 +38,7 @@ class QuestionController extends AbstractController
 
         if($currentQuestionDataProvider === null)
         {
-            return $this->redirectToRoute('app_exam_result', ['exam' => $exam]);
+            return $this->redirectToRoute('app_exam_result', ['examSlug' => $examSlug]);
         }
 
         //Build Form
@@ -86,8 +87,10 @@ class QuestionController extends AbstractController
 
             $this->bridgeUserQuestion->update($userQuestionDataProvider);
 
-            return $this->redirectToRoute('app_question', ['exam' => $exam]);
+            return $this->redirectToRoute('app_question', ['examSlug' => $examSlug]);
         }
+
+        $exam = $this->bridgeExam->getBySlug($examSlug);
 
         //Render
         return $this->renderForm('question/question.html.twig', [

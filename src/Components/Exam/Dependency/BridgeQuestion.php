@@ -16,8 +16,8 @@ class BridgeQuestion implements BridgeQuestionInterface
     /**
      * @return \App\DataTransferObject\QuestionDataProvider[]
      */
-    public function getByExam(string $exam): array
+    public function getByExamSlug(string $exam): array
     {
-        return $this->facadeQuestion->getByExam($exam);
+        return $this->facadeQuestion->getByExamSlug($exam);
     }
 }

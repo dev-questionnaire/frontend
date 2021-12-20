@@ -35,10 +35,10 @@ class BridgeQuestionTest extends KernelTestCase
 
     public function testGetByExam(): void
     {
-        $questionList = $this->bridgeQuestion->getByExam('SOLID');
+        $questionList = $this->bridgeQuestion->getByExamSlug('solid');
         self::assertCount(2, $questionList);
 
-        $questionList = $this->bridgeQuestion->getByExam('');
+        $questionList = $this->bridgeQuestion->getByExamSlug('');
         self::assertEmpty($questionList);
     }
 }

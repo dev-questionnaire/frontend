@@ -23,16 +23,16 @@ class QuestionRepository implements QuestionRepositoryInterface
     /**
      * @return QuestionDataProvider[]
      */
-    public function getByExam(string $exam): array
+    public function getByExamSlug(string $examSlug): array
     {
         $questionDataProviderList = [];
 
-        if (empty($exam)) {
+        if (empty($examSlug)) {
             return [];
         }
 
         $fileList = (new Finder())
-            ->in($this->pathToFolder . '/' . $exam . '/')
+            ->in($this->pathToFolder . '/' . $examSlug . '/')
             ->name('*.json')
             ->sortByName()
             ->files()->contains('question');
