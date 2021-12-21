@@ -4,10 +4,6 @@
 }
 
 body {
-    background-image: url("/../images/valantic.png");
-    background-repeat: no-repeat;
-    background-size: cover;
-
     background-color: white;
     font-family: Arial, SansSerif;
 }
@@ -38,22 +34,11 @@ a:hover {
 }
 
 #body {
-    color: white;
     padding: 1%;
 }
 
 #body tr, td, th {
     padding: 1%;
-}
-
-#body a
-{
-    color: white;
-}
-
-#body a:hover
-{
-    color: black;
 }
 
 #footer {

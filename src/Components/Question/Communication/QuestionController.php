@@ -46,7 +46,7 @@ class QuestionController extends AbstractController
 
         foreach ($currentQuestionDataProvider->getAnswers() as $answer)
         {
-            $formBuilder->add(str_replace(' ', '_', $answer), CheckboxType::class, array('required' => false));
+            $formBuilder->add(str_replace(' ', '_', $answer), CheckboxType::class, ['required' => false]);
         }
 
         $formBuilder->add('next_question', SubmitType::class);
