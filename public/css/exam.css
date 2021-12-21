@@ -1,10 +1,16 @@
 #exams {
+    width:  80%;
     margin: auto;
-    width:  50%;
-    display: grid;
-    grid-template-columns: auto auto auto auto;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
 }
 
-#exams img{
-    width: 75%;
+#exams>div{
+    width: 25%;
+    padding: 2%;
+}
+
+#exams>div>div, img{
+    width: 100%;
 }

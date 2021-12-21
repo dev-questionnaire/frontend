@@ -4,12 +4,16 @@
 {% endblock %}
 {% block body %}
     <div id="exams">
-        {%  for exam in examList %}
+        {% for exam in examList %}
             <div>
-                <a href="{{ path("app_question", {examSlug: exam.slug}) }}" title="{{ exam.name }}">
-                    <img src="/images/examThumbnails/{{ exam.slug }}.jpg" alt="{{ exam.name }}">
-                </a>
-                <h3>//<a href="{{ path('app_question', {examSlug: exam.slug}) }}">{{ exam.name }}</a></h3>
+                <div>
+                    <a href="{{ path("app_question", {examSlug: exam.slug}) }}" title="{{ exam.name }}">
+                        <img src="/images/examThumbnails/{{ exam.slug }}.jpg" alt="{{ exam.name }}">
+                    </a>
+                </div>
+                <div>
+                    <h3>//<a href="{{ path('app_question', {examSlug: exam.slug}) }}">{{ exam.name }}</a></h3>
+                </div>
             </div>
         {% endfor %}
     </div>
