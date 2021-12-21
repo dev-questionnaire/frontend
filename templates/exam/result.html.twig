@@ -1,6 +1,26 @@
 {% extends "base.html.twig" %}
 {% block body %}
-    <h1>{{ exam.name }}</h1>
-    <br />
-    <h2>Score: {{ examPercent }} %</h2>
+    <h1>{{ exam.name }} | Score: {{ examPercent }} %</h1>
+    <br/>
+    {% for question in questionList %}
+        <p>{{ question.question }}
+        {% if userQuestionList[question.slug].answer == true %}
+            <span style="color: green">&#10004</span>
+            {% else %}
+            <span style="color: red">&#10008</span>
+        {% endif %}
+        </p>
+        <ul>
+        {% for answer in question.answers %}
+            <li><span
+                {% for rightQuestion in question.rightQuestions %}
+                    {% if rightQuestion == answer %}
+                        style="color: green"
+                    {% endif %}
+                {% endfor %}
+            style="color: red">{{ answer }}</span></li>
+        {% endfor %}
+        </ul>
+        <br />
+    {% endfor %}
 {% endblock %}

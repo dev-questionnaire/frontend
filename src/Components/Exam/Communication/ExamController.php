@@ -47,6 +47,8 @@ class ExamController extends AbstractController
         foreach ($questionDataProviderList as $key => $questionDataProvider) {
             $userQuestionDataProvider = $userQuestionDataProviderList[$questionDataProvider->getSlug()];
 
+            $userQuestionDataProviderList[$key] = $userQuestionDataProvider;
+
             if ($userQuestionDataProvider === null) {
                 return $this->redirectToRoute('app_question', ['examSlug' => $examSlug]);
             }
@@ -65,6 +67,8 @@ class ExamController extends AbstractController
         return $this->render('exam/result.html.twig', [
             'exam' => $examDataProvider,
             'examPercent' => $calculatedPercent,
+            'questionList' => $questionDataProviderList,
+            'userQuestionList' => $userQuestionDataProviderList,
         ]);
     }
 }

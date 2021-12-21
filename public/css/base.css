@@ -45,3 +45,8 @@ a:hover {
     background-color: white;
     padding: 1%;
 }
+
+#body ul
+{
+    margin-left: 30px;
+}
