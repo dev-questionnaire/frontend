@@ -6,7 +6,7 @@ namespace App\Components\User\Business\Model\Verification;
 use App\DataTransferObject\ErrorDataProvider;
 use App\DataTransferObject\UserDataProvider;
 
-class ValidatePasswords implements validateCollectionInterface
+class ValidatePasswords implements ValidateCollectionInterface
 {
     public function getErrors(UserDataProvider $userDTO, ErrorDataProvider $errorDataProvider): ErrorDataProvider
     {

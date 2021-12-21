@@ -122,7 +122,7 @@
         "version": "0.2.5"
     },
     "infection/infection": {
-        "version": "0.25.4"
+        "version": "0.25.5"
     },
     "justinrainbow/json-schema": {
         "version": "5.2.11"
