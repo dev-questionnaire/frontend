@@ -73,13 +73,12 @@ class QuestionController extends AbstractController
                 }
 
                 foreach ($currentQuestionDataProvider->getRightQuestions() as $rightQuestion) {
-                    if(str_replace(' ', '_', $rightQuestion) === $key) {
+                    if(str_replace(' ', '_', (string)$rightQuestion) === (string)$key) {
                         $answer = true;
 
-                        continue;
+                        break;
                     }
                     $answer = false;
-                    break;
                 }
             }
             $userQuestionDataProvider = $this->getUserQuestionDataProvider($userEmail, $currentQuestionDataProvider->getSlug());

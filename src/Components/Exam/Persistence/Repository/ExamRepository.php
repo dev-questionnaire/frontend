@@ -20,7 +20,7 @@ class ExamRepository implements ExamRepositoryInterface
         $this->pathToFolder = $params->get('app_content_folder');
     }
 
-    public function getBySlug(string $slug): ?ExamDataProvider
+    public function getBySlug(string $slug):  ?ExamDataProvider
     {
         $examDataProvider = null;
 
