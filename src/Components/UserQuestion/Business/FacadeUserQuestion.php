@@ -29,7 +29,7 @@ class FacadeUserQuestion implements FacadeUserQuestionInterface
         $this->userQuestionEntityManager->create($userQuestionDataProvider);
     }
 
-    public function update(UserQuestionDataProvider $userQuestionDataProvider): void
+    public function updateAnswer(UserQuestionDataProvider $userQuestionDataProvider): void
     {
         $this->userQuestionEntityManager->updateAnswer($userQuestionDataProvider);
     }

@@ -85,7 +85,7 @@ class QuestionController extends AbstractController
             $userQuestionDataProvider = $this->getUserQuestionDataProvider($userEmail, $currentQuestionDataProvider->getSlug());
             $userQuestionDataProvider->setAnswer($answer);
 
-            $this->bridgeUserQuestion->update($userQuestionDataProvider);
+            $this->bridgeUserQuestion->updateAnswer($userQuestionDataProvider);
 
             return $this->redirectToRoute('app_question', ['examSlug' => $examSlug]);
         }

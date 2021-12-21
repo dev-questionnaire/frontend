@@ -19,9 +19,9 @@ class BridgeUserQuestion implements BridgeUserQuestionInterface
         $this->facadeUserQuestion->create($questionSlug, $examSlug, $userEmail);
     }
 
-    public function update(UserQuestionDataProvider $userQuestionDataProvider): void
+    public function updateAnswer(UserQuestionDataProvider $userQuestionDataProvider): void
     {
-        $this->facadeUserQuestion->update($userQuestionDataProvider);
+        $this->facadeUserQuestion->updateAnswer($userQuestionDataProvider);
     }
 
     public function delete(int $id): void

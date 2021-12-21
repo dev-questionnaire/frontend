@@ -83,7 +83,7 @@ class BridgeUserQuestionTest extends KernelTestCase
 
         $userQuestionDataProvider->setAnswer(false);
 
-        $this->bridgeUserQuestion->update($userQuestionDataProvider);
+        $this->bridgeUserQuestion->updateAnswer($userQuestionDataProvider);
 
         $userQuestionDataProvider = $this->bridgeUserQuestion->getByUserAndQuestion('test@email.com', 'slug');
         self::assertFalse($userQuestionDataProvider->getAnswer());
