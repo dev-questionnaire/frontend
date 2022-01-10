@@ -1,10 +1,9 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Tests\Application\Components\ExamCommunication;
+namespace App\Tests\Application\Components\UserCommunication;
 
 use App\Entity\User;
-use App\Entity\UserQuestion;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManager;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
@@ -12,7 +11,7 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
-class ExamControllerTest extends WebTestCase
+class UserControllerTest extends WebTestCase
 {
     private ?EntityManager $entityManager;
     private ContainerInterface $container;
@@ -60,20 +59,24 @@ class ExamControllerTest extends WebTestCase
         $this->entityManager = null;
     }
 
-    public function testAppExam(): void
+    public function testAppUserRegister(): void
     {
-        $crawler = $this->client->request('GET', '/');
-
-        self::assertResponseIsSuccessful();
-        self::assertSelectorTextContains('h1', 'Exams');
-        self::assertCount(4, $crawler->filter('.exam'));
-    }
-
-    public function testAppExamResult(): void
-    {
-        $crawler = $this->client->request('GET', '/oop/result');
+        $crawler = $this->client->request('GET', '/user/register');
 
         self::assertResponseIsSuccessful();
     }
 
+    public function testAppUserProfile(): void
+    {
+        $crawler = $this->client->request('GET', '/user/profile');
+
+        self::assertResponseIsSuccessful();
+    }
+
+    public function testAppUserDelete(): void
+    {
+        $crawler = $this->client->request('GET', '/user/delete');
+
+        self::assertResponseIsSuccessful();
+    }
 }

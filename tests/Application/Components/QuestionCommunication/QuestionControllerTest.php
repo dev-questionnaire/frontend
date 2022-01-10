@@ -1,10 +1,9 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Tests\Application\Components\ExamCommunication;
+namespace App\Tests\Application\Components\QuestionCommunication;
 
 use App\Entity\User;
-use App\Entity\UserQuestion;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManager;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
@@ -12,7 +11,7 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
-class ExamControllerTest extends WebTestCase
+class QuestionControllerTest extends WebTestCase
 {
     private ?EntityManager $entityManager;
     private ContainerInterface $container;
@@ -52,28 +51,22 @@ class ExamControllerTest extends WebTestCase
 
         $connection = $this->entityManager->getConnection();
 
+        $connection->executeQuery('SET FOREIGN_KEY_CHECKS = 0');
+        $connection->executeQuery('DELETE FROM user_question');
+        $connection->executeQuery('ALTER TABLE user_question AUTO_INCREMENT=0');
         $connection->executeQuery('DELETE FROM user');
         $connection->executeQuery('ALTER TABLE user AUTO_INCREMENT=0');
+        $connection->executeQuery('SET FOREIGN_KEY_CHECKS = 1');
 
         $connection->close();
 
         $this->entityManager = null;
     }
 
-    public function testAppExam(): void
+    public function testAppQuestion(): void
     {
-        $crawler = $this->client->request('GET', '/');
-
-        self::assertResponseIsSuccessful();
-        self::assertSelectorTextContains('h1', 'Exams');
-        self::assertCount(4, $crawler->filter('.exam'));
-    }
-
-    public function testAppExamResult(): void
-    {
-        $crawler = $this->client->request('GET', '/oop/result');
+        $crawler = $this->client->request('GET', '/exam/solid/question');
 
         self::assertResponseIsSuccessful();
     }
-
 }

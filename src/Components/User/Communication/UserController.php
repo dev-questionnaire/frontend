@@ -80,8 +80,6 @@ class UserController extends AbstractController
     {
         $userDTO = $this->userRepository->getByEmail($user->getUserIdentifier());
 
-        //TODO to logout User bevor deleting it why does this work? https://stackoverflow.com/questions/49401265/symfony-4-good-practice-to-remove-your-own-user-account-while-connected
-        $session = $this->get('session');
         $session = new Session();
         $session->invalidate();
 

@@ -5,7 +5,7 @@
 {% block body %}
     <div id="exams">
         {% for exam in examList %}
-            <div>
+            <div class="exam">
                 <div>
                     <a href="{{ path("app_question", {examSlug: exam.slug}) }}" title="{{ exam.name }}">
                         <img src="/images/examThumbnails/{{ exam.slug }}.jpg" alt="{{ exam.name }}">
