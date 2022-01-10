@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Components\Question\Dependency;
 
 use App\Components\UserQuestion\Business\FacadeUserQuestionInterface;
+use App\DataTransferObject\QuestionDataProvider;
 use App\DataTransferObject\UserQuestionDataProvider;
 
 class BridgeUserQuestion implements BridgeUserQuestionInterface
@@ -19,8 +20,34 @@ class BridgeUserQuestion implements BridgeUserQuestionInterface
         $this->facadeUserQuestion->create($questionSlug, $examSlug, $userEmail);
     }
 
-    public function updateAnswer(UserQuestionDataProvider $userQuestionDataProvider): void
+    public function updateAnswer(QuestionDataProvider $questionDataProvider, $user, $formData): void
     {
+        $answer = null;
+
+        foreach ($formData as $key => $value) {
+            if($answer === false)
+            {
+                break;
+            }
+
+            if($value === false)
+            {
+                continue;
+            }
+
+            foreach ($questionDataProvider->getRightQuestions() as $rightQuestion) {
+                if(str_replace(' ', '_', (string)$rightQuestion) === (string)$key) {
+                    $answer = true;
+
+                    break;
+                }
+                $answer = false;
+            }
+        }
+
+        $userQuestionDataProvider = $this->getByUserAndQuestion($user, $questionDataProvider->getSlug());
+        $userQuestionDataProvider->setAnswer($answer);
+
         $this->facadeUserQuestion->updateAnswer($userQuestionDataProvider);
     }
 

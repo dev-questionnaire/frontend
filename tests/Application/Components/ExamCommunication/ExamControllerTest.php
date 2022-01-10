@@ -4,7 +4,6 @@ declare(strict_types=1);
 namespace App\Tests\Application\Components\ExamCommunication;
 
 use App\Entity\User;
-use App\Entity\UserQuestion;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManager;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
@@ -65,7 +64,6 @@ class ExamControllerTest extends WebTestCase
         $crawler = $this->client->request('GET', '/');
 
         self::assertResponseIsSuccessful();
-        self::assertSelectorTextContains('h1', 'Exams');
         self::assertCount(4, $crawler->filter('.exam'));
     }
 

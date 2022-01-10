@@ -59,32 +59,7 @@ class QuestionController extends AbstractController
         if ($form->isSubmitted()) {
             $data = $form->getData();
 
-            $answer = null;
-
-            foreach ($data as $key => $value) {
-                if($answer === false)
-                {
-                    break;
-                }
-
-                if($value === false)
-                {
-                    continue;
-                }
-
-                foreach ($currentQuestionDataProvider->getRightQuestions() as $rightQuestion) {
-                    if(str_replace(' ', '_', (string)$rightQuestion) === (string)$key) {
-                        $answer = true;
-
-                        break;
-                    }
-                    $answer = false;
-                }
-            }
-            $userQuestionDataProvider = $this->getUserQuestionDataProvider($userEmail, $currentQuestionDataProvider->getSlug());
-            $userQuestionDataProvider->setAnswer($answer);
-
-            $this->bridgeUserQuestion->updateAnswer($userQuestionDataProvider);
+            $this->bridgeUserQuestion->updateAnswer($currentQuestionDataProvider, $userEmail, $data);
 
             return $this->redirectToRoute('app_question', ['examSlug' => $examSlug]);
         }
