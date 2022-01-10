@@ -31,8 +31,12 @@ class QuestionRepository implements QuestionRepositoryInterface
             return [];
         }
 
-        $fileList = (new Finder())
-            ->in($this->pathToFolder . '/' . $examSlug . '/')
+        $finder = new Finder();
+
+        $path = "{$this->pathToFolder}/{$examSlug}/";
+
+        $fileList = $finder
+            ->in($path)
             ->name('*.json')
             ->sortByName()
             ->files()->contains('question');

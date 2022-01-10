@@ -28,8 +28,12 @@ class ExamRepository implements ExamRepositoryInterface
             return null;
         }
 
-        $fileList = (new Finder())
-            ->in($this->pathToFolder . '/*/')
+        $finder = new Finder();
+
+        $path = "{$this->pathToFolder}/*/";
+
+        $fileList = $finder
+            ->in($path)
             ->name('index.json')
             ->sortByName()
             ->files()->contains(['slug' => $slug]);
@@ -48,8 +52,12 @@ class ExamRepository implements ExamRepositoryInterface
     {
         $examDataProviderList = [];
 
-        $fileList = (new Finder())
-            ->in($this->pathToFolder . '/*/')
+        $finder = new Finder();
+
+        $path = "{$this->pathToFolder}/*/";
+
+        $fileList = $finder
+            ->in($path)
             ->name('index.json')
             ->sortByName();
 
