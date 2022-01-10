@@ -14,10 +14,11 @@ class SecurityController extends AbstractController
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
         //TODO having problems with login symfony form
-        //$form = $this->createForm(Login::class);
+        $form = $this->createForm(Login::class);
 
         return $this->renderForm('security/login.html.twig', [
             'error' => $authenticationUtils->getLastAuthenticationError(),
+            'form' => $form,
         ]);
     }
 

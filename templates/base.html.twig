@@ -16,9 +16,11 @@
         <div>
             {% if not app.user %}
                 <a href="{{ path("app_login") }}">Log In</a>
+                |
                 <a href="{{ path("app_user_register") }}">Register</a>
             {% else %}
                 <a href="{{ path("app_user_profile") }}">{{ app.user.email }}</a>
+                |
                 <a href="{{ path("app_logout") }}">Log Out</a>
             {% endif %}
         </div>
