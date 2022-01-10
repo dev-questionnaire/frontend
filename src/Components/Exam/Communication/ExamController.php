@@ -49,7 +49,7 @@ class ExamController extends AbstractController
 
             $userQuestionDataProviderList[$key] = $userQuestionDataProvider;
 
-            if ($userQuestionDataProvider === null) {
+            if ($userQuestionDataProvider->getAnswer() === null) {
                 return $this->redirectToRoute('app_question', ['examSlug' => $examSlug]);
             }
 
