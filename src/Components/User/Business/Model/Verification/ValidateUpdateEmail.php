@@ -7,7 +7,7 @@ use App\DataTransferObject\ErrorDataProvider;
 use App\DataTransferObject\UserDataProvider;
 use App\Components\User\Persistence\Repository\UserRepository;
 
-class ValidateUpdateEmail implements validateCollectionInterface
+class ValidateUpdateEmail implements ValidateCollectionInterface
 {
     public function __construct(private UserRepository $userRepository)
     {
