@@ -5,6 +5,7 @@ namespace App\Components\UserQuestion\Business;
 
 use App\Components\UserQuestion\Persistence\EntityManager\UserQuestionEntityManagerInterface;
 use App\Components\UserQuestion\Persistence\Repository\UserQuestionRepositoryInterface;
+use App\DataTransferObject\QuestionDataProvider;
 use App\DataTransferObject\UserQuestionDataProvider;
 
 class FacadeUserQuestion implements FacadeUserQuestionInterface
@@ -29,8 +30,34 @@ class FacadeUserQuestion implements FacadeUserQuestionInterface
         $this->userQuestionEntityManager->create($userQuestionDataProvider);
     }
 
-    public function updateAnswer(UserQuestionDataProvider $userQuestionDataProvider): void
+    public function updateAnswer(QuestionDataProvider $questionDataProvider, string $userEmail, array $formData): void
     {
+        $answerCorrect = null;
+
+        foreach ($formData as $question => $answer) {
+            if($answerCorrect === false)
+            {
+                break;
+            }
+
+            if($answer === false)
+            {
+                continue;
+            }
+
+            foreach ($questionDataProvider->getRightQuestions() as $rightQuestion) {
+                if(str_replace(' ', '_', (string)$rightQuestion) === (string)$question) {
+                    $answerCorrect = true;
+
+                    break;
+                }
+                $answerCorrect = false;
+            }
+        }
+
+        $userQuestionDataProvider = $this->getByUserAndQuestion($userEmail, $questionDataProvider->getSlug());
+        $userQuestionDataProvider->setAnswer($answerCorrect);
+
         $this->userQuestionEntityManager->updateAnswer($userQuestionDataProvider);
     }
 

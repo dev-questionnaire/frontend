@@ -10,7 +10,7 @@ interface BridgeUserQuestionInterface
 {
     public function create(string $questionSlug, string $examSlug, string $userEmail): void;
 
-    public function updateAnswer(QuestionDataProvider $questionDataProvider, $user, $formData): void;
+    public function updateAnswer(QuestionDataProvider $questionDataProvider, string $userEmail, array $formData): void;
 
     public function delete(int $id): void;
 

@@ -20,35 +20,9 @@ class BridgeUserQuestion implements BridgeUserQuestionInterface
         $this->facadeUserQuestion->create($questionSlug, $examSlug, $userEmail);
     }
 
-    public function updateAnswer(QuestionDataProvider $questionDataProvider, $user, $formData): void
+    public function updateAnswer(QuestionDataProvider $questionDataProvider, string $userEmail, array $formData): void
     {
-        $answerCorrect = null;
-
-        foreach ($formData as $question => $answer) {
-            if($answerCorrect === false)
-            {
-                break;
-            }
-
-            if($answer === false)
-            {
-                continue;
-            }
-
-            foreach ($questionDataProvider->getRightQuestions() as $rightQuestion) {
-                if(str_replace(' ', '_', (string)$rightQuestion) === (string)$question) {
-                    $answerCorrect = true;
-
-                    break;
-                }
-                $answerCorrect = false;
-            }
-        }
-
-        $userQuestionDataProvider = $this->getByUserAndQuestion($user, $questionDataProvider->getSlug());
-        $userQuestionDataProvider->setAnswer($answerCorrect);
-
-        $this->facadeUserQuestion->updateAnswer($userQuestionDataProvider);
+        $this->facadeUserQuestion->updateAnswer($questionDataProvider, $userEmail, $formData);
     }
 
     public function delete(int $id): void
