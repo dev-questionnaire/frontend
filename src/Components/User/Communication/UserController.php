@@ -34,7 +34,7 @@ class UserController extends AbstractController
         $form = $this->createForm(Register::class, $userDataProvider);
 
         $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() /**&& $form->isValid()**/) {
             $userDataProvider = $form->getData();
 
             $errors = $this->facadeUser->create($userDataProvider);
@@ -60,7 +60,7 @@ class UserController extends AbstractController
         $form = $this->createForm(Update::class, $userDataProvider);
 
         $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() /**&& $form->isValid()**/) {
             $userDataProvider = $form->getData();
 
             if ($userDataProvider->getEmail() !== $user->getUserIdentifier() || !password_verify($userDataProvider->getPassword(), $user->getPassword())) {
@@ -77,12 +77,13 @@ class UserController extends AbstractController
     #[Route("/user/delete", name: "app_user_delete")]
     public function deleteUser(UserInterface $user, Request $request): Response
     {
+        //TODO delete userQuestion Rows befor deleting user
         $userDTO = $this->userRepository->getByEmail($user->getUserIdentifier());
 
         $form = $this->createForm(Delete::class);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() /**&& $form->isValid()**/) {
             $session = new Session();
             $session->invalidate();
 

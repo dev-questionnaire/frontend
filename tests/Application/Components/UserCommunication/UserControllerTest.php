@@ -3,12 +3,15 @@ declare(strict_types=1);
 
 namespace App\Tests\Application\Components\UserCommunication;
 
+use App\DataFixtures\AppFixtures;
+use App\DataTransferObject\UserDataProvider;
 use App\Entity\User;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManager;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class UserControllerTest extends WebTestCase
@@ -27,20 +30,12 @@ class UserControllerTest extends WebTestCase
 
         $this->entityManager = $this->container->get('doctrine.orm.entity_manager');
 
-        $passwordHasher = $this->container->get(UserPasswordHasherInterface::class);
-
-        $user = new User();
-        $user
-            ->setEmail('test@email.com')
-            ->setPassword($passwordHasher->hashPassword($user, '123'))
-            ->setRoles(['ROLE_USER']);
-
-        $this->entityManager->persist($user);
-        $this->entityManager->flush();
+        $appFixtures = $this->container->get(AppFixtures::class);
+        $appFixtures->load($this->entityManager);
 
         $repository = $this->container->get(UserRepository::class);
 
-        $testUser = $repository->findOneBy(['email' => 'test@email.com']);
+        $testUser = $repository->findOneBy(['email' => 'user@email.com']);
 
         $this->client->loginUser($testUser);
     }
@@ -66,6 +61,26 @@ class UserControllerTest extends WebTestCase
         self::assertResponseIsSuccessful();
     }
 
+    public function testAppUserRegisterSubmit(): void
+    {
+        $crawler = $this->client->request(
+            'POST',
+            '/user/register',
+            [
+                'register' => [
+                    'email' => 'test@nexus-united.com',
+                    'password' => '!aA12345',
+                    'verificationPassword' => '!aA12345',
+                ],
+            ]
+        );
+
+        $userRepository = $this->container->get(\App\Components\User\Persistence\Repository\UserRepository::class);
+        $user = $userRepository->getByEmail('test@nexus-united.com');
+
+        self::assertInstanceOf(UserDataProvider::class, $user);
+    }
+
     public function testAppUserProfile(): void
     {
         $crawler = $this->client->request('GET', '/user/profile');
@@ -73,10 +88,49 @@ class UserControllerTest extends WebTestCase
         self::assertResponseIsSuccessful();
     }
 
+    public function testAppUserProfileSubmit(): void
+    {
+        $crawler = $this->client->request(
+            'POST',
+            '/user/profile',
+            [
+                'update' => [
+                    'email' => 'user@email.com',
+                    'password' => '!aA12345',
+                    'verificationPassword' => '!aA12345',
+                ],
+            ]
+        );
+
+        $userRepository = $this->container->get(\App\Components\User\Persistence\Repository\UserRepository::class);
+        $user = $userRepository->getByEmail('user@email.com');
+
+        self::assertInstanceOf(UserDataProvider::class, $user);
+    }
+
     public function testAppUserDelete(): void
     {
         $crawler = $this->client->request('GET', '/user/delete');
 
         self::assertResponseIsSuccessful();
+    }
+
+    public function testAppUserDeleteSubmit(): void
+    {
+        $crawler = $this->client->request(
+            'POST',
+            '/user/delete',
+            [
+                'delete' => [
+                ],
+            ]
+        );
+
+        $userRepository = $this->container->get(\App\Components\User\Persistence\Repository\UserRepository::class);
+        $user = $userRepository->getByEmail('user@email.com');
+
+        self::assertNull($user);
+
+        self::assertInstanceOf(RedirectResponse::class, $this->client->getResponse());
     }
 }

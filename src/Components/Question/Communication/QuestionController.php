@@ -30,6 +30,7 @@ class QuestionController extends AbstractController
     {
         $questionDataProviderList = $this->questionRepository->getByExamSlug($examSlug);
 
+        $this->getUser();
         $userEmail = $user->getUserIdentifier();
 
         $currentQuestionDataProvider = $this->getCurrentQuestion($questionDataProviderList, $examSlug, $userEmail);
@@ -54,7 +55,7 @@ class QuestionController extends AbstractController
         //Check Question
         $form->handleRequest($request);
 
-        if ($form->isSubmitted()) {
+        if ($form->isSubmitted() /**&& $form->isValid()**/) {
             $data = $form->getData();
 
             $this->bridgeUserQuestion->updateAnswer($currentQuestionDataProvider, $userEmail, $data);
