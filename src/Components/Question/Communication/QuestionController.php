@@ -25,9 +25,7 @@ class QuestionController extends AbstractController
     {
     }
 
-    /**
-     * @Route ("/exam/{examSlug}/question", name="app_question")
-     */
+    #[Route("/exam/{examSlug}/question", name: "app_question")]
     public function index(Request $request, UserInterface $user, string $examSlug): Response
     {
         $questionDataProviderList = $this->questionRepository->getByExamSlug($examSlug);

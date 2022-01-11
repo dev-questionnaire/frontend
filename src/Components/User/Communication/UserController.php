@@ -3,12 +3,11 @@
 namespace App\Components\User\Communication;
 
 use App\Components\User\Business\FacadeUser;
+use App\Components\User\Communication\Forms\Delete;
 use App\Components\User\Communication\Forms\Register;
 use App\Components\User\Communication\Forms\Update;
 use App\Components\User\Persistence\Repository\UserRepositoryInterface;
 use App\DataTransferObject\UserDataProvider;
-use App\Entity\User;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -76,15 +75,25 @@ class UserController extends AbstractController
     }
 
     #[Route("/user/delete", name: "app_user_delete")]
-    public function deleteUser(UserInterface $user): Response
+    public function deleteUser(UserInterface $user, Request $request): Response
     {
         $userDTO = $this->userRepository->getByEmail($user->getUserIdentifier());
 
-        $session = new Session();
-        $session->invalidate();
+        $form = $this->createForm(Delete::class);
+        $form->handleRequest($request);
 
-        $this->facadeUser->delete($userDTO->getId());
+        if ($form->isSubmitted() && $form->isValid()) {
+            $session = new Session();
+            $session->invalidate();
 
-        return $this->render('user/delete.html.twig', []);
+            $this->facadeUser->delete($userDTO->getId());
+
+            return new RedirectResponse('/');
+        }
+
+        return $this->renderForm('user/delete.html.twig', [
+            'form' => $form,
+            'user' => $userDTO,
+        ]);
     }
 }
