@@ -17,7 +17,7 @@ class Login extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('email', EmailType::class, ['attr' => ['placeholder' => 'email@example.com']])
+            ->add('email', EmailType::class, ['attr' => ['placeholder' => 'm.muster@nexus-united.com']])
             ->add('password', PasswordType::class)
             ->add('remember_me', CheckboxType::class, ['required' => false])
             ->add('login', SubmitType::class);
