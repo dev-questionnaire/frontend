@@ -12,6 +12,6 @@ class Delete extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('delete user', SubmitType::class);
+            ->add('delete_user', SubmitType::class);
     }
 }
