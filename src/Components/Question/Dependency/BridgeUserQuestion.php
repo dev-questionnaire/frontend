@@ -22,31 +22,31 @@ class BridgeUserQuestion implements BridgeUserQuestionInterface
 
     public function updateAnswer(QuestionDataProvider $questionDataProvider, $user, $formData): void
     {
-        $answer = null;
+        $answerCorrect = null;
 
-        foreach ($formData as $key => $value) {
-            if($answer === false)
+        foreach ($formData as $question => $answer) {
+            if($answerCorrect === false)
             {
                 break;
             }
 
-            if($value === false)
+            if($answer === false)
             {
                 continue;
             }
 
             foreach ($questionDataProvider->getRightQuestions() as $rightQuestion) {
-                if(str_replace(' ', '_', (string)$rightQuestion) === (string)$key) {
-                    $answer = true;
+                if(str_replace(' ', '_', (string)$rightQuestion) === (string)$question) {
+                    $answerCorrect = true;
 
                     break;
                 }
-                $answer = false;
+                $answerCorrect = false;
             }
         }
 
         $userQuestionDataProvider = $this->getByUserAndQuestion($user, $questionDataProvider->getSlug());
-        $userQuestionDataProvider->setAnswer($answer);
+        $userQuestionDataProvider->setAnswer($answerCorrect);
 
         $this->facadeUserQuestion->updateAnswer($userQuestionDataProvider);
     }
