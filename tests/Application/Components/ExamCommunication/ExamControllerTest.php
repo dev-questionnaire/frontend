@@ -96,7 +96,7 @@ class ExamControllerTest extends WebTestCase
         $this->entityManager->persist($userQuestion_2);
         $this->entityManager->flush();
 
-        $crawler = $this->client->request('GET', '/solid/result');
+        $crawler = $this->client->request('GET', 'exam/solid/result');
 
         self::assertResponseIsSuccessful();
     }
@@ -124,7 +124,7 @@ class ExamControllerTest extends WebTestCase
         $this->entityManager->persist($userQuestion_2);
         $this->entityManager->flush();
 
-        $this->client->request('GET', '/solid/result');
+        $this->client->request('GET', 'exam/solid/result');
 
         self::assertInstanceOf(RedirectResponse::class, $this->client->getResponse());
     }

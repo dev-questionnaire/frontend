@@ -30,7 +30,7 @@ class ExamController extends AbstractController
         ]);
     }
 
-    #[Route("/{examSlug}/result", name: "app_exam_result")]
+    #[Route("/exam/{examSlug}/result", name: "app_exam_result")]
     public function result(UserInterface $user, string $examSlug): Response
     {
         $userEmail = $user->getUserIdentifier();
