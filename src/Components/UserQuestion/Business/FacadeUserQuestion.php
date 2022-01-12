@@ -66,6 +66,11 @@ class FacadeUserQuestion implements FacadeUserQuestionInterface
         $this->userQuestionEntityManager->delete($id);
     }
 
+    public function deleteByUser(int $userId): void
+    {
+        $this->userQuestionEntityManager->deleteByUser($userId);
+    }
+
     public function getByUserAndQuestion(string $userEmail, string $questionSlug): ?UserQuestionDataProvider
     {
         return $this->userQuestionRepository->getByUserAndQuestion($userEmail, $questionSlug);

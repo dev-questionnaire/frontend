@@ -55,4 +55,17 @@ class UserQuestionEntityManager implements UserQuestionEntityManagerInterface
         $this->entityManager->remove($userQuestion);
         $this->entityManager->flush();
     }
+
+    public function deleteByUser(int $userId): void
+    {
+        $user = $this->userRepository->find($userId);
+
+        $userQuestionList = $this->userQuestionRepository->findBy(['user' => $user]);
+
+        foreach ($userQuestionList as $userQuestion) {
+            $this->entityManager->remove($userQuestion);
+        }
+
+        $this->entityManager->flush();
+    }
 }

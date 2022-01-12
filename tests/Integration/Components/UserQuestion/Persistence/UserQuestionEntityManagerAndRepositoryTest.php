@@ -73,6 +73,14 @@ class UserQuestionEntityManagerAndRepositoryTest extends KernelTestCase
 
         $this->userQuestionEntityManager->create($userQuestionDataProvider);
 
+        $userQuestionDataProvider
+            ->setUserEmail('test@email.com')
+            ->setQuestionSlug('question2')
+            ->setExamSlug('exam')
+            ->setAnswer(null);
+
+        $this->userQuestionEntityManager->create($userQuestionDataProvider);
+
         $userQuestionDataProvider = $this->userQuestionRepository->getByUserAndQuestion('test@email.com', 'question');
 
         $currentDate = (new \DateTime())->format('d.m.Y');
@@ -92,11 +100,18 @@ class UserQuestionEntityManagerAndRepositoryTest extends KernelTestCase
         self::assertFalse($userQuestionDataProvider->getAnswer());
 
         $userQuestionDataProviderList = $this->userQuestionRepository->getByUserAndExamIndexedByQuestionSlug('test@email.com', 'exam');
-        self::assertCount(1, $userQuestionDataProviderList);
+        self::assertCount(2, $userQuestionDataProviderList);
 
         $this->userQuestionEntityManager->delete($userQuestionDataProvider->getId());
 
         $userQuestionDataProvider = $this->userQuestionRepository->getByUserAndQuestion('test@email.com', 'question');
+        self::assertNull($userQuestionDataProvider);
+
+        $userQuestionDataProviderList = $this->userQuestionRepository->getByUserAndExamIndexedByQuestionSlug('test@email.com', 'exam');
+        self::assertCount(1, $userQuestionDataProviderList);
+
+        $this->userQuestionEntityManager->deleteByUser($user->getId());
+        $userQuestionDataProvider = $this->userQuestionRepository->getByUserAndQuestion('test@email.com', 'question2');
         self::assertNull($userQuestionDataProvider);
     }
 }

@@ -6,6 +6,7 @@ use App\Components\User\Business\FacadeUser;
 use App\Components\User\Communication\Forms\Delete;
 use App\Components\User\Communication\Forms\Register;
 use App\Components\User\Communication\Forms\Update;
+use App\Components\User\Dependency\BridgeUserQuestion;
 use App\Components\User\Persistence\Repository\UserRepositoryInterface;
 use App\DataTransferObject\UserDataProvider;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -19,7 +20,11 @@ use Symfony\Component\Security\Core\User\UserInterface;
 class UserController extends AbstractController
 {
 
-    public function __construct(private FacadeUser $facadeUser, private UserRepositoryInterface $userRepository)
+    public function __construct(
+        private FacadeUser $facadeUser,
+        private UserRepositoryInterface $userRepository,
+        private BridgeUserQuestion $bridgeUserQuestion,
+    )
     {
     }
 
@@ -77,7 +82,6 @@ class UserController extends AbstractController
     #[Route("/user/delete", name: "app_user_delete")]
     public function deleteUser(UserInterface $user, Request $request): Response
     {
-        //TODO delete userQuestion Rows befor deleting user
         $userDTO = $this->userRepository->getByEmail($user->getUserIdentifier());
 
         $form = $this->createForm(Delete::class);
@@ -87,6 +91,7 @@ class UserController extends AbstractController
             $session = new Session();
             $session->invalidate();
 
+            $this->bridgeUserQuestion->deleteByUser($userDTO->getId());
             $this->facadeUser->delete($userDTO->getId());
 
             return new RedirectResponse('/');
