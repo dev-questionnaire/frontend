@@ -2,7 +2,7 @@
 <html lang="en">
  <head>
   <meta charset="UTF-8">
-  <title>Code Coverage for /home/philipphermes/dev-questionaire/frontend_symfony6/src/Components/Question/Dependency/BridgeExamInterface.php</title>
+  <title>Code Coverage for /home/philipphermes/dev-questionaire/frontend_symfony6/src/Components/User/Dependency/BridgeUserQuestionInterface.php</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="../../../_css/bootstrap.min.css" rel="stylesheet" type="text/css">
   <link href="../../../_css/octicons.css" rel="stylesheet" type="text/css">
@@ -18,9 +18,9 @@
        <ol class="breadcrumb">
          <li class="breadcrumb-item"><a href="../../../index.html">/home/philipphermes/dev-questionaire/frontend_symfony6/src</a></li>
          <li class="breadcrumb-item"><a href="../../index.html">Components</a></li>
-         <li class="breadcrumb-item"><a href="../index.html">Question</a></li>
+         <li class="breadcrumb-item"><a href="../index.html">User</a></li>
          <li class="breadcrumb-item"><a href="index.html">Dependency</a></li>
-         <li class="breadcrumb-item active">BridgeExamInterface.php</li>
+         <li class="breadcrumb-item active">BridgeUserQuestionInterface.php</li>
 
        </ol>
       </nav>
@@ -67,14 +67,12 @@
     <tr class=" d-flex"><td  class="col-1 text-right"><a id="1" href="#1">1</a></td><td class="col-11 codeLine"><span class="default">&lt;?php</span></td></tr>
     <tr class=" d-flex"><td  class="col-1 text-right"><a id="2" href="#2">2</a></td><td class="col-11 codeLine"><span class="keyword">declare</span><span class="keyword">(</span><span class="default">strict_types</span><span class="keyword">=</span><span class="default">1</span><span class="keyword">)</span><span class="keyword">;</span></td></tr>
     <tr class=" d-flex"><td  class="col-1 text-right"><a id="3" href="#3">3</a></td><td class="col-11 codeLine"></td></tr>
-    <tr class=" d-flex"><td  class="col-1 text-right"><a id="4" href="#4">4</a></td><td class="col-11 codeLine"><span class="keyword">namespace</span><span class="default">&nbsp;</span><span class="default">App\Components\Question\Dependency</span><span class="keyword">;</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-right"><a id="4" href="#4">4</a></td><td class="col-11 codeLine"><span class="keyword">namespace</span><span class="default">&nbsp;</span><span class="default">App\Components\User\Dependency</span><span class="keyword">;</span></td></tr>
     <tr class=" d-flex"><td  class="col-1 text-right"><a id="5" href="#5">5</a></td><td class="col-11 codeLine"></td></tr>
-    <tr class=" d-flex"><td  class="col-1 text-right"><a id="6" href="#6">6</a></td><td class="col-11 codeLine"><span class="keyword">use</span><span class="default">&nbsp;</span><span class="default">App\DataTransferObject\ExamDataProvider</span><span class="keyword">;</span></td></tr>
-    <tr class=" d-flex"><td  class="col-1 text-right"><a id="7" href="#7">7</a></td><td class="col-11 codeLine"></td></tr>
-    <tr class=" d-flex"><td  class="col-1 text-right"><a id="8" href="#8">8</a></td><td class="col-11 codeLine"><span class="keyword">interface</span><span class="default">&nbsp;</span><span class="default">BridgeExamInterface</span></td></tr>
-    <tr class=" d-flex"><td  class="col-1 text-right"><a id="9" href="#9">9</a></td><td class="col-11 codeLine"><span class="keyword">{</span></td></tr>
-    <tr class=" d-flex"><td  class="col-1 text-right"><a id="10" href="#10">10</a></td><td class="col-11 codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="keyword">public</span><span class="default">&nbsp;</span><span class="keyword">function</span><span class="default">&nbsp;</span><span class="default">getBySlug</span><span class="keyword">(</span><span class="default">string</span><span class="default">&nbsp;</span><span class="default">$slug</span><span class="keyword">)</span><span class="keyword">:</span><span class="default">&nbsp;</span><span class="keyword">?</span><span class="default">ExamDataProvider</span><span class="keyword">;</span></td></tr>
-    <tr class="covered-by-large-tests popin d-flex"><td  data-title="1 test covers line 11" data-content="&lt;ul&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;App\Tests\Application\Components\QuestionCommunication\QuestionControllerTest::testAppQuestion&lt;/li&gt;&lt;/ul&gt;" data-placement="top" data-html="true" class="col-1 text-right"><a id="11" href="#11">11</a></td><td class="col-11 codeLine"><span class="keyword">}</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-right"><a id="6" href="#6">6</a></td><td class="col-11 codeLine"><span class="keyword">interface</span><span class="default">&nbsp;</span><span class="default">BridgeUserQuestionInterface</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-right"><a id="7" href="#7">7</a></td><td class="col-11 codeLine"><span class="keyword">{</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-right"><a id="8" href="#8">8</a></td><td class="col-11 codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="keyword">public</span><span class="default">&nbsp;</span><span class="keyword">function</span><span class="default">&nbsp;</span><span class="default">deleteByUser</span><span class="keyword">(</span><span class="default">int</span><span class="default">&nbsp;</span><span class="default">$userId</span><span class="keyword">)</span><span class="keyword">:</span><span class="default">&nbsp;</span><span class="default">void</span><span class="keyword">;</span></td></tr>
+    <tr class="covered-by-large-tests popin d-flex"><td  data-title="1 test covers line 9" data-content="&lt;ul&gt;&lt;li class=&quot;covered-by-large-tests&quot;&gt;App\Tests\Application\Components\UserCommunication\UserControllerTest::testAppUserRegister&lt;/li&gt;&lt;/ul&gt;" data-placement="top" data-html="true" class="col-1 text-right"><a id="9" href="#9">9</a></td><td class="col-11 codeLine"><span class="keyword">}</span></td></tr>
 
 </tbody>
 </table>

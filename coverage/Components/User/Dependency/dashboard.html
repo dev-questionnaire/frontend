@@ -2,12 +2,12 @@
 <html lang="en">
  <head>
   <meta charset="UTF-8">
-  <title>Dashboard for /home/philipphermes/dev-questionaire/frontend_symfony6/src/Components/Question</title>
+  <title>Dashboard for /home/philipphermes/dev-questionaire/frontend_symfony6/src/Components/User/Dependency</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link href="../../_css/bootstrap.min.css" rel="stylesheet" type="text/css">
-  <link href="../../_css/nv.d3.min.css" rel="stylesheet" type="text/css">
-  <link href="../../_css/style.css" rel="stylesheet" type="text/css">
-  <link href="../../_css/custom.css" rel="stylesheet" type="text/css">
+  <link href="../../../_css/bootstrap.min.css" rel="stylesheet" type="text/css">
+  <link href="../../../_css/nv.d3.min.css" rel="stylesheet" type="text/css">
+  <link href="../../../_css/style.css" rel="stylesheet" type="text/css">
+  <link href="../../../_css/custom.css" rel="stylesheet" type="text/css">
  </head>
  <body>
   <header>
@@ -16,9 +16,10 @@
      <div class="col-md-12">
       <nav aria-label="breadcrumb">
        <ol class="breadcrumb">
-         <li class="breadcrumb-item"><a href="../../index.html">/home/philipphermes/dev-questionaire/frontend_symfony6/src</a></li>
-         <li class="breadcrumb-item"><a href="../index.html">Components</a></li>
-         <li class="breadcrumb-item"><a href="index.html">Question</a></li>
+         <li class="breadcrumb-item"><a href="../../../index.html">/home/philipphermes/dev-questionaire/frontend_symfony6/src</a></li>
+         <li class="breadcrumb-item"><a href="../../index.html">Components</a></li>
+         <li class="breadcrumb-item"><a href="../index.html">User</a></li>
+         <li class="breadcrumb-item"><a href="index.html">Dependency</a></li>
          <li class="breadcrumb-item active">(Dashboard)</li>
 
        </ol>
@@ -59,7 +60,6 @@
         </tr>
        </thead>
        <tbody>
-       <tr><td><a href="Communication/QuestionController.php.html#18">App\Components\Question\Communication\QuestionController</a></td><td class="text-right">87%</td></tr>
 
        </tbody>
       </table>
@@ -76,7 +76,6 @@
         </tr>
        </thead>
        <tbody>
-       <tr><td><a href="Communication/QuestionController.php.html#18">App\Components\Question\Communication\QuestionController</a></td><td class="text-right">10</td></tr>
 
        </tbody>
       </table>
@@ -114,7 +113,6 @@
         </tr>
        </thead>
        <tbody>
-       <tr><td><a href="Communication/QuestionController.php.html#76"><abbr title="App\Components\Question\Communication\QuestionController::getCurrentQuestion">getCurrentQuestion</abbr></a></td><td class="text-right">62%</td></tr>
 
        </tbody>
       </table>
@@ -131,7 +129,6 @@
         </tr>
        </thead>
        <tbody>
-       <tr><td><a href="Communication/QuestionController.php.html#76"><abbr title="App\Components\Question\Communication\QuestionController::getCurrentQuestion">getCurrentQuestion</abbr></a></td><td class="text-right">4</td></tr>
 
        </tbody>
       </table>
@@ -145,9 +142,9 @@
     </p>
    </footer>
   </div>
-  <script src="../../_js/jquery.min.js" type="text/javascript"></script>
-  <script src="../../_js/d3.min.js" type="text/javascript"></script>
-  <script src="../../_js/nv.d3.min.js" type="text/javascript"></script>
+  <script src="../../../_js/jquery.min.js" type="text/javascript"></script>
+  <script src="../../../_js/d3.min.js" type="text/javascript"></script>
+  <script src="../../../_js/nv.d3.min.js" type="text/javascript"></script>
   <script type="text/javascript">
 $(document).ready(function() {
   nv.addGraph(function() {
@@ -160,7 +157,7 @@ $(document).ready(function() {
       .yAxis.tickFormat(d3.format('d'));
 
     d3.select('#classCoverageDistribution svg')
-      .datum(getCoverageDistributionData([0,0,0,0,0,0,0,0,0,1,0,5], "Class Coverage"))
+      .datum(getCoverageDistributionData([0,0,0,0,0,0,0,0,0,0,0,1], "Class Coverage"))
       .transition().duration(500).call(chart);
 
     nv.utils.windowResize(chart.update);
@@ -178,7 +175,7 @@ $(document).ready(function() {
       .yAxis.tickFormat(d3.format('d'));
 
     d3.select('#methodCoverageDistribution svg')
-      .datum(getCoverageDistributionData([0,0,0,0,0,0,0,1,0,0,1,14], "Method Coverage"))
+      .datum(getCoverageDistributionData([0,0,0,0,0,0,0,0,0,0,0,2], "Method Coverage"))
       .transition().duration(500).call(chart);
 
     nv.utils.windowResize(chart.update);
@@ -228,7 +225,7 @@ $(document).ready(function() {
     chart.yAxis.axisLabel('Cyclomatic Complexity');
 
     d3.select('#classComplexity svg')
-      .datum(getComplexityData([[100,2,"<a href=\"Business\/FacadeQuestion.php.html#8\">App\\Components\\Question\\Business\\FacadeQuestion<\/a>"],[87.5,10,"<a href=\"Communication\/QuestionController.php.html#18\">App\\Components\\Question\\Communication\\QuestionController<\/a>"],[100,2,"<a href=\"Dependency\/BridgeExam.php.html#9\">App\\Components\\Question\\Dependency\\BridgeExam<\/a>"],[100,5,"<a href=\"Dependency\/BridgeUserQuestion.php.html#10\">App\\Components\\Question\\Dependency\\BridgeUserQuestion<\/a>"],[100,1,"<a href=\"Persistence\/Mapper\/QuestionMapper.php.html#8\">App\\Components\\Question\\Persistence\\Mapper\\QuestionMapper<\/a>"],[100,4,"<a href=\"Persistence\/Repository\/QuestionRepository.php.html#11\">App\\Components\\Question\\Persistence\\Repository\\QuestionRepository<\/a>"]], 'Class Complexity'))
+      .datum(getComplexityData([[100,2,"<a href=\"BridgeUserQuestion.php.html#8\">App\\Components\\User\\Dependency\\BridgeUserQuestion<\/a>"]], 'Class Complexity'))
       .transition()
       .duration(500)
       .call(chart);
@@ -252,7 +249,7 @@ $(document).ready(function() {
     chart.yAxis.axisLabel('Method Complexity');
 
     d3.select('#methodComplexity svg')
-      .datum(getComplexityData([[100,1,"<a href=\"Business\/FacadeQuestion.php.html#10\">App\\Components\\Question\\Business\\FacadeQuestion::__construct<\/a>"],[100,1,"<a href=\"Business\/FacadeQuestion.php.html#19\">App\\Components\\Question\\Business\\FacadeQuestion::getByExamSlug<\/a>"],[100,1,"<a href=\"Communication\/QuestionController.php.html#20\">App\\Components\\Question\\Communication\\QuestionController::__construct<\/a>"],[95.23809523809523,4,"<a href=\"Communication\/QuestionController.php.html#28\">App\\Components\\Question\\Communication\\QuestionController::index<\/a>"],[62.5,4,"<a href=\"Communication\/QuestionController.php.html#76\">App\\Components\\Question\\Communication\\QuestionController::getCurrentQuestion<\/a>"],[100,1,"<a href=\"Communication\/QuestionController.php.html#94\">App\\Components\\Question\\Communication\\QuestionController::getUserQuestionDataProvider<\/a>"],[100,1,"<a href=\"Dependency\/BridgeExam.php.html#11\">App\\Components\\Question\\Dependency\\BridgeExam::__construct<\/a>"],[100,1,"<a href=\"Dependency\/BridgeExam.php.html#17\">App\\Components\\Question\\Dependency\\BridgeExam::getBySlug<\/a>"],[100,1,"<a href=\"Dependency\/BridgeUserQuestion.php.html#12\">App\\Components\\Question\\Dependency\\BridgeUserQuestion::__construct<\/a>"],[100,1,"<a href=\"Dependency\/BridgeUserQuestion.php.html#18\">App\\Components\\Question\\Dependency\\BridgeUserQuestion::create<\/a>"],[100,1,"<a href=\"Dependency\/BridgeUserQuestion.php.html#23\">App\\Components\\Question\\Dependency\\BridgeUserQuestion::updateAnswer<\/a>"],[100,1,"<a href=\"Dependency\/BridgeUserQuestion.php.html#28\">App\\Components\\Question\\Dependency\\BridgeUserQuestion::delete<\/a>"],[100,1,"<a href=\"Dependency\/BridgeUserQuestion.php.html#33\">App\\Components\\Question\\Dependency\\BridgeUserQuestion::getByUserAndQuestion<\/a>"],[100,1,"<a href=\"Persistence\/Mapper\/QuestionMapper.php.html#10\">App\\Components\\Question\\Persistence\\Mapper\\QuestionMapper::map<\/a>"],[100,1,"<a href=\"Persistence\/Repository\/QuestionRepository.php.html#15\">App\\Components\\Question\\Persistence\\Repository\\QuestionRepository::__construct<\/a>"],[100,3,"<a href=\"Persistence\/Repository\/QuestionRepository.php.html#26\">App\\Components\\Question\\Persistence\\Repository\\QuestionRepository::getByExamSlug<\/a>"]], 'Method Complexity'))
+      .datum(getComplexityData([[100,1,"<a href=\"BridgeUserQuestion.php.html#10\">App\\Components\\User\\Dependency\\BridgeUserQuestion::__construct<\/a>"],[100,1,"<a href=\"BridgeUserQuestion.php.html#16\">App\\Components\\User\\Dependency\\BridgeUserQuestion::deleteByUser<\/a>"]], 'Method Complexity'))
       .transition()
       .duration(500)
       .call(chart);

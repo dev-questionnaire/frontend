@@ -29,7 +29,7 @@ class QuestionControllerTest extends WebTestCase
         $this->entityManager = $this->container->get('doctrine.orm.entity_manager');
 
         $appFixtures = $this->container->get(AppFixtures::class);
-        $appFixtures->load($this->entityManager);
+        $appFixtures->load($this->entityManager, ['user' => true]);
 
         $repository = $this->container->get(UserRepository::class);
 
