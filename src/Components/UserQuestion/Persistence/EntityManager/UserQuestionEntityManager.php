@@ -4,9 +4,9 @@ declare(strict_types=1);
 namespace App\Components\UserQuestion\Persistence\EntityManager;
 
 use App\DataTransferObject\UserQuestionDataProvider;
+use App\Entity\User;
 use App\Entity\UserQuestion;
 use App\Repository\UserQuestionRepository;
-use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 
 class UserQuestionEntityManager implements UserQuestionEntityManagerInterface
@@ -14,19 +14,16 @@ class UserQuestionEntityManager implements UserQuestionEntityManagerInterface
     public function __construct(
         private EntityManagerInterface $entityManager,
         private UserQuestionRepository $userQuestionRepository,
-        private UserRepository         $userRepository,
     )
     {
     }
 
     public function create(UserQuestionDataProvider $userQuestionDataProvider): void
     {
-        $user = $this->userRepository->findOneBy(['email' => $userQuestionDataProvider->getUserEmail()]);
-
         $userQuestion = new UserQuestion();
 
         $userQuestion
-            ->setUser($user)
+            ->setUser($userQuestionDataProvider->getUser())
             ->setQuestionSlug($userQuestionDataProvider->getQuestionSlug())
             ->setExamSlug($userQuestionDataProvider->getExamSlug())
             ->setAnswer($userQuestionDataProvider->getAnswer());
@@ -56,10 +53,8 @@ class UserQuestionEntityManager implements UserQuestionEntityManagerInterface
         $this->entityManager->flush();
     }
 
-    public function deleteByUser(int $userId): void
+    public function deleteByUser(User $user): void
     {
-        $user = $this->userRepository->find($userId);
-
         $userQuestionList = $this->userQuestionRepository->findBy(['user' => $user]);
 
         foreach ($userQuestionList as $userQuestion) {

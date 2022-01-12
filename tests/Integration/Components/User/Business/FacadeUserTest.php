@@ -6,28 +6,31 @@ namespace App\Tests\Integration\Components\User\Business;
 use App\Components\User\Business\FacadeUser;
 use App\Components\User\Persistence\Repository\UserRepositoryInterface;
 use App\DataTransferObject\UserDataProvider;
+use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class FacadeUserTest extends KernelTestCase
 {
     private ?EntityManagerInterface $entityManager;
     private ?FacadeUser $facadeUser;
     private ?UserRepositoryInterface $userRepository;
+    private ContainerInterface $container;
 
     protected function setUp(): void
     {
         parent::setUp();
 
         $kernel = self::bootKernel();
-        $container = static::getContainer();
+        $this->container = static::getContainer();
 
         $this->entityManager = $kernel->getContainer()
             ->get('doctrine')
             ->getManager();
 
-        $this->facadeUser = $container->get(FacadeUser::class);
-        $this->userRepository = $container->get(UserRepositoryInterface::class);
+        $this->facadeUser = $this->container->get(FacadeUser::class);
+        $this->userRepository = $this->container->get(UserRepositoryInterface::class);
     }
 
     protected function tearDown(): void
@@ -118,9 +121,7 @@ class FacadeUserTest extends KernelTestCase
 
         $this->facadeUser->create($userDTO);
 
-        $userDTO = $this->userRepository->getByEmail('email@nexus-united.com');
-
-        $this->facadeUser->delete($userDTO->getId());
+        $this->facadeUser->delete($this->container->get(UserRepository::class)->findOneBy(['email' => 'email@nexus-united.com']));
 
         self::assertNull($this->userRepository->getByEmail('email@nexus-united.com'));
     }

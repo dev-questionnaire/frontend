@@ -6,6 +6,7 @@ namespace App\Components\Question\Dependency;
 use App\Components\UserQuestion\Business\FacadeUserQuestionInterface;
 use App\DataTransferObject\QuestionDataProvider;
 use App\DataTransferObject\UserQuestionDataProvider;
+use App\Entity\User;
 
 class BridgeUserQuestion implements BridgeUserQuestionInterface
 {
@@ -15,14 +16,14 @@ class BridgeUserQuestion implements BridgeUserQuestionInterface
     {
     }
 
-    public function create(string $questionSlug, string $examSlug, string $userEmail): void
+    public function create(string $questionSlug, string $examSlug, User $user): void
     {
-        $this->facadeUserQuestion->create($questionSlug, $examSlug, $userEmail);
+        $this->facadeUserQuestion->create($questionSlug, $examSlug, $user);
     }
 
-    public function updateAnswer(QuestionDataProvider $questionDataProvider, string $userEmail, array $formData): void
+    public function updateAnswer(QuestionDataProvider $questionDataProvider, User $user, array $formData): void
     {
-        $this->facadeUserQuestion->updateAnswer($questionDataProvider, $userEmail, $formData);
+        $this->facadeUserQuestion->updateAnswer($questionDataProvider, $user, $formData);
     }
 
     public function delete(int $id): void
@@ -30,8 +31,8 @@ class BridgeUserQuestion implements BridgeUserQuestionInterface
         $this->facadeUserQuestion->delete($id);
     }
 
-    public function getByUserAndQuestion(string $userEmail, string $questionSlug): ?UserQuestionDataProvider
+    public function getByUserAndQuestion(User $user, string $questionSlug): ?UserQuestionDataProvider
     {
-        return $this->facadeUserQuestion->getByUserAndQuestion($userEmail, $questionSlug);
+        return $this->facadeUserQuestion->getByUserAndQuestion($user, $questionSlug);
     }
 }

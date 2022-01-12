@@ -5,21 +5,22 @@ namespace App\Components\UserQuestion\Business;
 
 use App\DataTransferObject\QuestionDataProvider;
 use App\DataTransferObject\UserQuestionDataProvider;
+use App\Entity\User;
 
 interface FacadeUserQuestionInterface
 {
-    public function create(string $questionSlug, string $examSlug, string $userEmail): void;
+    public function create(string $questionSlug, string $examSlug, User $user): void;
 
-    public function updateAnswer(QuestionDataProvider $questionDataProvider, string $userEmail, array $formData): void;
+    public function updateAnswer(QuestionDataProvider $questionDataProvider, User $user, array $formData): void;
 
     public function delete(int $id): void;
 
-    public function deleteByUser(int $userId): void;
+    public function deleteByUser(User $user): void;
 
-    public function getByUserAndQuestion(string $userEmail, string $questionSlug): ?UserQuestionDataProvider;
+    public function getByUserAndQuestion(User $user, string $questionSlug): ?UserQuestionDataProvider;
 
     /**
      * @return UserQuestionDataProvider[]
      */
-    public function getByUserAndExamIndexedByQuestionSlug(string $userEmail, string $examSlug): array;
+    public function getByUserAndExamIndexedByQuestionSlug(User $user, string $examSlug): array;
 }

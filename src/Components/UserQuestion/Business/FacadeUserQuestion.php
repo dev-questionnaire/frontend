@@ -7,6 +7,7 @@ use App\Components\UserQuestion\Persistence\EntityManager\UserQuestionEntityMana
 use App\Components\UserQuestion\Persistence\Repository\UserQuestionRepositoryInterface;
 use App\DataTransferObject\QuestionDataProvider;
 use App\DataTransferObject\UserQuestionDataProvider;
+use App\Entity\User;
 
 class FacadeUserQuestion implements FacadeUserQuestionInterface
 {
@@ -17,20 +18,20 @@ class FacadeUserQuestion implements FacadeUserQuestionInterface
     {
     }
 
-    public function create(string $questionSlug, string $examSlug, string $userEmail): void
+    public function create(string $questionSlug, string $examSlug, User $user): void
     {
         $userQuestionDataProvider = new UserQuestionDataProvider();
 
         $userQuestionDataProvider
             ->setAnswer(null)
-            ->setUserEmail($userEmail)
+            ->setUser($user)
             ->setQuestionSlug($questionSlug)
             ->setExamSlug($examSlug);
 
         $this->userQuestionEntityManager->create($userQuestionDataProvider);
     }
 
-    public function updateAnswer(QuestionDataProvider $questionDataProvider, string $userEmail, array $formData): void
+    public function updateAnswer(QuestionDataProvider $questionDataProvider, User $user, array $formData): void
     {
         $answerCorrect = null;
 
@@ -55,7 +56,7 @@ class FacadeUserQuestion implements FacadeUserQuestionInterface
             }
         }
 
-        $userQuestionDataProvider = $this->getByUserAndQuestion($userEmail, $questionDataProvider->getSlug());
+        $userQuestionDataProvider = $this->getByUserAndQuestion($user, $questionDataProvider->getSlug());
         $userQuestionDataProvider->setAnswer($answerCorrect);
 
         $this->userQuestionEntityManager->updateAnswer($userQuestionDataProvider);
@@ -66,21 +67,21 @@ class FacadeUserQuestion implements FacadeUserQuestionInterface
         $this->userQuestionEntityManager->delete($id);
     }
 
-    public function deleteByUser(int $userId): void
+    public function deleteByUser(User $user): void
     {
-        $this->userQuestionEntityManager->deleteByUser($userId);
+        $this->userQuestionEntityManager->deleteByUser($user);
     }
 
-    public function getByUserAndQuestion(string $userEmail, string $questionSlug): ?UserQuestionDataProvider
+    public function getByUserAndQuestion(User $user, string $questionSlug): ?UserQuestionDataProvider
     {
-        return $this->userQuestionRepository->getByUserAndQuestion($userEmail, $questionSlug);
+        return $this->userQuestionRepository->getByUserAndQuestion($user, $questionSlug);
     }
 
     /**
      * @return UserQuestionDataProvider[]
      */
-    public function getByUserAndExamIndexedByQuestionSlug(string $userEmail, string $examSlug): array
+    public function getByUserAndExamIndexedByQuestionSlug(User $user, string $examSlug): array
     {
-        return $this->userQuestionRepository->getByUserAndExamIndexedByQuestionSlug($userEmail, $examSlug);
+        return $this->userQuestionRepository->getByUserAndExamIndexedByQuestionSlug($user, $examSlug);
     }
 }

@@ -11,31 +11,34 @@ use App\Components\UserQuestion\Persistence\Repository\UserQuestionRepositoryInt
 use App\DataFixtures\AppFixtures;
 use App\DataTransferObject\UserQuestionDataProvider;
 use App\Entity\User;
+use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManager;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class UserQuestionEntityManagerAndRepositoryTest extends KernelTestCase
 {
     private ?EntityManager $entityManager;
     private ?UserQuestionRepositoryInterface $userQuestionRepository;
     private ?UserQuestionEntityManagerInterface $userQuestionEntityManager;
+    private ContainerInterface $container;
 
     protected function setUp(): void
     {
         parent::setUp();
 
         $kernel = self::bootKernel();
-        $container = static::getContainer();
+        $this->container = static::getContainer();
 
         $this->entityManager = $kernel->getContainer()
             ->get('doctrine')
             ->getManager();
 
-        $appFixtures = $container->get(AppFixtures::class);
+        $appFixtures = $this->container->get(AppFixtures::class);
         $appFixtures->load($this->entityManager);
 
-        $this->userQuestionRepository = $container->get(UserQuestionRepository::class);
-        $this->userQuestionEntityManager = $container->get(UserQuestionEntityManager::class);
+        $this->userQuestionRepository = $this->container->get(UserQuestionRepository::class);
+        $this->userQuestionEntityManager = $this->container->get(UserQuestionEntityManager::class);
     }
 
     protected function tearDown(): void
@@ -60,9 +63,11 @@ class UserQuestionEntityManagerAndRepositoryTest extends KernelTestCase
 
     public function testCreateAndGet(): void
     {
+        $user = $this->container->get(UserRepository::class)->findOneBy(['email' => 'user@valantic.com']);
+
         $userQuestionDataProvider = new UserQuestionDataProvider();
         $userQuestionDataProvider
-            ->setUserEmail('user@valantic.com')
+            ->setUser($user)
             ->setQuestionSlug('question')
             ->setExamSlug('exam')
             ->setAnswer(null);
@@ -70,19 +75,19 @@ class UserQuestionEntityManagerAndRepositoryTest extends KernelTestCase
         $this->userQuestionEntityManager->create($userQuestionDataProvider);
 
         $userQuestionDataProvider
-            ->setUserEmail('user@valantic.com')
+            ->setUser($user)
             ->setQuestionSlug('question2')
             ->setExamSlug('exam')
             ->setAnswer(null);
 
         $this->userQuestionEntityManager->create($userQuestionDataProvider);
 
-        $userQuestionDataProvider = $this->userQuestionRepository->getByUserAndQuestion('user@valantic.com', 'question');
+        $userQuestionDataProvider = $this->userQuestionRepository->getByUserAndQuestion($user, 'question');
 
         $currentDate = (new \DateTime())->format('d.m.Y');
 
         self::assertSame(1, $userQuestionDataProvider->getId());
-        self::assertSame('user@valantic.com', $userQuestionDataProvider->getUserEmail());
+        self::assertSame($user, $userQuestionDataProvider->getUser());
         self::assertSame('question', $userQuestionDataProvider->getQuestionSlug());
         self::assertSame('exam', $userQuestionDataProvider->getExamSlug());
         self::assertNull($userQuestionDataProvider->getAnswer());
@@ -91,23 +96,23 @@ class UserQuestionEntityManagerAndRepositoryTest extends KernelTestCase
 
         $userQuestionDataProvider->setAnswer(false);
         $this->userQuestionEntityManager->updateAnswer($userQuestionDataProvider);
-        $userQuestionDataProvider = $this->userQuestionRepository->getByUserAndQuestion('user@valantic.com', 'question');
+        $userQuestionDataProvider = $this->userQuestionRepository->getByUserAndQuestion($user, 'question');
 
         self::assertFalse($userQuestionDataProvider->getAnswer());
 
-        $userQuestionDataProviderList = $this->userQuestionRepository->getByUserAndExamIndexedByQuestionSlug('user@valantic.com', 'exam');
+        $userQuestionDataProviderList = $this->userQuestionRepository->getByUserAndExamIndexedByQuestionSlug($user, 'exam');
         self::assertCount(2, $userQuestionDataProviderList);
 
         $this->userQuestionEntityManager->delete($userQuestionDataProvider->getId());
 
-        $userQuestionDataProvider = $this->userQuestionRepository->getByUserAndQuestion('user@valantic.com', 'question');
+        $userQuestionDataProvider = $this->userQuestionRepository->getByUserAndQuestion($user, 'question');
         self::assertNull($userQuestionDataProvider);
 
-        $userQuestionDataProviderList = $this->userQuestionRepository->getByUserAndExamIndexedByQuestionSlug('user@valantic.com', 'exam');
+        $userQuestionDataProviderList = $this->userQuestionRepository->getByUserAndExamIndexedByQuestionSlug($user, 'exam');
         self::assertCount(1, $userQuestionDataProviderList);
 
-        $this->userQuestionEntityManager->deleteByUser(2);
-        $userQuestionDataProvider = $this->userQuestionRepository->getByUserAndQuestion('user@valantic.com', 'question2');
+        $this->userQuestionEntityManager->deleteByUser($user);
+        $userQuestionDataProvider = $this->userQuestionRepository->getByUserAndQuestion($user, 'question2');
         self::assertNull($userQuestionDataProvider);
     }
 }

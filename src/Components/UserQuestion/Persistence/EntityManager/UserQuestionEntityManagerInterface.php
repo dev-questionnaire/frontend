@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Components\UserQuestion\Persistence\EntityManager;
 
 use App\DataTransferObject\UserQuestionDataProvider;
+use App\Entity\User;
 
 interface UserQuestionEntityManagerInterface
 {
@@ -13,5 +14,5 @@ interface UserQuestionEntityManagerInterface
 
     public function delete(int $id): void;
 
-    public function deleteByUser(int $userId): void;
+    public function deleteByUser(User $user): void;
 }

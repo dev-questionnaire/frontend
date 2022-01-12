@@ -8,6 +8,8 @@ use App\Components\Question\Dependency\BridgeUserQuestionInterface;
 use App\DataFixtures\AppFixtures;
 use App\DataTransferObject\QuestionDataProvider;
 use App\DataTransferObject\UserQuestionDataProvider;
+use App\Entity\User;
+use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
@@ -15,6 +17,7 @@ class BridgeUserQuestionTest extends KernelTestCase
 {
     private ?EntityManagerInterface $entityManager;
     private ?BridgeUserQuestionInterface $bridgeUserQuestion;
+    private User $user;
 
     protected function setUp(): void
     {
@@ -31,6 +34,8 @@ class BridgeUserQuestionTest extends KernelTestCase
 
         $appFixtures = $container->get(AppFixtures::class);
         $appFixtures->load($this->entityManager);
+
+        $this->user = $container->get(UserRepository::class)->findOneBy(['email' => 'user@valantic.com']);
     }
 
     protected function tearDown(): void
@@ -53,21 +58,21 @@ class BridgeUserQuestionTest extends KernelTestCase
 
     public function testCreateDeleteGet(): void
     {
-        $this->bridgeUserQuestion->create('slug', 'exam', 'user@valantic.com');
+        $this->bridgeUserQuestion->create('slug', 'exam', $this->user);
 
-        $userQuestionDataProvider = $this->bridgeUserQuestion->getByUserAndQuestion('user@valantic.com', 'slug');
+        $userQuestionDataProvider = $this->bridgeUserQuestion->getByUserAndQuestion($this->user, 'slug');
 
         self::assertInstanceOf(UserQuestionDataProvider::class, $userQuestionDataProvider);
         self::assertNull($userQuestionDataProvider->getAnswer());
 
 
         $this->bridgeUserQuestion->delete($userQuestionDataProvider->getId());
-        self::assertNull($this->bridgeUserQuestion->getByUserAndQuestion('user@valantic.com', 'slug'));
+        self::assertNull($this->bridgeUserQuestion->getByUserAndQuestion($this->user, 'slug'));
     }
 
     public function testUpdate(): void
     {
-        $this->bridgeUserQuestion->create('question', 'exam', 'user@valantic.com');
+        $this->bridgeUserQuestion->create('question', 'exam', $this->user);
 
         $questionDataProvider = new QuestionDataProvider();
         $questionDataProvider
@@ -90,8 +95,8 @@ class BridgeUserQuestionTest extends KernelTestCase
                 'answer_4' => false,
             ];
 
-        $this->bridgeUserQuestion->updateAnswer($questionDataProvider, 'user@valantic.com', $formData);
-        $userQuestionDataProvider = $this->bridgeUserQuestion->getByUserAndQuestion('user@valantic.com', 'question');
+        $this->bridgeUserQuestion->updateAnswer($questionDataProvider, $this->user, $formData);
+        $userQuestionDataProvider = $this->bridgeUserQuestion->getByUserAndQuestion($this->user, 'question');
         self::assertTrue($userQuestionDataProvider->getAnswer());
 
 
@@ -103,8 +108,8 @@ class BridgeUserQuestionTest extends KernelTestCase
                 'answer_4' => false,
             ];
 
-        $this->bridgeUserQuestion->updateAnswer($questionDataProvider, 'user@valantic.com', $formData);
-        $userQuestionDataProvider = $this->bridgeUserQuestion->getByUserAndQuestion('user@valantic.com', 'question');
+        $this->bridgeUserQuestion->updateAnswer($questionDataProvider, $this->user, $formData);
+        $userQuestionDataProvider = $this->bridgeUserQuestion->getByUserAndQuestion($this->user, 'question');
         self::assertFalse($userQuestionDataProvider->getAnswer());
     }
 }

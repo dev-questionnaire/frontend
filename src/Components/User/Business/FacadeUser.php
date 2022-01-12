@@ -5,8 +5,9 @@ namespace App\Components\User\Business;
 
 use App\Components\User\Business\Model\UserInterface;
 use App\DataTransferObject\UserDataProvider;
+use App\Entity\User;
 
-class FacadeUser
+class FacadeUser implements FacadeUserInterface
 {
     public function __construct(
         private UserInterface $user,
@@ -24,8 +25,8 @@ class FacadeUser
         return $this->user->update($userDataProvider);
     }
 
-    public function delete(int $id): void
+    public function delete(User $user): void
     {
-        $this->user->delete($id);
+        $this->user->delete($user->getId());
     }
 }

@@ -17,26 +17,28 @@ use App\Entity\UserQuestion;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class BridgeUserQuestionTest extends KernelTestCase
 {
     private ?EntityManagerInterface $entityManager;
     private ?BridgeUserQuestionInterface $bridgeUserQuestion;
+    private ContainerInterface $container;
 
     protected function setUp(): void
     {
         parent::setUp();
 
         $kernel = self::bootKernel();
-        $container = static::getContainer();
+        $this->container = static::getContainer();
 
         $this->entityManager = $kernel->getContainer()
             ->get('doctrine')
             ->getManager();
 
-        $this->bridgeUserQuestion = $container->get(BridgeUserQuestion::class);
+        $this->bridgeUserQuestion = $this->container->get(BridgeUserQuestion::class);
 
-        $appFixtures = $container->get(AppFixtures::class);
+        $appFixtures = $this->container->get(AppFixtures::class);
         $appFixtures->load($this->entityManager, ['test' => true]);
     }
 
@@ -60,11 +62,13 @@ class BridgeUserQuestionTest extends KernelTestCase
 
     public function testGetByUserAndExamIndexedByQuestionSlug(): void
     {
-        $userQuestionDataProviderList = $this->bridgeUserQuestion->getByUserAndExamIndexedByQuestionSlug('user@valantic.com', 'exam');
+        $user = $this->container->get(UserRepository::class)->findOneBy(['email' => 'user@valantic.com']);
+
+        $userQuestionDataProviderList = $this->bridgeUserQuestion->getByUserAndExamIndexedByQuestionSlug($user, 'exam');
         self::assertCount(3, $userQuestionDataProviderList);
 
         self::assertInstanceOf(UserQuestionDataProvider::class, $userQuestionDataProviderList['question_1']);
 
-        self::assertEmpty($this->bridgeUserQuestion->getByUserAndExamIndexedByQuestionSlug('', ''));
+        self::assertEmpty($this->bridgeUserQuestion->getByUserAndExamIndexedByQuestionSlug($user, ''));
     }
 }

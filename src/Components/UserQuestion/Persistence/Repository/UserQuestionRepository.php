@@ -5,23 +5,21 @@ namespace App\Components\UserQuestion\Persistence\Repository;
 
 use App\Components\UserQuestion\Persistence\Mapper\UserQuestionMapper;
 use App\DataTransferObject\UserQuestionDataProvider;
+use App\Entity\User;
 use App\Entity\UserQuestion;
 use App\Repository\UserRepository;
 
 class UserQuestionRepository implements UserQuestionRepositoryInterface
 {
     public function __construct(
-        private UserRepository $userRepository,
         private \App\Repository\UserQuestionRepository $userQuestionRepository,
         private UserQuestionMapper $mapper,
     )
     {
     }
 
-    public function getByUserAndQuestion(string $userEmail, string $questionSlug): ?UserQuestionDataProvider
+    public function getByUserAndQuestion(User $user, string $questionSlug): ?UserQuestionDataProvider
     {
-        $user = $this->userRepository->findOneBy(['email' => $userEmail]);
-
         $userQuestion = $this->userQuestionRepository->findOneBy(['questionSlug' => $questionSlug, 'user' => $user]);
 
         if(!$userQuestion instanceof UserQuestion) {
@@ -34,11 +32,9 @@ class UserQuestionRepository implements UserQuestionRepositoryInterface
     /**
      * @return UserQuestionDataProvider[]
      */
-    public function getByUserAndExamIndexedByQuestionSlug(string $userEmail, string $examSlug): array
+    public function getByUserAndExamIndexedByQuestionSlug(User $user, string $examSlug): array
     {
         $userQuestionDataProviderList = [];
-
-        $user = $this->userRepository->findOneBy(['email' => $userEmail]);
 
         $userQuestionList = $this->userQuestionRepository->findBy(['examSlug' => $examSlug, 'user' => $user]);
 

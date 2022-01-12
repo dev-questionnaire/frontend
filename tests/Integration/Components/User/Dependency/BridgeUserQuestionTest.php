@@ -60,7 +60,7 @@ class BridgeUserQuestionTest extends KernelTestCase
 
         $user = $userRepository->findOneBy(['email' => 'user@valantic.com']);
 
-        $this->bridgeUserQuestion->deleteByUser($user->getId());
+        $this->bridgeUserQuestion->deleteByUser($user);
 
         self::assertCount(0, $userQuestionRepository->findAll());
     }

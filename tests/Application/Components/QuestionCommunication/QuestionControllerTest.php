@@ -5,6 +5,7 @@ namespace App\Tests\Application\Components\QuestionCommunication;
 
 use App\Components\UserQuestion\Persistence\Repository\UserQuestionRepository;
 use App\DataFixtures\AppFixtures;
+use App\Entity\User;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManager;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
@@ -17,6 +18,7 @@ class QuestionControllerTest extends WebTestCase
     private ?EntityManager $entityManager;
     private ContainerInterface $container;
     private KernelBrowser $client;
+    private User $user;
 
     protected function setUp(): void
     {
@@ -33,9 +35,9 @@ class QuestionControllerTest extends WebTestCase
 
         $repository = $this->container->get(UserRepository::class);
 
-        $testUser = $repository->findOneBy(['email' => 'user@valantic.com']);
+        $this->user = $repository->findOneBy(['email' => 'user@valantic.com']);
 
-        $this->client->loginUser($testUser);
+        $this->client->loginUser($this->user);
     }
 
     protected function tearDown(): void
@@ -77,7 +79,7 @@ class QuestionControllerTest extends WebTestCase
         );
 
         $userQuestionRepo = $this->container->get(UserQuestionRepository::class);
-        $userQuestion = $userQuestionRepo->getByUserAndQuestion('user@valantic.com', 's_in_solid');
+        $userQuestion = $userQuestionRepo->getByUserAndQuestion($this->user, 's_in_solid');
 
         self::assertTrue($userQuestion->getAnswer());
         self::assertInstanceOf(RedirectResponse::class, $this->client->getResponse());

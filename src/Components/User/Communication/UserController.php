@@ -2,7 +2,7 @@
 
 namespace App\Components\User\Communication;
 
-use App\Components\User\Business\FacadeUser;
+use App\Components\User\Business\FacadeUserInterface;
 use App\Components\User\Communication\Forms\Delete;
 use App\Components\User\Communication\Forms\Register;
 use App\Components\User\Communication\Forms\Update;
@@ -21,7 +21,7 @@ class UserController extends AbstractController
 {
 
     public function __construct(
-        private FacadeUser $facadeUser,
+        private FacadeUserInterface $facadeUser,
         private UserRepositoryInterface $userRepository,
         private BridgeUserQuestion $bridgeUserQuestion,
     )
@@ -80,9 +80,9 @@ class UserController extends AbstractController
     }
 
     #[Route("/user/delete", name: "app_user_delete")]
-    public function deleteUser(UserInterface $user, Request $request): Response
+    public function deleteUser(Request $request): Response
     {
-        $userDTO = $this->userRepository->getByEmail($user->getUserIdentifier());
+        $user = $this->getUser();
 
         $form = $this->createForm(Delete::class);
         $form->handleRequest($request);
@@ -91,15 +91,15 @@ class UserController extends AbstractController
             $session = new Session();
             $session->invalidate();
 
-            $this->bridgeUserQuestion->deleteByUser($userDTO->getId());
-            $this->facadeUser->delete($userDTO->getId());
+            $this->bridgeUserQuestion->deleteByUser($user);
+            $this->facadeUser->delete($user);
 
             return new RedirectResponse('/');
         }
 
         return $this->renderForm('user/delete.html.twig', [
             'form' => $form,
-            'user' => $userDTO,
+            'userEmail' => $user->getUserIdentifier(),
         ]);
     }
 }

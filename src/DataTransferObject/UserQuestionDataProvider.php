@@ -2,6 +2,8 @@
 declare(strict_types=1);
 namespace App\DataTransferObject;
 
+use App\Entity\User;
+
 /**
  * Auto generated data provider
  */
@@ -10,8 +12,8 @@ final class UserQuestionDataProvider
     /** @var int */
     protected $id;
 
-    /** @var string */
-    protected $userEmail;
+    /** @var User */
+    protected $user;
 
     /** @var string */
     protected $questionSlug;
@@ -71,21 +73,21 @@ final class UserQuestionDataProvider
 
 
     /**
-     * @return string
+     * @return User
      */
-    public function getUserEmail(): ?string
+    public function getUser(): ?User
     {
-        return $this->userEmail;
+        return $this->user;
     }
 
 
     /**
-     * @param string $userEmail
+     * @param User $user
      * @return UserQuestionDataProvider
      */
-    public function setUserEmail(?string $userEmail = null)
+    public function setUser(?User $user = null)
     {
-        $this->userEmail = $userEmail;
+        $this->user = $user;
 
         return $this;
     }
@@ -94,9 +96,9 @@ final class UserQuestionDataProvider
     /**
      * @return UserQuestionDataProvider
      */
-    public function unsetUserEmail()
+    public function unsetUser()
     {
-        $this->userEmail = null;
+        $this->user = null;
 
         return $this;
     }
@@ -105,9 +107,9 @@ final class UserQuestionDataProvider
     /**
      * @return bool
      */
-    public function hasUserEmail()
+    public function hasUser()
     {
-        return ($this->userEmail !== null && $this->userEmail !== []);
+        return ($this->user !== null && $this->user !== []);
     }
 
 
@@ -330,12 +332,12 @@ final class UserQuestionDataProvider
                     'is_dataprovider' => false,
                     'isCamelCase' => false,
                 ),
-            'userEmail' =>
+            'user' =>
                 array (
-                    'name' => 'userEmail',
+                    'name' => 'user',
                     'allownull' => true,
                     'default' => '',
-                    'type' => 'string',
+                    'type' => User::class,
                     'is_collection' => false,
                     'is_dataprovider' => false,
                     'isCamelCase' => false,

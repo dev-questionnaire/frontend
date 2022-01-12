@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Components\User\Dependency;
 
 use App\Components\UserQuestion\Business\FacadeUserQuestion;
+use App\Entity\User;
 
 class BridgeUserQuestion implements BridgeUserQuestionInterface
 {
@@ -13,8 +14,8 @@ class BridgeUserQuestion implements BridgeUserQuestionInterface
     {
     }
 
-    public function deleteByUser(int $userId): void
+    public function deleteByUser(User $user): void
     {
-        $this->facadeUserQuestion->deleteByUser($userId);
+        $this->facadeUserQuestion->deleteByUser($user);
     }
 }

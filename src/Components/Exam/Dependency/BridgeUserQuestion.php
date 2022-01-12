@@ -5,6 +5,7 @@ namespace App\Components\Exam\Dependency;
 
 use App\Components\UserQuestion\Business\FacadeUserQuestionInterface;
 use App\DataTransferObject\UserQuestionDataProvider;
+use App\Entity\User;
 
 class BridgeUserQuestion implements BridgeUserQuestionInterface
 {
@@ -17,8 +18,8 @@ class BridgeUserQuestion implements BridgeUserQuestionInterface
     /**
      * @return UserQuestionDataProvider[]
      */
-    public function getByUserAndExamIndexedByQuestionSlug(string $userEmail, string $examSlug): array
+    public function getByUserAndExamIndexedByQuestionSlug(User $user, string $examSlug): array
     {
-        return $this->facadeUserQuestion->getByUserAndExamIndexedByQuestionSlug($userEmail, $examSlug);
+        return $this->facadeUserQuestion->getByUserAndExamIndexedByQuestionSlug($user, $examSlug);
     }
 }

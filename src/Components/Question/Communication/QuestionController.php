@@ -7,6 +7,7 @@ use App\Components\Question\Dependency\BridgeUserQuestionInterface;
 use App\Components\Question\Persistence\Repository\QuestionRepositoryInterface;
 use App\DataTransferObject\QuestionDataProvider;
 use App\DataTransferObject\UserQuestionDataProvider;
+use App\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -26,14 +27,13 @@ class QuestionController extends AbstractController
     }
 
     #[Route("/exam/{examSlug}/question", name: "app_question")]
-    public function index(Request $request, UserInterface $user, string $examSlug): Response
+    public function index(Request $request, string $examSlug): Response
     {
         $questionDataProviderList = $this->questionRepository->getByExamSlug($examSlug);
 
-        $this->getUser();
-        $userEmail = $user->getUserIdentifier();
+        $user = $this->getUser();
 
-        $currentQuestionDataProvider = $this->getCurrentQuestion($questionDataProviderList, $examSlug, $userEmail);
+        $currentQuestionDataProvider = $this->getCurrentQuestion($questionDataProviderList, $examSlug, $user);
 
         if($currentQuestionDataProvider === null)
         {
@@ -57,8 +57,8 @@ class QuestionController extends AbstractController
 
         if ($form->isSubmitted() /**&& $form->isValid()**/) {
             $data = $form->getData();
-
-            $this->bridgeUserQuestion->updateAnswer($currentQuestionDataProvider, $userEmail, $data);
+            //TODO change from userEmail to entity
+            $this->bridgeUserQuestion->updateAnswer($currentQuestionDataProvider, $user, $data);
 
             return $this->redirectToRoute('app_question', ['examSlug' => $examSlug]);
         }
@@ -73,13 +73,13 @@ class QuestionController extends AbstractController
         ]);
     }
 
-    private function getCurrentQuestion(array $questionDataProviderList, string $examSlug, string $userEmail): ?QuestionDataProvider
+    private function getCurrentQuestion(array $questionDataProviderList, string $examSlug, User $user): ?QuestionDataProvider
     {
         foreach ($questionDataProviderList as $questionDataProvider) {
-            $userQuestionDataProvider = $this->getUserQuestionDataProvider($userEmail, $questionDataProvider->getSlug());
+            $userQuestionDataProvider = $this->getUserQuestionDataProvider($user, $questionDataProvider->getSlug());
 
             if ($userQuestionDataProvider === null) {
-                $this->bridgeUserQuestion->create($questionDataProvider->getSlug(), $examSlug, $userEmail);
+                $this->bridgeUserQuestion->create($questionDataProvider->getSlug(), $examSlug, $user);
 
                 return $questionDataProvider;
             }
@@ -91,8 +91,8 @@ class QuestionController extends AbstractController
         return null;
     }
 
-    private function getUserQuestionDataProvider(string $userEmail, string $slug): ?UserQuestionDataProvider
+    private function getUserQuestionDataProvider(User $user, string $slug): ?UserQuestionDataProvider
     {
-        return $this->bridgeUserQuestion->getByUserAndQuestion($userEmail, $slug);
+        return $this->bridgeUserQuestion->getByUserAndQuestion($user, $slug);
     }
 }
