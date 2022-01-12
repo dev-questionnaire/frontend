@@ -37,7 +37,7 @@ class BridgeUserQuestionTest extends KernelTestCase
         $this->bridgeUserQuestion = $container->get(BridgeUserQuestion::class);
 
         $appFixtures = $container->get(AppFixtures::class);
-        $appFixtures->load($this->entityManager);
+        $appFixtures->load($this->entityManager, ['test' => true]);
     }
 
     protected function tearDown(): void
@@ -60,7 +60,7 @@ class BridgeUserQuestionTest extends KernelTestCase
 
     public function testGetByUserAndExamIndexedByQuestionSlug(): void
     {
-        $userQuestionDataProviderList = $this->bridgeUserQuestion->getByUserAndExamIndexedByQuestionSlug('user@email.com', 'exam');
+        $userQuestionDataProviderList = $this->bridgeUserQuestion->getByUserAndExamIndexedByQuestionSlug('user@valantic.com', 'exam');
         self::assertCount(3, $userQuestionDataProviderList);
 
         self::assertInstanceOf(UserQuestionDataProvider::class, $userQuestionDataProviderList['question_1']);

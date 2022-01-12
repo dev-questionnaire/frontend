@@ -30,7 +30,7 @@ class BridgeUserQuestionTest extends KernelTestCase
             ->getManager();
 
         $appFixtures = $this->container->get(AppFixtures::class);
-        $appFixtures->load($this->entityManager);
+        $appFixtures->load($this->entityManager, ['test' => true]);
 
         $this->bridgeUserQuestion = $this->container->get(BridgeUserQuestion::class);
     }
@@ -58,7 +58,7 @@ class BridgeUserQuestionTest extends KernelTestCase
 
         self::assertCount(3, $userQuestionRepository->findAll());
 
-        $user = $userRepository->findOneBy(['email' => 'user@email.com']);
+        $user = $userRepository->findOneBy(['email' => 'user@valantic.com']);
 
         $this->bridgeUserQuestion->deleteByUser($user->getId());
 

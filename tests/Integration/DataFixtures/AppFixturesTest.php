@@ -56,31 +56,31 @@ class AppFixturesTest extends KernelTestCase
         $this->entityManager = null;
     }
 
-    public function testLoadUser(): void
-    {
-        $this->appFixtures->load($this->entityManager, ['user' => true]);
-
-        $userList = $this->userRepository->findAll();
-
-        self::assertSame('admin@email.com', $userList[0]->getEmail());
-        self::assertSame('ROLE_ADMIN', $userList[0]->getRoles()[0]);
-        self::assertSame('ROLE_USER', $userList[0]->getRoles()[1]);
-        self::assertTrue($this->userPasswordHasher->isPasswordValid($userList[0], 'admin'));
-
-        self::assertSame('user@email.com', $userList[1]->getEmail());
-        self::assertSame('ROLE_USER', $userList[1]->getRoles()[0]);
-        self::assertTrue($this->userPasswordHasher->isPasswordValid($userList[1], 'user'));
-    }
-
-    public function testLoadAll(): void
+    public function testLoad(): void
     {
         $this->appFixtures->load($this->entityManager);
 
         $userList = $this->userRepository->findAll();
 
-        self::assertSame('admin@email.com', $userList[0]->getEmail());
+        self::assertSame('admin@valantic.com', $userList[0]->getEmail());
+        self::assertSame('ROLE_ADMIN', $userList[0]->getRoles()[0]);
+        self::assertSame('ROLE_USER', $userList[0]->getRoles()[1]);
+        self::assertTrue($this->userPasswordHasher->isPasswordValid($userList[0], 'admin'));
 
-        self::assertSame('user@email.com', $userList[1]->getEmail());
+        self::assertSame('user@valantic.com', $userList[1]->getEmail());
+        self::assertSame('ROLE_USER', $userList[1]->getRoles()[0]);
+        self::assertTrue($this->userPasswordHasher->isPasswordValid($userList[1], 'user'));
+    }
+
+    public function testLoadTest(): void
+    {
+        $this->appFixtures->load($this->entityManager, ['test' => true]);
+
+        $userList = $this->userRepository->findAll();
+
+        self::assertSame('admin@valantic.com', $userList[0]->getEmail());
+
+        self::assertSame('user@valantic.com', $userList[1]->getEmail());
 
         $userQuestionList = $this->userQuestionRepository->findAll();
 

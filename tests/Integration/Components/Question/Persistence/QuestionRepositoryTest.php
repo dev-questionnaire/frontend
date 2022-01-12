@@ -16,14 +16,9 @@ class QuestionRepositoryTest extends KernelTestCase
     protected function setUp(): void
     {
         parent::setUp();
+        $container = static::getContainer();
 
-        $parameterBagStub = new ParameterBag([
-            'app_content_folder' => __DIR__ . '/../../../content'
-        ]);
-        $this->questionRepository = new QuestionRepository(
-            new QuestionMapper(),
-            $parameterBagStub
-        );
+        $this->questionRepository = $container->get(QuestionRepository::class);
     }
 
     public function testGetByExamAndQuestionPositiv(): void

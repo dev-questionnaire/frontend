@@ -31,11 +31,11 @@ class UserControllerTest extends WebTestCase
         $this->entityManager = $this->container->get('doctrine.orm.entity_manager');
 
         $appFixtures = $this->container->get(AppFixtures::class);
-        $appFixtures->load($this->entityManager, ['user' => true]);
+        $appFixtures->load($this->entityManager);
 
         $repository = $this->container->get(UserRepository::class);
 
-        $testUser = $repository->findOneBy(['email' => 'user@email.com']);
+        $testUser = $repository->findOneBy(['email' => 'user@valantic.com']);
 
         $this->client->loginUser($testUser);
     }
@@ -95,7 +95,7 @@ class UserControllerTest extends WebTestCase
             '/user/profile',
             [
                 'update' => [
-                    'email' => 'user@email.com',
+                    'email' => 'user@valantic.com',
                     'password' => '!aA12345',
                     'verificationPassword' => '!aA12345',
                 ],
@@ -103,7 +103,7 @@ class UserControllerTest extends WebTestCase
         );
 
         $userRepository = $this->container->get(\App\Components\User\Persistence\Repository\UserRepository::class);
-        $user = $userRepository->getByEmail('user@email.com');
+        $user = $userRepository->getByEmail('user@valantic.com');
 
         self::assertInstanceOf(UserDataProvider::class, $user);
     }
@@ -127,7 +127,7 @@ class UserControllerTest extends WebTestCase
         );
 
         $userRepository = $this->container->get(\App\Components\User\Persistence\Repository\UserRepository::class);
-        $user = $userRepository->getByEmail('user@email.com');
+        $user = $userRepository->getByEmail('user@valantic.com');
 
         self::assertNull($user);
 

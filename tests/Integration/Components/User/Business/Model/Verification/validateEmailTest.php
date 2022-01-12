@@ -4,11 +4,9 @@ declare(strict_types=1);
 namespace App\Tests\Integration\Components\User\Business\Model\Verification;
 
 use App\Components\User\Business\Model\Verification\ValidateRegistrationEmail;
+use App\DataFixtures\AppFixtures;
 use App\DataTransferObject\ErrorDataProvider;
 use App\DataTransferObject\UserDataProvider;
-use App\Components\User\Persistence\Mapper\UserMapper;
-use App\Components\User\Persistence\Repository\UserRepository;
-use App\Entity\User as UserEntity;
 use Doctrine\ORM\EntityManager;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
@@ -28,23 +26,10 @@ class validateEmailTest extends KernelTestCase
             ->get('doctrine')
             ->getManager();
 
-        $userMapper = new UserMapper();
-        $userEntityRepository = $container->get(\App\Repository\UserRepository::class);
-        $userRepository = new UserRepository($userEntityRepository, $userMapper);
-        $this->validateEmail = new ValidateRegistrationEmail($userRepository);
+        $this->validateEmail = $container->get(ValidateRegistrationEmail::class);
 
-        $currentTime = new \DateTime();
-
-        $userEntity = new UserEntity();
-
-        $userEntity->setEmail('test@nexus-united.com');
-        $userEntity->setPassword('test');
-        $userEntity->setRoles(['ROLE_USER']);
-        $userEntity->setCreatedAt($currentTime);
-        $userEntity->setUpdatedAt($currentTime);
-
-        $this->entityManager->persist($userEntity);
-        $this->entityManager->flush();
+        $appFixtures = $container->get(AppFixtures::class);
+        $appFixtures->load($this->entityManager);
     }
 
     protected function tearDown(): void
@@ -72,7 +57,7 @@ class validateEmailTest extends KernelTestCase
         self::assertEmpty($errorDataProvider->getErrors());
 
         $errorDataProvider->unsetErrors();
-        $userDTO->setEmail('test@nexus-united.com');
+        $userDTO->setEmail('user@valantic.com');
 
         $errorDataProvider = $this->validateEmail->getErrors($userDTO, $errorDataProvider);
 

@@ -18,19 +18,9 @@ class BridgeExamTest extends KernelTestCase
     protected function setUp(): void
     {
         parent::setUp();
+        $container = static::getContainer();
 
-        $parameterBagStub = new ParameterBag([
-            'app_content_folder' => __DIR__ . '/../../../content'
-        ]);
-
-        $this->bridgeExam = new BridgeExam(
-            new FacadeExam(
-                new ExamRepository(
-                    new ExamMapper(),
-                    $parameterBagStub
-                )
-            )
-        );
+        $this->bridgeExam = $container->get(BridgeExam::class);
     }
 
     public function testGetBySlug(): void

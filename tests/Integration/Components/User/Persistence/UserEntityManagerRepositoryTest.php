@@ -29,8 +29,8 @@ class UserEntityManagerRepositoryTest extends KernelTestCase
             ->get('doctrine')
             ->getManager();
 
-        $this->userEntityManager = new UserEntityManager($this->entityManager, $container->get(\App\Repository\UserRepository::class), $container->get(UserPasswordHasherInterface::class));
-        $this->userRepository = new UserRepository($container->get(\App\Repository\UserRepository::class), new UserMapper());
+        $this->userEntityManager = $container->get(UserEntityManager::class);
+        $this->userRepository = $container->get(UserRepository::class);
     }
 
     protected function tearDown(): void

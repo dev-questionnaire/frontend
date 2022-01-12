@@ -29,11 +29,11 @@ class QuestionControllerTest extends WebTestCase
         $this->entityManager = $this->container->get('doctrine.orm.entity_manager');
 
         $appFixtures = $this->container->get(AppFixtures::class);
-        $appFixtures->load($this->entityManager, ['user' => true]);
+        $appFixtures->load($this->entityManager);
 
         $repository = $this->container->get(UserRepository::class);
 
-        $testUser = $repository->findOneBy(['email' => 'user@email.com']);
+        $testUser = $repository->findOneBy(['email' => 'user@valantic.com']);
 
         $this->client->loginUser($testUser);
     }
@@ -77,7 +77,7 @@ class QuestionControllerTest extends WebTestCase
         );
 
         $userQuestionRepo = $this->container->get(UserQuestionRepository::class);
-        $userQuestion = $userQuestionRepo->getByUserAndQuestion('user@email.com', 's_in_solid');
+        $userQuestion = $userQuestionRepo->getByUserAndQuestion('user@valantic.com', 's_in_solid');
 
         self::assertTrue($userQuestion->getAnswer());
         self::assertInstanceOf(RedirectResponse::class, $this->client->getResponse());

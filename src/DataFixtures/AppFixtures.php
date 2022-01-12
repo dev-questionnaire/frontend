@@ -23,14 +23,13 @@ class AppFixtures extends Fixture
 
     public function load(ObjectManager $manager, array $options = []): void
     {
-        if (empty($options)) {
-            $this->loadUser($manager);
+        $this->loadUser($manager);
 
-            $user = $this->userRepository->findOneBy(['email' => 'user@email.com']);
+        if (isset($options['test']) && $options['test'] === true) {
+
+            $user = $this->userRepository->findOneBy(['email' => 'user@valantic.com']);
 
             $this->loadUserQuestion($manager, $user);
-        } elseif ($options['user'] === true) {
-            $this->loadUser($manager);
         }
     }
 
@@ -40,7 +39,7 @@ class AppFixtures extends Fixture
         $entityList = [];
 
         $user
-            ->setEmail('admin@email.com')
+            ->setEmail('admin@valantic.com')
             ->setRoles(['ROLE_ADMIN', 'ROLE_USER']);
 
         $user->setPassword(
@@ -53,7 +52,7 @@ class AppFixtures extends Fixture
         $user = new User();
 
         $user
-            ->setEmail('user@email.com')
+            ->setEmail('user@valantic.com')
             ->setRoles(['ROLE_USER']);
 
         $user->setPassword(
