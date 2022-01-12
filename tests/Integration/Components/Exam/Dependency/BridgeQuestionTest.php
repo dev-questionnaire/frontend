@@ -19,18 +19,9 @@ class BridgeQuestionTest extends KernelTestCase
     {
         parent::setUp();
 
-        $parameterBagStub = new ParameterBag([
-            'app_content_folder' => __DIR__ . '/../../../content'
-        ]);
+        $container = static::getContainer();
 
-        $this->bridgeQuestion = new BridgeQuestion(
-            new FacadeQuestion(
-                new QuestionRepository(
-                    new QuestionMapper(),
-                    $parameterBagStub
-                )
-            )
-        );
+        $this->bridgeQuestion = $container->get(BridgeQuestion::class);
     }
 
     public function testGetByExam(): void

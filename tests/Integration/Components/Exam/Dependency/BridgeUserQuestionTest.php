@@ -10,6 +10,7 @@ use App\Components\UserQuestion\Persistence\EntityManager\UserQuestionEntityMana
 use App\Components\UserQuestion\Persistence\Mapper\UserQuestionMapper;
 use App\Components\UserQuestion\Persistence\Repository\UserQuestionRepository;
 use App\Components\UserQuestion\Persistence\Repository\UserQuestionRepositoryInterface;
+use App\DataFixtures\AppFixtures;
 use App\DataTransferObject\UserQuestionDataProvider;
 use App\Entity\User;
 use App\Entity\UserQuestion;
@@ -21,7 +22,6 @@ class BridgeUserQuestionTest extends KernelTestCase
 {
     private ?EntityManagerInterface $entityManager;
     private ?BridgeUserQuestionInterface $bridgeUserQuestion;
-    private ?UserQuestionRepositoryInterface $userQuestionRepository;
 
     protected function setUp(): void
     {
@@ -34,33 +34,10 @@ class BridgeUserQuestionTest extends KernelTestCase
             ->get('doctrine')
             ->getManager();
 
-        $this->userQuestionRepository = new UserQuestionRepository(
-            $container->get(UserRepository::class),
-            $container->get(\App\Repository\UserQuestionRepository::class),
-            new UserQuestionMapper());
+        $this->bridgeUserQuestion = $container->get(BridgeUserQuestion::class);
 
-        $this->bridgeUserQuestion = new BridgeUserQuestion(
-            new FacadeUserQuestion($this->userQuestionRepository,
-                new UserQuestionEntityManager($this->entityManager,
-                    $container->get(\App\Repository\UserQuestionRepository::class),
-                    $container->get(UserRepository::class))));
-
-        $user = new User();
-        $user
-            ->setEmail('test@email.com')
-            ->setRoles(['ROLE_USER'])
-            ->setPassword('123');
-
-        $userQuestion = new UserQuestion();
-        $userQuestion
-            ->setUser($user)
-            ->setExamSlug('exam')
-            ->setQuestionSlug('question')
-            ->setAnswer(null);
-
-        $this->entityManager->persist($user);
-        $this->entityManager->persist($userQuestion);
-        $this->entityManager->flush();
+        $appFixtures = $container->get(AppFixtures::class);
+        $appFixtures->load($this->entityManager);
     }
 
     protected function tearDown(): void
@@ -77,16 +54,16 @@ class BridgeUserQuestionTest extends KernelTestCase
 
         $connection->close();
 
-        $this->userQuestionRepository = null;
         $this->bridgeUserQuestion = null;
         $this->entityManager = null;
     }
 
     public function testGetByUserAndExamIndexedByQuestionSlug(): void
     {
-        $userQuestionDataProviderList = $this->bridgeUserQuestion->getByUserAndExamIndexedByQuestionSlug('test@email.com', 'exam');
-        self::assertCount(1, $userQuestionDataProviderList);
-        self::assertInstanceOf(UserQuestionDataProvider::class, $userQuestionDataProviderList['question']);
+        $userQuestionDataProviderList = $this->bridgeUserQuestion->getByUserAndExamIndexedByQuestionSlug('user@email.com', 'exam');
+        self::assertCount(3, $userQuestionDataProviderList);
+
+        self::assertInstanceOf(UserQuestionDataProvider::class, $userQuestionDataProviderList['question_1']);
 
         self::assertEmpty($this->bridgeUserQuestion->getByUserAndExamIndexedByQuestionSlug('', ''));
     }

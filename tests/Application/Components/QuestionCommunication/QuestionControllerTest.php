@@ -65,6 +65,7 @@ class QuestionControllerTest extends WebTestCase
 
     public function testAppQuestionSubmit(): void
     {
+        //$csrfToken = $this->client->getContainer()->get('security.csrf.token_manager')->getToken('_token')->getValue();
         $crawler = $this->client->request(
             'POST',
             '/exam/solid/question',

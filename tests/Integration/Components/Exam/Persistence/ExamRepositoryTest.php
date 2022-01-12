@@ -16,26 +16,25 @@ class ExamRepositoryTest extends KernelTestCase
     protected function setUp(): void
     {
         parent::setUp();
+        $container = static::getContainer();
 
-        $parameterBagStub = new ParameterBag([
-            'app_content_folder' => __DIR__ . '/../../../content'
-        ]);
-        $this->examRepository = new ExamRepository(
-            new ExamMapper(),
-            $parameterBagStub
-        );
+        $this->examRepository = $container->get(ExamRepository::class);
     }
 
     public function testGetAll(): void
     {
         $examDataProviderList = $this->examRepository->getAll();
 
-        self::assertCount(2, $examDataProviderList);
-        self::assertSame('OOP', $examDataProviderList[0]->getName());
-        self::assertSame('SOLID', $examDataProviderList[1]->getName());
+        self::assertCount(4, $examDataProviderList);
+        self::assertSame('Haruns geiles Quiz', $examDataProviderList[0]->getName());
+        self::assertSame('OOP', $examDataProviderList[1]->getName());
+        self::assertSame('SOLID', $examDataProviderList[2]->getName());
+        self::assertSame('Testing', $examDataProviderList[3]->getName());
 
-        self::assertSame('oop', $examDataProviderList[0]->getSlug());
-        self::assertSame('solid', $examDataProviderList[1]->getSlug());
+        self::assertSame('harun', $examDataProviderList[0]->getSlug());
+        self::assertSame('oop', $examDataProviderList[1]->getSlug());
+        self::assertSame('solid', $examDataProviderList[2]->getSlug());
+        self::assertSame('testing', $examDataProviderList[3]->getSlug());
     }
 
     public function testGetByNamePositiv(): void
@@ -47,7 +46,7 @@ class ExamRepositoryTest extends KernelTestCase
 
     public function testGetByNameNegativ(): void
     {
-        $result = $this->examRepository->getBySlug('Test');
+        $result = $this->examRepository->getBySlug('does not exist');
 
         self::assertNull($result);
 
