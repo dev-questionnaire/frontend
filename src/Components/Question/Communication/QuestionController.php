@@ -57,7 +57,6 @@ class QuestionController extends AbstractController
 
         if ($form->isSubmitted() /**&& $form->isValid()**/) {
             $data = $form->getData();
-            //TODO change from userEmail to entity
             $this->bridgeUserQuestion->updateAnswer($currentQuestionDataProvider, $user, $data);
 
             return $this->redirectToRoute('app_question', ['examSlug' => $examSlug]);
@@ -76,7 +75,7 @@ class QuestionController extends AbstractController
     private function getCurrentQuestion(array $questionDataProviderList, string $examSlug, User $user): ?QuestionDataProvider
     {
         foreach ($questionDataProviderList as $questionDataProvider) {
-            $userQuestionDataProvider = $this->getUserQuestionDataProvider($user, $questionDataProvider->getSlug());
+            $userQuestionDataProvider = $this->bridgeUserQuestion->getByUserAndQuestion($user, $questionDataProvider->getSlug());
 
             if ($userQuestionDataProvider === null) {
                 $this->bridgeUserQuestion->create($questionDataProvider->getSlug(), $examSlug, $user);
@@ -89,10 +88,5 @@ class QuestionController extends AbstractController
             }
         }
         return null;
-    }
-
-    private function getUserQuestionDataProvider(User $user, string $slug): ?UserQuestionDataProvider
-    {
-        return $this->bridgeUserQuestion->getByUserAndQuestion($user, $slug);
     }
 }
