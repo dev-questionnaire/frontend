@@ -6,6 +6,7 @@ namespace App\Components\User\Persistence\EntityManager;
 use App\Entity\User;
 use App\DataTransferObject\UserDataProvider;
 use App\Repository\UserRepository;
+use Doctrine\DBAL\Driver\PDO\Exception;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
@@ -21,35 +22,32 @@ class UserEntityManager implements UserEntityManagerInterface
 
     public function create(UserDataProvider $userDataProvider): void
     {
-        $userEntity = new User();
+        $user = new User();
 
-        $plaintextPassword = $userDataProvider->getPassword();
-
-        $hashedPassword = $this->userPasswordHasher->hashPassword(
-            $userEntity,
-            $plaintextPassword
-        );
-
-        $userEntity->setEmail($userDataProvider->getEmail())
+        $user
+            ->setEmail($userDataProvider->getEmail())
             ->setRoles(['ROLE_USER'])
-            ->setPassword($hashedPassword);
+            ->setPassword($this->userPasswordHasher->hashPassword(
+                $user,
+                $userDataProvider->getPassword()
+            ));
 
-        $this->entityManager->persist($userEntity);
+        $this->entityManager->persist($user);
         $this->entityManager->flush();
     }
 
     public function update(UserDataProvider $userDataProvider): void
     {
-        $userEntity = $this->userRepository->find($userDataProvider->getId());
+        $user = $this->userRepository->find($userDataProvider->getId());
 
         $plaintextPassword = $userDataProvider->getPassword();
 
         $hashedPassword = $this->userPasswordHasher->hashPassword(
-            $userEntity,
+            $user,
             $plaintextPassword
         );
 
-        $userEntity
+        $user
             ->setEmail($userDataProvider->getEmail())
             ->setPassword($hashedPassword);
 
@@ -58,9 +56,9 @@ class UserEntityManager implements UserEntityManagerInterface
 
     public function delete(int $id): void
     {
-        $userEntity = $this->userRepository->find($id);
+        $user = $this->userRepository->find($id);
 
-        $this->entityManager->remove($userEntity);
+        $this->entityManager->remove($user);
         $this->entityManager->flush();
     }
 }
