@@ -53,14 +53,11 @@ class BridgeUserQuestionTest extends KernelTestCase
 
     public function testDeleteByUser(): void
     {
-        $userRepository = $this->container->get(UserRepository::class);
         $userQuestionRepository = $this->container->get(UserQuestionRepository::class);
 
         self::assertCount(3, $userQuestionRepository->findAll());
 
-        $user = $userRepository->findOneBy(['email' => 'user@valantic.com']);
-
-        $this->bridgeUserQuestion->deleteByUser($user);
+        $this->bridgeUserQuestion->deleteByUser(2);
 
         self::assertCount(0, $userQuestionRepository->findAll());
     }

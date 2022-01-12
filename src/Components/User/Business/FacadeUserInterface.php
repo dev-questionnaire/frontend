@@ -12,5 +12,5 @@ interface FacadeUserInterface
 
     public function update(UserDataProvider $userDataProvider): array;
 
-    public function delete(User $user): void;
+    public function delete(int $userId): void;
 }

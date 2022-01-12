@@ -5,10 +5,9 @@ namespace App\Components\Exam\Communication;
 use App\Components\Exam\Dependency\BridgeQuestionInterface;
 use App\Components\Exam\Persistence\Repository\ExamRepositoryInterface;
 use App\Components\Exam\Dependency\BridgeUserQuestionInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Core\User\UserInterface;
 
 class ExamController extends AbstractController
 {
@@ -33,13 +32,13 @@ class ExamController extends AbstractController
     #[Route("/exam/{examSlug}/result", name: "app_exam_result")]
     public function result(string $examSlug): Response
     {
-        $user = $this->getUser();
+        $user = $this->getUserDataProvider();
 
         $examDataProvider = $this->examRepository->getBySlug($examSlug);
 
         $questionDataProviderList = $this->bridgeQuestion->getByExamSlug($examSlug);
 
-        $userQuestionDataProviderList = $this->bridgeUserQuestion->getByUserAndExamIndexedByQuestionSlug($user, $examSlug);
+        $userQuestionDataProviderList = $this->bridgeUserQuestion->getByUserAndExamIndexedByQuestionSlug($user->getId(), $examSlug);
 
         $questionQuantity = count($questionDataProviderList);
         $countQuestions = 0;

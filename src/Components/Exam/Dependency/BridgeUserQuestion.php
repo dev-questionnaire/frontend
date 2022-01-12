@@ -18,8 +18,8 @@ class BridgeUserQuestion implements BridgeUserQuestionInterface
     /**
      * @return UserQuestionDataProvider[]
      */
-    public function getByUserAndExamIndexedByQuestionSlug(User $user, string $examSlug): array
+    public function getByUserAndExamIndexedByQuestionSlug(int $userId, string $examSlug): array
     {
-        return $this->facadeUserQuestion->getByUserAndExamIndexedByQuestionSlug($user, $examSlug);
+        return $this->facadeUserQuestion->getByUserAndExamIndexedByQuestionSlug($userId, $examSlug);
     }
 }

@@ -9,18 +9,18 @@ use App\Entity\User;
 
 interface FacadeUserQuestionInterface
 {
-    public function create(string $questionSlug, string $examSlug, User $user): void;
+    public function create(string $questionSlug, string $examSlug, int $userId): void;
 
-    public function updateAnswer(QuestionDataProvider $questionDataProvider, User $user, array $formData): void;
+    public function updateAnswer(QuestionDataProvider $questionDataProvider, int $userId, array $formData): void;
 
     public function delete(int $id): void;
 
-    public function deleteByUser(User $user): void;
+    public function deleteByUser(int $userId): void;
 
-    public function getByUserAndQuestion(User $user, string $questionSlug): ?UserQuestionDataProvider;
+    public function getByQuestionAndUser(int $userId, string $questionSlug): ?UserQuestionDataProvider;
 
     /**
      * @return UserQuestionDataProvider[]
      */
-    public function getByUserAndExamIndexedByQuestionSlug(User $user, string $examSlug): array;
+    public function getByUserAndExamIndexedByQuestionSlug(int $userId, string $examSlug): array;
 }

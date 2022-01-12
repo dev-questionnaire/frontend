@@ -14,7 +14,7 @@ class UserQuestionMapper
 
         $userQuestionDataProvider
             ->setId($userQuestion->getId())
-            ->setUser($userQuestion->getUser())
+            ->setUserId($userQuestion->getUser()->getId())
             ->setQuestionSlug($userQuestion->getQuestionSlug())
             ->setExamSlug($userQuestion->getExamSlug())
             ->setAnswer($userQuestion->getAnswer())

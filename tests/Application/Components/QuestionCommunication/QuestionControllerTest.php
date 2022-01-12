@@ -18,7 +18,6 @@ class QuestionControllerTest extends WebTestCase
     private ?EntityManager $entityManager;
     private ContainerInterface $container;
     private KernelBrowser $client;
-    private User $user;
 
     protected function setUp(): void
     {
@@ -35,9 +34,9 @@ class QuestionControllerTest extends WebTestCase
 
         $repository = $this->container->get(UserRepository::class);
 
-        $this->user = $repository->findOneBy(['email' => 'user@valantic.com']);
+        $user = $repository->findOneBy(['email' => 'user@valantic.com']);
 
-        $this->client->loginUser($this->user);
+        $this->client->loginUser($user);
     }
 
     protected function tearDown(): void
@@ -79,7 +78,7 @@ class QuestionControllerTest extends WebTestCase
         );
 
         $userQuestionRepo = $this->container->get(UserQuestionRepository::class);
-        $userQuestion = $userQuestionRepo->getByUserAndQuestion($this->user, 's_in_solid');
+        $userQuestion = $userQuestionRepo->findeOneByQuestionAndUser('s_in_solid', 2);
 
         self::assertTrue($userQuestion->getAnswer());
         self::assertInstanceOf(RedirectResponse::class, $this->client->getResponse());

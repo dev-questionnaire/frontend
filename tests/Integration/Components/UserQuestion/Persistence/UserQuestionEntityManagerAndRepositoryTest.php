@@ -63,11 +63,9 @@ class UserQuestionEntityManagerAndRepositoryTest extends KernelTestCase
 
     public function testCreateAndGet(): void
     {
-        $user = $this->container->get(UserRepository::class)->findOneBy(['email' => 'user@valantic.com']);
-
         $userQuestionDataProvider = new UserQuestionDataProvider();
         $userQuestionDataProvider
-            ->setUser($user)
+            ->setUserId(2)
             ->setQuestionSlug('question')
             ->setExamSlug('exam')
             ->setAnswer(null);
@@ -75,19 +73,19 @@ class UserQuestionEntityManagerAndRepositoryTest extends KernelTestCase
         $this->userQuestionEntityManager->create($userQuestionDataProvider);
 
         $userQuestionDataProvider
-            ->setUser($user)
+            ->setUserId(2)
             ->setQuestionSlug('question2')
             ->setExamSlug('exam')
             ->setAnswer(null);
 
         $this->userQuestionEntityManager->create($userQuestionDataProvider);
 
-        $userQuestionDataProvider = $this->userQuestionRepository->getByUserAndQuestion($user, 'question');
+        $userQuestionDataProvider = $this->userQuestionRepository->findeOneByQuestionAndUser('question', 2);
 
         $currentDate = (new \DateTime())->format('d.m.Y');
 
         self::assertSame(1, $userQuestionDataProvider->getId());
-        self::assertSame($user, $userQuestionDataProvider->getUser());
+        self::assertSame(2, $userQuestionDataProvider->getUserId());
         self::assertSame('question', $userQuestionDataProvider->getQuestionSlug());
         self::assertSame('exam', $userQuestionDataProvider->getExamSlug());
         self::assertNull($userQuestionDataProvider->getAnswer());
@@ -96,23 +94,23 @@ class UserQuestionEntityManagerAndRepositoryTest extends KernelTestCase
 
         $userQuestionDataProvider->setAnswer(false);
         $this->userQuestionEntityManager->updateAnswer($userQuestionDataProvider);
-        $userQuestionDataProvider = $this->userQuestionRepository->getByUserAndQuestion($user, 'question');
+        $userQuestionDataProvider = $this->userQuestionRepository->findeOneByQuestionAndUser('question',2);
 
         self::assertFalse($userQuestionDataProvider->getAnswer());
 
-        $userQuestionDataProviderList = $this->userQuestionRepository->getByUserAndExamIndexedByQuestionSlug($user, 'exam');
+        $userQuestionDataProviderList = $this->userQuestionRepository->getByExamAndUserIndexedByQuestionSlug('exam', 2);
         self::assertCount(2, $userQuestionDataProviderList);
 
         $this->userQuestionEntityManager->delete($userQuestionDataProvider->getId());
 
-        $userQuestionDataProvider = $this->userQuestionRepository->getByUserAndQuestion($user, 'question');
+        $userQuestionDataProvider = $this->userQuestionRepository->findeOneByQuestionAndUser('question',2);
         self::assertNull($userQuestionDataProvider);
 
-        $userQuestionDataProviderList = $this->userQuestionRepository->getByUserAndExamIndexedByQuestionSlug($user, 'exam');
+        $userQuestionDataProviderList = $this->userQuestionRepository->getByExamAndUserIndexedByQuestionSlug('exam', 2);
         self::assertCount(1, $userQuestionDataProviderList);
 
-        $this->userQuestionEntityManager->deleteByUser($user);
-        $userQuestionDataProvider = $this->userQuestionRepository->getByUserAndQuestion($user, 'question2');
+        $this->userQuestionEntityManager->deleteByUser(2);
+        $userQuestionDataProvider = $this->userQuestionRepository->findeOneByQuestionAndUser('question2', 2);
         self::assertNull($userQuestionDataProvider);
     }
 }

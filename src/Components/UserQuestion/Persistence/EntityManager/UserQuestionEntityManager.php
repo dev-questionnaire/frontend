@@ -7,6 +7,7 @@ use App\DataTransferObject\UserQuestionDataProvider;
 use App\Entity\User;
 use App\Entity\UserQuestion;
 use App\Repository\UserQuestionRepository;
+use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 
 class UserQuestionEntityManager implements UserQuestionEntityManagerInterface
@@ -14,6 +15,7 @@ class UserQuestionEntityManager implements UserQuestionEntityManagerInterface
     public function __construct(
         private EntityManagerInterface $entityManager,
         private UserQuestionRepository $userQuestionRepository,
+        private UserRepository $userRepository,
     )
     {
     }
@@ -22,8 +24,10 @@ class UserQuestionEntityManager implements UserQuestionEntityManagerInterface
     {
         $userQuestion = new UserQuestion();
 
+        $user = $this->userRepository->find($userQuestionDataProvider->getUserId());
+
         $userQuestion
-            ->setUser($userQuestionDataProvider->getUser())
+            ->setUser($user)
             ->setQuestionSlug($userQuestionDataProvider->getQuestionSlug())
             ->setExamSlug($userQuestionDataProvider->getExamSlug())
             ->setAnswer($userQuestionDataProvider->getAnswer());
@@ -53,8 +57,10 @@ class UserQuestionEntityManager implements UserQuestionEntityManagerInterface
         $this->entityManager->flush();
     }
 
-    public function deleteByUser(User $user): void
+    public function deleteByUser(int $userId): void
     {
+        $user = $this->userRepository->find($userId);
+
         $userQuestionList = $this->userQuestionRepository->findBy(['user' => $user]);
 
         foreach ($userQuestionList as $userQuestion) {

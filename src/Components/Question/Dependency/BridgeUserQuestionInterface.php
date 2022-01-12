@@ -9,11 +9,11 @@ use App\Entity\User;
 
 interface BridgeUserQuestionInterface
 {
-    public function create(string $questionSlug, string $examSlug, User $user): void;
+    public function create(string $questionSlug, string $examSlug, int $userId): void;
 
-    public function updateAnswer(QuestionDataProvider $questionDataProvider, User $user, array $formData): void;
+    public function updateAnswer(QuestionDataProvider $questionDataProvider, int $userId, array $formData): void;
 
     public function delete(int $id): void;
 
-    public function getByUserAndQuestion(User $user, string $questionSlug): ?UserQuestionDataProvider;
+    public function getByUserAndQuestion(int $userId, string $questionSlug): ?UserQuestionDataProvider;
 }

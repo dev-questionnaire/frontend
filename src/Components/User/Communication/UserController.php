@@ -9,7 +9,7 @@ use App\Components\User\Communication\Forms\Update;
 use App\Components\User\Dependency\BridgeUserQuestion;
 use App\Components\User\Persistence\Repository\UserRepositoryInterface;
 use App\DataTransferObject\UserDataProvider;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -82,7 +82,7 @@ class UserController extends AbstractController
     #[Route("/user/delete", name: "app_user_delete")]
     public function deleteUser(Request $request): Response
     {
-        $user = $this->getUser();
+        $userDataProvider = $this->getUserDataProvider();
 
         $form = $this->createForm(Delete::class);
         $form->handleRequest($request);
@@ -91,15 +91,15 @@ class UserController extends AbstractController
             $session = new Session();
             $session->invalidate();
 
-            $this->bridgeUserQuestion->deleteByUser($user);
-            $this->facadeUser->delete($user);
+            $this->bridgeUserQuestion->deleteByUser($userDataProvider->getId());
+            $this->facadeUser->delete($userDataProvider->getId());
 
             return new RedirectResponse('/');
         }
 
         return $this->renderForm('user/delete.html.twig', [
             'form' => $form,
-            'userEmail' => $user->getUserIdentifier(),
+            'userEmail' => $userDataProvider->getEmail(),
         ]);
     }
 }

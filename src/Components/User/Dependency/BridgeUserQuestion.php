@@ -14,8 +14,8 @@ class BridgeUserQuestion implements BridgeUserQuestionInterface
     {
     }
 
-    public function deleteByUser(User $user): void
+    public function deleteByUser(int $userId): void
     {
-        $this->facadeUserQuestion->deleteByUser($user);
+        $this->facadeUserQuestion->deleteByUser($userId);
     }
 }

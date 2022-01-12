@@ -18,9 +18,9 @@ class UserQuestionRepository implements UserQuestionRepositoryInterface
     {
     }
 
-    public function getByUserAndQuestion(User $user, string $questionSlug): ?UserQuestionDataProvider
+    public function findeOneByQuestionAndUser(string $questionSlug, int $userId): ?UserQuestionDataProvider
     {
-        $userQuestion = $this->userQuestionRepository->findOneBy(['questionSlug' => $questionSlug, 'user' => $user]);
+        $userQuestion = $this->userQuestionRepository->findeOneByQuestionAndUser($questionSlug, $userId);
 
         if(!$userQuestion instanceof UserQuestion) {
             return null;
@@ -32,11 +32,11 @@ class UserQuestionRepository implements UserQuestionRepositoryInterface
     /**
      * @return UserQuestionDataProvider[]
      */
-    public function getByUserAndExamIndexedByQuestionSlug(User $user, string $examSlug): array
+    public function getByExamAndUserIndexedByQuestionSlug(string $examSlug, int $userId): array
     {
         $userQuestionDataProviderList = [];
 
-        $userQuestionList = $this->userQuestionRepository->findBy(['examSlug' => $examSlug, 'user' => $user]);
+        $userQuestionList = $this->userQuestionRepository->findeByExamAndUser($examSlug, $userId);
 
         foreach ($userQuestionList as $userQuestion) {
             $userQuestionDataProviderList[$userQuestion->getQuestionSlug()] = $this->mapper->map($userQuestion);

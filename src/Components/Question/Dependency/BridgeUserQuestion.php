@@ -16,14 +16,14 @@ class BridgeUserQuestion implements BridgeUserQuestionInterface
     {
     }
 
-    public function create(string $questionSlug, string $examSlug, User $user): void
+    public function create(string $questionSlug, string $examSlug, int $userId): void
     {
-        $this->facadeUserQuestion->create($questionSlug, $examSlug, $user);
+        $this->facadeUserQuestion->create($questionSlug, $examSlug, $userId);
     }
 
-    public function updateAnswer(QuestionDataProvider $questionDataProvider, User $user, array $formData): void
+    public function updateAnswer(QuestionDataProvider $questionDataProvider, int $userId, array $formData): void
     {
-        $this->facadeUserQuestion->updateAnswer($questionDataProvider, $user, $formData);
+        $this->facadeUserQuestion->updateAnswer($questionDataProvider, $userId, $formData);
     }
 
     public function delete(int $id): void
@@ -31,8 +31,8 @@ class BridgeUserQuestion implements BridgeUserQuestionInterface
         $this->facadeUserQuestion->delete($id);
     }
 
-    public function getByUserAndQuestion(User $user, string $questionSlug): ?UserQuestionDataProvider
+    public function getByUserAndQuestion(int $userId, string $questionSlug): ?UserQuestionDataProvider
     {
-        return $this->facadeUserQuestion->getByUserAndQuestion($user, $questionSlug);
+        return $this->facadeUserQuestion->getByQuestionAndUser($userId, $questionSlug);
     }
 }

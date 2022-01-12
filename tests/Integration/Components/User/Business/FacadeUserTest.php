@@ -121,7 +121,7 @@ class FacadeUserTest extends KernelTestCase
 
         $this->facadeUser->create($userDTO);
 
-        $this->facadeUser->delete($this->container->get(UserRepository::class)->findOneBy(['email' => 'email@nexus-united.com']));
+        $this->facadeUser->delete($this->container->get(UserRepository::class)->findOneBy(['email' => 'email@nexus-united.com'])->getId());
 
         self::assertNull($this->userRepository->getByEmail('email@nexus-united.com'));
     }

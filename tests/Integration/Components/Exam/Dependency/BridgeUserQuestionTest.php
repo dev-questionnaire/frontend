@@ -62,13 +62,11 @@ class BridgeUserQuestionTest extends KernelTestCase
 
     public function testGetByUserAndExamIndexedByQuestionSlug(): void
     {
-        $user = $this->container->get(UserRepository::class)->findOneBy(['email' => 'user@valantic.com']);
-
-        $userQuestionDataProviderList = $this->bridgeUserQuestion->getByUserAndExamIndexedByQuestionSlug($user, 'exam');
+        $userQuestionDataProviderList = $this->bridgeUserQuestion->getByUserAndExamIndexedByQuestionSlug(2, 'exam');
         self::assertCount(3, $userQuestionDataProviderList);
 
         self::assertInstanceOf(UserQuestionDataProvider::class, $userQuestionDataProviderList['question_1']);
 
-        self::assertEmpty($this->bridgeUserQuestion->getByUserAndExamIndexedByQuestionSlug($user, ''));
+        self::assertEmpty($this->bridgeUserQuestion->getByUserAndExamIndexedByQuestionSlug(2, ''));
     }
 }

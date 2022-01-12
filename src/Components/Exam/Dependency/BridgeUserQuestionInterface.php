@@ -11,5 +11,5 @@ interface BridgeUserQuestionInterface
     /**
      * @return UserQuestionDataProvider[]
      */
-    public function getByUserAndExamIndexedByQuestionSlug(User $user, string $examSlug): array;
+    public function getByUserAndExamIndexedByQuestionSlug(int $userId, string $examSlug): array;
 }

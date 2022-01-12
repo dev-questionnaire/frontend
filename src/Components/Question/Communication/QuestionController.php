@@ -5,16 +5,15 @@ namespace App\Components\Question\Communication;
 use App\Components\Question\Dependency\BridgeExamInterface;
 use App\Components\Question\Dependency\BridgeUserQuestionInterface;
 use App\Components\Question\Persistence\Repository\QuestionRepositoryInterface;
+use App\Controller\AbstractController;
 use App\DataTransferObject\QuestionDataProvider;
-use App\DataTransferObject\UserQuestionDataProvider;
+use App\DataTransferObject\UserDataProvider;
 use App\Entity\User;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Core\User\UserInterface;
 
 class QuestionController extends AbstractController
 {
@@ -31,9 +30,9 @@ class QuestionController extends AbstractController
     {
         $questionDataProviderList = $this->questionRepository->getByExamSlug($examSlug);
 
-        $user = $this->getUser();
+        $userDataProvider = $this->getUserDataProvider();
 
-        $currentQuestionDataProvider = $this->getCurrentQuestion($questionDataProviderList, $examSlug, $user);
+        $currentQuestionDataProvider = $this->getCurrentQuestion($questionDataProviderList, $examSlug, $userDataProvider->getId());
 
         if($currentQuestionDataProvider === null)
         {
@@ -57,7 +56,7 @@ class QuestionController extends AbstractController
 
         if ($form->isSubmitted() /**&& $form->isValid()**/) {
             $data = $form->getData();
-            $this->bridgeUserQuestion->updateAnswer($currentQuestionDataProvider, $user, $data);
+            $this->bridgeUserQuestion->updateAnswer($currentQuestionDataProvider, $userDataProvider->getId(), $data);
 
             return $this->redirectToRoute('app_question', ['examSlug' => $examSlug]);
         }
@@ -72,13 +71,13 @@ class QuestionController extends AbstractController
         ]);
     }
 
-    private function getCurrentQuestion(array $questionDataProviderList, string $examSlug, User $user): ?QuestionDataProvider
+    private function getCurrentQuestion(array $questionDataProviderList, string $examSlug, int $userId): ?QuestionDataProvider
     {
         foreach ($questionDataProviderList as $questionDataProvider) {
-            $userQuestionDataProvider = $this->bridgeUserQuestion->getByUserAndQuestion($user, $questionDataProvider->getSlug());
+            $userQuestionDataProvider = $this->bridgeUserQuestion->getByUserAndQuestion($userId, $questionDataProvider->getSlug());
 
             if ($userQuestionDataProvider === null) {
-                $this->bridgeUserQuestion->create($questionDataProvider->getSlug(), $examSlug, $user);
+                $this->bridgeUserQuestion->create($questionDataProvider->getSlug(), $examSlug, $userId);
 
                 return $questionDataProvider;
             }

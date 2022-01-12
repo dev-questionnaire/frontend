@@ -7,5 +7,5 @@ use App\Entity\User;
 
 interface BridgeUserQuestionInterface
 {
-    public function deleteByUser(User $user): void;
+    public function deleteByUser(int $userId): void;
 }

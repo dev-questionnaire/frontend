@@ -14,5 +14,5 @@ interface UserQuestionEntityManagerInterface
 
     public function delete(int $id): void;
 
-    public function deleteByUser(User $user): void;
+    public function deleteByUser(int $userId): void;
 }

@@ -2,8 +2,6 @@
 declare(strict_types=1);
 namespace App\DataTransferObject;
 
-use App\Entity\User;
-
 /**
  * Auto generated data provider
  */
@@ -12,8 +10,8 @@ final class UserQuestionDataProvider
     /** @var int */
     protected $id;
 
-    /** @var User */
-    protected $user;
+    /** @var int */
+    protected $userId;
 
     /** @var string */
     protected $questionSlug;
@@ -73,21 +71,21 @@ final class UserQuestionDataProvider
 
 
     /**
-     * @return User
+     * @return int
      */
-    public function getUser(): ?User
+    public function getUserId(): ?int
     {
-        return $this->user;
+        return $this->userId;
     }
 
 
     /**
-     * @param User $user
+     * @param int $userId
      * @return UserQuestionDataProvider
      */
-    public function setUser(?User $user = null)
+    public function setUserId(?int $userId = null)
     {
-        $this->user = $user;
+        $this->userId = $userId;
 
         return $this;
     }
@@ -96,9 +94,9 @@ final class UserQuestionDataProvider
     /**
      * @return UserQuestionDataProvider
      */
-    public function unsetUser()
+    public function unsetUserId()
     {
-        $this->user = null;
+        $this->userId = null;
 
         return $this;
     }
@@ -107,9 +105,9 @@ final class UserQuestionDataProvider
     /**
      * @return bool
      */
-    public function hasUser()
+    public function hasUserId()
     {
-        return ($this->user !== null && $this->user !== []);
+        return ($this->userId !== null && $this->userId !== []);
     }
 
 
@@ -332,12 +330,12 @@ final class UserQuestionDataProvider
                     'is_dataprovider' => false,
                     'isCamelCase' => false,
                 ),
-            'user' =>
+            'userId' =>
                 array (
-                    'name' => 'user',
+                    'name' => 'userId',
                     'allownull' => true,
                     'default' => '',
-                    'type' => User::class,
+                    'type' => 'int',
                     'is_collection' => false,
                     'is_dataprovider' => false,
                     'isCamelCase' => false,

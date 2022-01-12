@@ -25,8 +25,8 @@ class FacadeUser implements FacadeUserInterface
         return $this->user->update($userDataProvider);
     }
 
-    public function delete(User $user): void
+    public function delete(int $userId): void
     {
-        $this->user->delete($user->getId());
+        $this->user->delete($userId);
     }
 }

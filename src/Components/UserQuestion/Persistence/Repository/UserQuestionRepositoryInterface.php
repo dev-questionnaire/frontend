@@ -8,10 +8,10 @@ use App\Entity\User;
 
 interface UserQuestionRepositoryInterface
 {
-    public function getByUserAndQuestion(User $user, string $questionSlug): ?UserQuestionDataProvider;
+    public function findeOneByQuestionAndUser(string $questionSlug, int $userId): ?UserQuestionDataProvider;
 
     /**
      * @return UserQuestionDataProvider[]
      */
-    public function getByUserAndExamIndexedByQuestionSlug(User $user, string $examSlug): array;
+    public function getByExamAndUserIndexedByQuestionSlug(string $examSlug, int $userId): array;
 }

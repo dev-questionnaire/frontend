@@ -18,20 +18,20 @@ class FacadeUserQuestion implements FacadeUserQuestionInterface
     {
     }
 
-    public function create(string $questionSlug, string $examSlug, User $user): void
+    public function create(string $questionSlug, string $examSlug, int $userId): void
     {
         $userQuestionDataProvider = new UserQuestionDataProvider();
 
         $userQuestionDataProvider
             ->setAnswer(null)
-            ->setUser($user)
+            ->setUserId($userId)
             ->setQuestionSlug($questionSlug)
             ->setExamSlug($examSlug);
 
         $this->userQuestionEntityManager->create($userQuestionDataProvider);
     }
 
-    public function updateAnswer(QuestionDataProvider $questionDataProvider, User $user, array $formData): void
+    public function updateAnswer(QuestionDataProvider $questionDataProvider, int $userId, array $formData): void
     {
         $answerCorrect = null;
 
@@ -56,7 +56,7 @@ class FacadeUserQuestion implements FacadeUserQuestionInterface
             }
         }
 
-        $userQuestionDataProvider = $this->getByUserAndQuestion($user, $questionDataProvider->getSlug());
+        $userQuestionDataProvider = $this->getByQuestionAndUser($userId, $questionDataProvider->getSlug());
         $userQuestionDataProvider->setAnswer($answerCorrect);
 
         $this->userQuestionEntityManager->updateAnswer($userQuestionDataProvider);
@@ -67,21 +67,21 @@ class FacadeUserQuestion implements FacadeUserQuestionInterface
         $this->userQuestionEntityManager->delete($id);
     }
 
-    public function deleteByUser(User $user): void
+    public function deleteByUser(int $userId): void
     {
-        $this->userQuestionEntityManager->deleteByUser($user);
+        $this->userQuestionEntityManager->deleteByUser($userId);
     }
 
-    public function getByUserAndQuestion(User $user, string $questionSlug): ?UserQuestionDataProvider
+    public function getByQuestionAndUser(int $userId, string $questionSlug): ?UserQuestionDataProvider
     {
-        return $this->userQuestionRepository->getByUserAndQuestion($user, $questionSlug);
+        return $this->userQuestionRepository->findeOneByQuestionAndUser($questionSlug, $userId);
     }
 
     /**
      * @return UserQuestionDataProvider[]
      */
-    public function getByUserAndExamIndexedByQuestionSlug(User $user, string $examSlug): array
+    public function getByUserAndExamIndexedByQuestionSlug(int $userId, string $examSlug): array
     {
-        return $this->userQuestionRepository->getByUserAndExamIndexedByQuestionSlug($user, $examSlug);
+        return $this->userQuestionRepository->getByExamAndUserIndexedByQuestionSlug($examSlug, $userId);
     }
 }
