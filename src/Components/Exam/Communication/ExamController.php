@@ -32,13 +32,13 @@ class ExamController extends AbstractController
     #[Route("/exam/{examSlug}/result", name: "app_exam_result")]
     public function result(string $examSlug): Response
     {
-        $user = $this->getUserDataProvider();
+        $userDataProvider = $this->getUserDataProvider();
 
         $examDataProvider = $this->examRepository->getBySlug($examSlug);
 
         $questionDataProviderList = $this->bridgeQuestion->getByExamSlug($examSlug);
 
-        $userQuestionDataProviderList = $this->bridgeUserQuestion->getByUserAndExamIndexedByQuestionSlug($user->getId(), $examSlug);
+        $userQuestionDataProviderList = $this->bridgeUserQuestion->getByUserAndExamIndexedByQuestionSlug($userDataProvider->getId(), $examSlug);
 
         $questionQuantity = count($questionDataProviderList);
         $countQuestions = 0;

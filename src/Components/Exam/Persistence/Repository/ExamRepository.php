@@ -17,7 +17,7 @@ class ExamRepository implements ExamRepositoryInterface
         ParameterBagInterface $params
     )
     {
-        $this->pathToFolder = (string)$params->get('app_content_folder');
+        $this->pathToFolder = $params->get('app_content_folder');
     }
 
     public function getBySlug(string $slug):  ?ExamDataProvider
