@@ -21,6 +21,9 @@ class AppFixtures extends Fixture
     {
     }
 
+    /**
+     * @param bool[] $options
+     */
     public function load(ObjectManager $manager, array $options = []): void
     {
         $this->loadUser($manager);

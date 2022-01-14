@@ -56,11 +56,13 @@ class UserController extends AbstractController
     }
 
     #[Route("/user/profile", name: "app_user_profile")]
-    public function profile(UserInterface $user, Request $request): Response
+    public function profile(Request $request): Response
     {
         $errors = [];
 
-        $userDataProvider = $this->userRepository->getByEmail($user->getUserIdentifier());
+        $userDP = $this->getUserDataProvider();
+
+        $userDataProvider = $this->userRepository->getByEmail($userDP->getEmail());
 
         $form = $this->createForm(Update::class, $userDataProvider);
 
@@ -68,7 +70,7 @@ class UserController extends AbstractController
         if ($form->isSubmitted() /**&& $form->isValid()**/) {
             $userDataProvider = $form->getData();
 
-            if ($userDataProvider->getEmail() !== $user->getUserIdentifier() || !password_verify($userDataProvider->getPassword(), $user->getPassword())) {
+            if ($userDataProvider->getEmail() !== $userDP->getEmail() || !password_verify($userDataProvider->getPassword(), $userDP->getPassword())) {
                 $errors = $this->facadeUser->update($userDataProvider);
             }
         }

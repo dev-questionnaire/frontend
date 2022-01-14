@@ -31,6 +31,9 @@ class FacadeUserQuestion implements FacadeUserQuestionInterface
         $this->userQuestionEntityManager->create($userQuestionDataProvider);
     }
 
+    /**
+     * @param bool[] $formData
+     */
     public function updateAnswer(QuestionDataProvider $questionDataProvider, int $userId, array $formData): void
     {
         $answerCorrect = null;

@@ -17,7 +17,7 @@ class QuestionRepository implements QuestionRepositoryInterface
         ParameterBagInterface  $params
     )
     {
-        $this->pathToFolder = $params->get('app_content_folder');
+        $this->pathToFolder = (string)$params->get('app_content_folder');
     }
 
     /**

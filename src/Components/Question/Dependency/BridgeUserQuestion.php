@@ -21,6 +21,9 @@ class BridgeUserQuestion implements BridgeUserQuestionInterface
         $this->facadeUserQuestion->create($questionSlug, $examSlug, $userId);
     }
 
+    /**
+     * @param bool[] $formData
+     */
     public function updateAnswer(QuestionDataProvider $questionDataProvider, int $userId, array $formData): void
     {
         $this->facadeUserQuestion->updateAnswer($questionDataProvider, $userId, $formData);

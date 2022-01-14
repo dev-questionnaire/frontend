@@ -71,6 +71,9 @@ class QuestionController extends AbstractController
         ]);
     }
 
+    /**
+     * @param QuestionDataProvider[] $questionDataProviderList
+     */
     private function getCurrentQuestion(array $questionDataProviderList, string $examSlug, int $userId): ?QuestionDataProvider
     {
         foreach ($questionDataProviderList as $questionDataProvider) {

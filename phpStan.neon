@@ -1,0 +1,10 @@
+parameters:
+	level: 6
+	paths:
+	    - src
+	    - tests
+	excludePaths:
+	    - src/DataTransferObject
+	    - src/Entity
+	    - src/Controller/SecurityController
+	    - src/Repository

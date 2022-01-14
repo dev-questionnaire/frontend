@@ -9,5 +9,8 @@ interface ExamRepositoryInterface
 {
     public function getBySlug(string $slug): ?ExamDataProvider;
 
+    /**
+     * @return ExamDataProvider[]
+     */
     public function getAll(): array;
 }

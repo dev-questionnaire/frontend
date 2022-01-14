@@ -7,7 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class SecurityControllerTest extends WebTestCase
 {
-    public function testAppLogin()
+    public function testAppLogin(): void
     {
         $client = static::createClient();
 

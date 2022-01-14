@@ -11,6 +11,9 @@ interface BridgeUserQuestionInterface
 {
     public function create(string $questionSlug, string $examSlug, int $userId): void;
 
+    /**
+     * @param bool[] $formData
+     */
     public function updateAnswer(QuestionDataProvider $questionDataProvider, int $userId, array $formData): void;
 
     public function delete(int $id): void;
