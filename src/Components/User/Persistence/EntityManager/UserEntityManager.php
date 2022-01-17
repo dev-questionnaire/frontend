@@ -22,8 +22,7 @@ class UserEntityManager implements UserEntityManagerInterface
 
     public function create(UserDataProvider $userDataProvider): void
     {
-        if ($userDataProvider->getId() === null
-            || $userDataProvider->getEmail() === null
+        if ($userDataProvider->getEmail() === null
             || $userDataProvider->getPassword() === null
         ) {
             throw new \RuntimeException("No data Provided");

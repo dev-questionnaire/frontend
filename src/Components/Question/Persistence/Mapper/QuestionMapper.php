@@ -7,9 +7,18 @@ use App\DataTransferObject\QuestionDataProvider;
 
 class QuestionMapper
 {
+    /**
+     * @throws \JsonException
+     */
     public function map(string $path): QuestionDataProvider
     {
-        $question = json_decode(file_get_contents($path), true);
+        $fileContent = file_get_contents($path);
+
+        if($fileContent === false) {
+            throw new \RuntimeException("File not found");
+        }
+
+        $question = json_decode($fileContent, true, 512, JSON_THROW_ON_ERROR);
 
         $questionDataProvider = new QuestionDataProvider();
         $questionDataProvider

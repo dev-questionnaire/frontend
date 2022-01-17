@@ -7,7 +7,6 @@ use App\Components\User\Communication\Forms\Delete;
 use App\Components\User\Communication\Forms\Register;
 use App\Components\User\Communication\Forms\Update;
 use App\Components\User\Dependency\BridgeUserQuestion;
-use App\Components\User\Persistence\Repository\UserRepositoryInterface;
 use App\DataTransferObject\UserDataProvider;
 use App\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -21,7 +20,6 @@ class UserController extends AbstractController
 
     public function __construct(
         private FacadeUserInterface     $facadeUser,
-        private UserRepositoryInterface $userRepository,
         private BridgeUserQuestion      $bridgeUserQuestion,
     )
     {

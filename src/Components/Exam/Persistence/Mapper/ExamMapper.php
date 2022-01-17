@@ -7,9 +7,18 @@ use App\DataTransferObject\ExamDataProvider;
 
 class ExamMapper
 {
+    /**
+     * @throws \JsonException
+     */
     public function map(string $path): ExamDataProvider
     {
-        $exam = json_decode(file_get_contents($path), true);
+        $fileContent = file_get_contents($path);
+
+        if($fileContent === false) {
+            throw new \RuntimeException("File not found");
+        }
+
+        $exam = json_decode($fileContent, true, 512, JSON_THROW_ON_ERROR);
 
         $examDataProvider = new ExamDataProvider();
         $examDataProvider
