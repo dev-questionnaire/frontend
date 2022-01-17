@@ -24,7 +24,7 @@ class UserQuestionMapper
         $user = $userQuestion->getUser();
 
         if(!$user instanceof  User){
-            throw new \PDOException("User not provided");
+            throw new \RuntimeException("User not provided");
         }
 
         $userQuestionDataProvider->setUserId($user->getId());

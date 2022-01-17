@@ -113,4 +113,12 @@ class UserQuestionEntityManagerAndRepositoryTest extends KernelTestCase
         $userQuestionDataProvider = $this->userQuestionRepository->findeOneByQuestionAndUser('question2', 2);
         self::assertNull($userQuestionDataProvider);
     }
+
+    public function testDeleteException(): void
+    {
+        $this->expectException(\RuntimeException::class);
+        $this->expectExceptionMessage("UserQuestion not found");
+
+        $this->userQuestionEntityManager->delete(0);
+    }
 }

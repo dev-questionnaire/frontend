@@ -67,10 +67,9 @@ class ExamControllerTest extends WebTestCase
 
     public function testAppExam(): void
     {
-        $crawler = $this->client->request('GET', '/');
+        $this->client->request('GET', '/');
 
         self::assertResponseIsSuccessful();
-        self::assertCount(4, $crawler->filter('.exam'));
     }
 
     public function testAppExamResult(): void
@@ -96,7 +95,7 @@ class ExamControllerTest extends WebTestCase
         $this->entityManager->persist($userQuestion_2);
         $this->entityManager->flush();
 
-        $crawler = $this->client->request('GET', 'exam/solid/result');
+        $this->client->request('GET', 'exam/solid/result');
 
         self::assertResponseIsSuccessful();
     }
