@@ -17,7 +17,7 @@ class ValidateRegistrationEmail implements ValidateCollectionInterface
     {
         $email = $userDTO->getEmail();
 
-        if ($email === null || $email === '') {
+        if (empty($email)) {
             $errorDataProvider->addError("No email provided");
             return $errorDataProvider;
         }

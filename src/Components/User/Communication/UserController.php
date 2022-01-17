@@ -15,15 +15,14 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Core\User\UserInterface;
 
 class UserController extends AbstractController
 {
 
     public function __construct(
-        private FacadeUserInterface $facadeUser,
+        private FacadeUserInterface     $facadeUser,
         private UserRepositoryInterface $userRepository,
-        private BridgeUserQuestion $bridgeUserQuestion,
+        private BridgeUserQuestion      $bridgeUserQuestion,
     )
     {
     }
@@ -39,7 +38,7 @@ class UserController extends AbstractController
         $form = $this->createForm(Register::class, $userDataProvider);
 
         $form->handleRequest($request);
-        if ($form->isSubmitted() /**&& $form->isValid()**/) {
+        if ($form->isSubmitted()/**&& $form->isValid()**/) {
             $userDataProvider = $form->getData();
 
             $errors = $this->facadeUser->create($userDataProvider);
@@ -60,18 +59,23 @@ class UserController extends AbstractController
     {
         $errors = [];
 
-        $userDP = $this->getUserDataProvider();
+        $userDataProvider = $this->getUserDataProvider();
 
-        $userDataProvider = $this->userRepository->getByEmail($userDP->getEmail());
+        if ($userDataProvider->getId() === null
+            || $userDataProvider->getEmail() === null
+            || $userDataProvider->getPassword() === null
+        ) {
+            throw new \RuntimeException("User is not logged in");
+        }
 
         $form = $this->createForm(Update::class, $userDataProvider);
 
         $form->handleRequest($request);
-        if ($form->isSubmitted() /**&& $form->isValid()**/) {
-            $userDataProvider = $form->getData();
+        if ($form->isSubmitted()/**&& $form->isValid()**/) {
+            $userDataProviderForm = $form->getData();
 
-            if ($userDataProvider->getEmail() !== $userDP->getEmail() || !password_verify($userDataProvider->getPassword(), $userDP->getPassword())) {
-                $errors = $this->facadeUser->update($userDataProvider);
+            if ($userDataProviderForm->getEmail() !== $userDataProvider->getEmail() || !password_verify($userDataProviderForm->getPassword(), $userDataProvider->getPassword())) {
+                $errors = $this->facadeUser->update($userDataProviderForm);
             }
         }
 
@@ -86,10 +90,14 @@ class UserController extends AbstractController
     {
         $userDataProvider = $this->getUserDataProvider();
 
+        if ($userDataProvider->getId() === null) {
+            throw new \RuntimeException("User is not logged in");
+        }
+
         $form = $this->createForm(Delete::class);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() /**&& $form->isValid()**/) {
+        if ($form->isSubmitted()/**&& $form->isValid()**/) {
             $session = new Session();
             $session->invalidate();
 

@@ -13,8 +13,13 @@ class ValidatePasswords implements ValidateCollectionInterface
         $password = $userDTO->getPassword();
         $verPassword = $userDTO->getVerificationPassword();
 
-        if ($password === null || $password === '') {
-            $errorDataProvider->addError("No password provided!");
+        if (empty($password)) {
+            $errorDataProvider->addError("No Password provided!");
+            return $errorDataProvider;
+        }
+
+        if (empty($verPassword)) {
+            $errorDataProvider->addError("No Verification Password provided!");
             return $errorDataProvider;
         }
 

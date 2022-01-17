@@ -22,6 +22,13 @@ class UserEntityManager implements UserEntityManagerInterface
 
     public function create(UserDataProvider $userDataProvider): void
     {
+        if ($userDataProvider->getId() === null
+            || $userDataProvider->getEmail() === null
+            || $userDataProvider->getPassword() === null
+        ) {
+            throw new \RuntimeException("No data Provided");
+        }
+
         $user = new User();
 
         $user
@@ -38,7 +45,18 @@ class UserEntityManager implements UserEntityManagerInterface
 
     public function update(UserDataProvider $userDataProvider): void
     {
+        if ($userDataProvider->getId() === null
+            || $userDataProvider->getEmail() === null
+            || $userDataProvider->getPassword() === null
+        ) {
+            throw new \RuntimeException("No data Provided");
+        }
+
         $user = $this->userRepository->find($userDataProvider->getId());
+
+        if(!$user instanceof User) {
+            throw new \PDOException("User not found");
+        }
 
         $plaintextPassword = $userDataProvider->getPassword();
 
@@ -57,6 +75,10 @@ class UserEntityManager implements UserEntityManagerInterface
     public function delete(int $id): void
     {
         $user = $this->userRepository->find($id);
+
+        if(!$user instanceof User) {
+            throw new \PDOException("User not found");
+        }
 
         $this->entityManager->remove($user);
         $this->entityManager->flush();
