@@ -7,8 +7,6 @@ use App\Components\Question\Dependency\BridgeUserQuestionInterface;
 use App\Components\Question\Persistence\Repository\QuestionRepositoryInterface;
 use App\Controller\AbstractController;
 use App\DataTransferObject\QuestionDataProvider;
-use App\DataTransferObject\UserDataProvider;
-use App\Entity\User;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
@@ -33,7 +31,7 @@ class QuestionController extends AbstractController
         $userDataProvider = $this->getUserDataProvider();
 
         if($userDataProvider->getId() === null) {
-            throw new \Exception("User is not logged in");
+            throw new \RuntimeException("User is not logged in");
         }
 
         $currentQuestionDataProvider = $this->getCurrentQuestion($questionDataProviderList, $examSlug, $userDataProvider->getId());

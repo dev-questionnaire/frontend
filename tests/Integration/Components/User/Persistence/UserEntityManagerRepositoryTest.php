@@ -105,7 +105,8 @@ class UserEntityManagerRepositoryTest extends KernelTestCase
     public function testUpdate(): void
     {
         $userDTO = new UserDataProvider();
-        $userDTO->setEmail('test@email.com')
+        $userDTO
+            ->setEmail('test@email.com')
             ->setPassword('123456789')
             ->setRoles(['ROLE_USER']);
 
@@ -141,5 +142,112 @@ class UserEntityManagerRepositoryTest extends KernelTestCase
 
         $userDTO = $this->userRepository->getByEmail('test@email.com');
         self::assertNull($userDTO);
+    }
+
+    public function testCreateNegativNoData(): void
+    {
+        $userDTO = new UserDataProvider();
+
+        $this->expectException(\RuntimeException::class);
+        $this->expectExceptionMessage("No data Provided");
+
+        $this->userEntityManager->create($userDTO);
+    }
+
+    public function testCreateNegativNoEmail(): void
+    {
+        $userDTO = new UserDataProvider();
+
+        $userDTO
+            ->setPassword('123');
+
+        $this->expectException(\RuntimeException::class);
+        $this->expectExceptionMessage("No data Provided");
+
+        $this->userEntityManager->create($userDTO);
+    }
+
+    public function testCreateNegativNoPassword(): void
+    {
+        $userDTO = new UserDataProvider();
+        $userDTO
+            ->setEmail('email');
+
+        $this->expectException(\RuntimeException::class);
+        $this->expectExceptionMessage("No data Provided");
+
+        $this->userEntityManager->create($userDTO);
+    }
+
+    public function testUpdateNegativNoData(): void
+    {
+        $userDTO = new UserDataProvider();
+
+        $this->expectException(\RuntimeException::class);
+        $this->expectExceptionMessage("No data Provided");
+
+        $this->userEntityManager->update($userDTO);
+    }
+
+    public function testUpdateNegativNoId(): void
+    {
+        $userDTO = new UserDataProvider();
+        $userDTO
+            ->setEmail('email')
+            ->setPassword('123');
+
+        $this->expectException(\RuntimeException::class);
+        $this->expectExceptionMessage("No data Provided");
+
+        $this->userEntityManager->update($userDTO);
+    }
+
+    public function testUpdateNegativNoEmail(): void
+    {
+        $userDTO = new UserDataProvider();
+        $userDTO
+            ->setId(1)
+            ->setPassword('123');
+
+        $this->expectException(\RuntimeException::class);
+        $this->expectExceptionMessage("No data Provided");
+
+        $this->userEntityManager->update($userDTO);
+    }
+
+    public function testUpdateNegativNoPassword(): void
+    {
+        $userDTO = new UserDataProvider();
+        $userDTO
+            ->setEmail('email')
+            ->setId(1);
+
+        $this->expectException(\RuntimeException::class);
+        $this->expectExceptionMessage("No data Provided");
+
+        $this->userEntityManager->update($userDTO);
+    }
+
+    public function testUpdateException(): void
+    {
+        $userDTO = new UserDataProvider();
+        $userDTO
+            ->setId(0)
+            ->setEmail('test@email.co,')
+            ->setPassword('123456789')
+            ->setRoles(['ROLE_USER']);
+
+        $this->expectException(\RuntimeException::class);
+        $this->expectExceptionMessage("User not found");
+
+        $this->userEntityManager->update($userDTO);
+    }
+
+    public function testDeleteException(): void
+    {
+        $this->expectException(\RuntimeException::class);
+        $this->expectExceptionMessage("User not found");
+
+        $this->userEntityManager->delete(0);
     }
 }

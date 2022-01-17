@@ -6,7 +6,6 @@ namespace App\Components\User\Persistence\EntityManager;
 use App\Entity\User;
 use App\DataTransferObject\UserDataProvider;
 use App\Repository\UserRepository;
-use Doctrine\DBAL\Driver\PDO\Exception;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
@@ -54,7 +53,7 @@ class UserEntityManager implements UserEntityManagerInterface
         $user = $this->userRepository->find($userDataProvider->getId());
 
         if(!$user instanceof User) {
-            throw new \PDOException("User not found");
+            throw new \RuntimeException("User not found");
         }
 
         $plaintextPassword = $userDataProvider->getPassword();
@@ -76,7 +75,7 @@ class UserEntityManager implements UserEntityManagerInterface
         $user = $this->userRepository->find($id);
 
         if(!$user instanceof User) {
-            throw new \PDOException("User not found");
+            throw new \RuntimeException("User not found");
         }
 
         $this->entityManager->remove($user);

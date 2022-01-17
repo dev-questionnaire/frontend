@@ -6,6 +6,7 @@ namespace App\Tests\Application\Components\QuestionCommunication;
 use App\Components\UserQuestion\Persistence\Repository\UserQuestionRepository;
 use App\DataFixtures\AppFixtures;
 use App\Entity\User;
+use App\Entity\UserQuestion;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManager;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
@@ -18,6 +19,7 @@ class QuestionControllerTest extends WebTestCase
     private ?EntityManager $entityManager;
     private ContainerInterface $container;
     private KernelBrowser $client;
+    private User $user;
 
     protected function setUp(): void
     {
@@ -34,9 +36,9 @@ class QuestionControllerTest extends WebTestCase
 
         $repository = $this->container->get(UserRepository::class);
 
-        $user = $repository->findOneBy(['email' => 'user@valantic.com']);
+        $this->user = $repository->findOneBy(['email' => 'user@valantic.com']);
 
-        $this->client->loginUser($user);
+        $this->client->loginUser($this->user);
     }
 
     protected function tearDown(): void
@@ -62,6 +64,32 @@ class QuestionControllerTest extends WebTestCase
         $this->client->request('GET', '/exam/solid/question');
 
         self::assertResponseIsSuccessful();
+    }
+
+    public function testAppQuestionRedirectToResult(): void
+    {
+        $userQuestion_1 = new UserQuestion();
+        $userQuestion_2 = new UserQuestion();
+
+        $userQuestion_1
+            ->setExamSlug('solid')
+            ->setQuestionSlug('s_in_solid')
+            ->setUser($this->user)
+            ->setAnswer(false);
+
+        $userQuestion_2
+            ->setExamSlug('solid')
+            ->setQuestionSlug('o_in_solid')
+            ->setUser($this->user)
+            ->setAnswer(false);
+
+        $this->entityManager->persist($userQuestion_1);
+        $this->entityManager->persist($userQuestion_2);
+        $this->entityManager->flush();
+
+        $this->client->request('GET', '/exam/solid/question');
+
+        self::assertInstanceOf(RedirectResponse::class, $this->client->getResponse());
     }
 
     public function testAppQuestionSubmit(): void

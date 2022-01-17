@@ -35,7 +35,7 @@ class ExamController extends AbstractController
         $userDataProvider = $this->getUserDataProvider();
 
         if($userDataProvider->getId() === null) {
-            throw new \Exception("User is not logged in");
+            throw new \RuntimeException("User is not logged in");
         }
 
         $examDataProvider = $this->examRepository->getBySlug($examSlug);
