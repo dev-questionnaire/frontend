@@ -17,11 +17,16 @@ class ValidateRegistrationEmail implements ValidateCollectionInterface
     {
         $email = $userDTO->getEmail();
 
-        if($this->userRepository->getByEmail($email) instanceof UserDataProvider) {
+        if ($email === null || $email === '') {
+            $errorDataProvider->addError("No email provided");
+            return $errorDataProvider;
+        }
+
+        if ($this->userRepository->getByEmail($email) instanceof UserDataProvider) {
             $errorDataProvider->addError("Email is already taken");
         }
 
-        if(!str_contains($email, 'nexus-united.com') && !str_contains($email, 'valantic.com')) {
+        if (!str_contains($email, 'nexus-united.com') && !str_contains($email, 'valantic.com')) {
             $errorDataProvider->addError("Email is not valid");
         }
 

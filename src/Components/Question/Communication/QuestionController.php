@@ -32,6 +32,10 @@ class QuestionController extends AbstractController
 
         $userDataProvider = $this->getUserDataProvider();
 
+        if($userDataProvider->getId() === null) {
+            throw new \Exception("User is not logged in");
+        }
+
         $currentQuestionDataProvider = $this->getCurrentQuestion($questionDataProviderList, $examSlug, $userDataProvider->getId());
 
         if($currentQuestionDataProvider === null)

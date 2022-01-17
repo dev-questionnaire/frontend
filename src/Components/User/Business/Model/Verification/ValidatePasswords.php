@@ -13,6 +13,11 @@ class ValidatePasswords implements ValidateCollectionInterface
         $password = $userDTO->getPassword();
         $verPassword = $userDTO->getVerificationPassword();
 
+        if ($password === null || $password === '') {
+            $errorDataProvider->addError("No password provided!");
+            return $errorDataProvider;
+        }
+
         if (strlen($password) < 8) {
             $errorDataProvider->addError("Password too short!");
         }
@@ -33,7 +38,7 @@ class ValidatePasswords implements ValidateCollectionInterface
             $errorDataProvider->addError("Password must include at one special character!");
         }
 
-        if($password !== $verPassword) {
+        if ($password !== $verPassword) {
             $errorDataProvider->addError("Password musst match Verification Password");
         }
 
