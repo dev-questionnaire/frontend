@@ -53,6 +53,10 @@ class UserQuestionEntityManager implements UserQuestionEntityManagerInterface
     {
         $userQuestion = $this->userQuestionRepository->find($id);
 
+        if(!$userQuestion instanceof UserQuestion) {
+            throw new \PDOException("UserQuestion not found");
+        }
+
         $this->entityManager->remove($userQuestion);
         $this->entityManager->flush();
     }

@@ -60,6 +60,11 @@ class FacadeUserQuestion implements FacadeUserQuestionInterface
         }
 
         $userQuestionDataProvider = $this->getByQuestionAndUser($userId, $questionDataProvider->getSlug());
+
+        if(!$userQuestionDataProvider instanceof UserQuestionDataProvider) {
+            throw new \RuntimeException("UserQuestion no found");
+        }
+
         $userQuestionDataProvider->setAnswer($answerCorrect);
 
         $this->userQuestionEntityManager->updateAnswer($userQuestionDataProvider);

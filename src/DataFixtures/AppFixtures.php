@@ -32,6 +32,10 @@ class AppFixtures extends Fixture
 
             $user = $this->userRepository->findOneBy(['email' => 'user@valantic.com']);
 
+            if(!$user instanceof User) {
+                throw new \PDOException("No User Found");
+            }
+
             $this->loadUserQuestion($manager, $user);
         }
     }

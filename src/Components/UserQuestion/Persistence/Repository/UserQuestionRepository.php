@@ -39,7 +39,13 @@ class UserQuestionRepository implements UserQuestionRepositoryInterface
         $userQuestionList = $this->userQuestionRepository->findeByExamAndUser($examSlug, $userId);
 
         foreach ($userQuestionList as $userQuestion) {
-            $userQuestionDataProviderList[$userQuestion->getQuestionSlug()] = $this->mapper->map($userQuestion);
+            $slug = $userQuestion->getQuestionSlug();
+
+            if($slug === null) {
+                throw new \RuntimeException("no slug provided");
+            }
+
+            $userQuestionDataProviderList[$slug] = $this->mapper->map($userQuestion);
         }
 
         return $userQuestionDataProviderList;
