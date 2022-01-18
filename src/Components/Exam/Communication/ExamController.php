@@ -9,6 +9,7 @@ use App\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+/** @psalm-suppress PropertyNotSetInConstructor */
 class ExamController extends AbstractController
 {
     public function __construct(
