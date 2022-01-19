@@ -19,7 +19,7 @@ class UserQuestionRepository extends ServiceEntityRepository
         parent::__construct($registry, UserQuestion::class);
     }
 
-    public function findeOneByQuestionAndUser(string $questionSlug, int $userId): ?UserQuestion
+    public function findOneByQuestionAndUser(string $questionSlug, int $userId): ?UserQuestion
     {
         $userQuestionList = $this->createQueryBuilder('uq')
             ->where('uq.questionSlug = :questionSlug')
@@ -40,7 +40,7 @@ class UserQuestionRepository extends ServiceEntityRepository
     /**
      * @return UserQuestion[]
      */
-    public function findeByExamAndUser(string $examSlug, int $userId): array
+    public function findByExamAndUser(string $examSlug, int $userId): array
     {
         return $this->createQueryBuilder('uq')
             ->where('uq.examSlug = :examSlug')

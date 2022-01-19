@@ -80,7 +80,7 @@ class UserQuestionEntityManagerAndRepositoryTest extends KernelTestCase
 
         $this->userQuestionEntityManager->create($userQuestionDataProvider);
 
-        $userQuestionDataProvider = $this->userQuestionRepository->findeOneByQuestionAndUser('question', 2);
+        $userQuestionDataProvider = $this->userQuestionRepository->findOneByQuestionAndUser('question', 2);
 
         $currentDate = (new \DateTime())->format('d.m.Y');
 
@@ -94,23 +94,23 @@ class UserQuestionEntityManagerAndRepositoryTest extends KernelTestCase
 
         $userQuestionDataProvider->setAnswers(['answer_1' => false, 'answer_2' => true]);
         $this->userQuestionEntityManager->updateAnswer($userQuestionDataProvider);
-        $userQuestionDataProvider = $this->userQuestionRepository->findeOneByQuestionAndUser('question',2);
+        $userQuestionDataProvider = $this->userQuestionRepository->findOneByQuestionAndUser('question',2);
 
         self::assertSame(['answer_1' => false, 'answer_2' => true], $userQuestionDataProvider->getAnswers());
 
-        $userQuestionDataProviderList = $this->userQuestionRepository->getByExamAndUserIndexedByQuestionSlug('exam', 2);
+        $userQuestionDataProviderList = $this->userQuestionRepository->findByExamAndUserIndexedByQuestionSlug('exam', 2);
         self::assertCount(2, $userQuestionDataProviderList);
 
         $this->userQuestionEntityManager->delete($userQuestionDataProvider->getId());
 
-        $userQuestionDataProvider = $this->userQuestionRepository->findeOneByQuestionAndUser('question',2);
+        $userQuestionDataProvider = $this->userQuestionRepository->findOneByQuestionAndUser('question',2);
         self::assertNull($userQuestionDataProvider);
 
-        $userQuestionDataProviderList = $this->userQuestionRepository->getByExamAndUserIndexedByQuestionSlug('exam', 2);
+        $userQuestionDataProviderList = $this->userQuestionRepository->findByExamAndUserIndexedByQuestionSlug('exam', 2);
         self::assertCount(1, $userQuestionDataProviderList);
 
         $this->userQuestionEntityManager->deleteByUser(2);
-        $userQuestionDataProvider = $this->userQuestionRepository->findeOneByQuestionAndUser('question2', 2);
+        $userQuestionDataProvider = $this->userQuestionRepository->findOneByQuestionAndUser('question2', 2);
         self::assertNull($userQuestionDataProvider);
     }
 

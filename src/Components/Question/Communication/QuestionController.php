@@ -77,6 +77,19 @@ class QuestionController extends AbstractController
         ]);
     }
 
+    #[Route("/admin/exam/{examSlug}/question", name: "app_admin_question")]
+    public function adminQuestion(string $examSlug): Response
+    {
+        $exam = $this->bridgeExam->getBySlug($examSlug);
+
+        $questionList = $this->questionRepository->getByExamSlug($examSlug);
+
+        return $this->render('question/admin/question.html.twig', [
+            'questionList' => $questionList,
+            'exam' => $exam,
+        ]);
+    }
+
     /**
      * @param QuestionDataProvider[] $questionDataProviderList
      */

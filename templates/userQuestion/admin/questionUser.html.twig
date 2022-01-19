@@ -1,0 +1,27 @@
+{% extends "base.html.twig" %}
+{% block title %}Admin - {{ question.question }}{% endblock %}
+{% block headline %}{{ question.question }}{% endblock %}
+{% block body %}
+    <div id="table">
+        <table border="1">
+            <tr>
+                <th>User</th>
+                <th>Answer</th>
+            </tr>
+            {% for userQuestion in userQuestionList %}
+                <tr>
+                    <td>{{ userList[userQuestion.userId].email }}</td>
+                    <td>
+                        <ul>
+                        {% for key, answer in userQuestion.answers %}
+                            {% if answer == 1 %}
+                                <li>{{ key }}</li>
+                            {% endif %}
+                        {% endfor %}
+                        </ul>
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+{% endblock %}

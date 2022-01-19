@@ -59,7 +59,7 @@ class FacadeUserQuestion implements FacadeUserQuestionInterface
 
     public function getByQuestionAndUser(int $userId, string $questionSlug): ?UserQuestionDataProvider
     {
-        return $this->userQuestionRepository->findeOneByQuestionAndUser($questionSlug, $userId);
+        return $this->userQuestionRepository->findOneByQuestionAndUser($questionSlug, $userId);
     }
 
     /**
@@ -67,6 +67,6 @@ class FacadeUserQuestion implements FacadeUserQuestionInterface
      */
     public function getByUserAndExamIndexedByQuestionSlug(int $userId, string $examSlug): array
     {
-        return $this->userQuestionRepository->getByExamAndUserIndexedByQuestionSlug($examSlug, $userId);
+        return $this->userQuestionRepository->findByExamAndUserIndexedByQuestionSlug($examSlug, $userId);
     }
 }

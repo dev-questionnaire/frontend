@@ -17,3 +17,7 @@ exam_controller:
 question_controller:
     resource: ../../src/Components/Question/Communication/
     type: annotation
+
+userQuestion_controller:
+    resource: ../../src/Components/UserQuestion/Communication/
+    type: annotation

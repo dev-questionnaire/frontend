@@ -19,4 +19,7 @@ interface FacadeUserInterface
     public function update(UserDataProvider $userDataProvider): array;
 
     public function delete(int $userId): void;
+
+    /** @return UserDataProvider[] */
+    public function getAllIndexedByUserId(): array;
 }

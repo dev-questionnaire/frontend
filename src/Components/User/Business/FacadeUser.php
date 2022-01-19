@@ -6,6 +6,7 @@ namespace App\Components\User\Business;
 use App\Components\User\Business\Model\ValidateCreate;
 use App\Components\User\Business\Model\ValidateUpdate;
 use App\Components\User\Persistence\EntityManager\UserEntityManagerInterface;
+use App\Components\User\Persistence\Repository\UserRepositoryInterface;
 use App\DataTransferObject\UserDataProvider;
 use App\DataTransferObject\ErrorDataProvider;
 
@@ -13,6 +14,7 @@ class FacadeUser implements FacadeUserInterface
 {
     public function __construct(
         private UserEntityManagerInterface $userEntityManager,
+        private UserRepositoryInterface $userRepository,
         private ValidateCreate $validateCreate,
         private ValidateUpdate $validateUpdate,
     )
@@ -52,5 +54,11 @@ class FacadeUser implements FacadeUserInterface
     public function delete(int $userId): void
     {
         $this->userEntityManager->delete($userId);
+    }
+
+    /** @return UserDataProvider[] */
+    public function getAllIndexedByUserId(): array
+    {
+        return $this->userRepository->getAllIndexedByUserId();
     }
 }

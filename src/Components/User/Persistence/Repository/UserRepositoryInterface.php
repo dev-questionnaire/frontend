@@ -15,4 +15,9 @@ interface UserRepositoryInterface
      * @return UserDataProvider[]
      */
     public function getAll(): array;
+
+    /**
+     * @return UserDataProvider[]
+     */
+    public function getAllIndexedByUserId(): array;
 }

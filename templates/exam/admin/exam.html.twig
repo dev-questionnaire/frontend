@@ -5,7 +5,7 @@
     <div id="links">
         <ul>
         {% for exam in examList %}
-            <li><a href="#">{{ exam.name }}</a></li>
+            <li><a href="{{ path('app_admin_question', {examSlug: exam.slug}) }}">{{ exam.name }}</a></li>
         {% endfor %}
         </ul>
     </div>

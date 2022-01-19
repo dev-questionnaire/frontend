@@ -106,7 +106,7 @@ class QuestionControllerTest extends WebTestCase
         );
 
         $userQuestionRepo = $this->container->get(UserQuestionRepository::class);
-        $userQuestion = $userQuestionRepo->findeOneByQuestionAndUser('s_in_solid', 2);
+        $userQuestion = $userQuestionRepo->findOneByQuestionAndUser('s_in_solid', 2);
 
         $expected = [
             'Single_possibility' => true,

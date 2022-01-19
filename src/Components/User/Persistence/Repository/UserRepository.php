@@ -68,4 +68,27 @@ class UserRepository implements UserRepositoryInterface
 
         return $userList;
     }
+
+    /**
+     * @return UserDataProvider[]
+     */
+    public function getAllIndexedByUserId(): array
+    {
+        /** @var UserDataProvider[] $userList */
+        $userList = [];
+
+        $users = $this->userEntityRepository->findAll();
+
+        foreach ($users as $user) {
+            $userId = $user->getId();
+
+            if($userId === null) {
+                continue;
+            }
+
+            $userList[$userId] = $this->userMapper->map($user);
+        }
+
+        return $userList;
+    }
 }

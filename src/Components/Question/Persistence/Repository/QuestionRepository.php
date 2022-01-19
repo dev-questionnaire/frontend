@@ -54,4 +54,28 @@ class QuestionRepository implements QuestionRepositoryInterface
 
         return $questionDataProviderList;
     }
+
+    public function getByExamAndQuestionSlug(string $examSlug, string $questionSlug): ?QuestionDataProvider
+    {
+        if (empty($examSlug) || empty($questionSlug)) {
+            return null;
+        }
+
+        $finder = new Finder();
+
+        $path = "{$this->pathToFolder}/{$examSlug}/";
+
+        $fileList = $finder
+            ->in($path)
+            ->name('*.json')
+            ->sortByName()
+            ->files()->contains($questionSlug);
+
+        /** @var \Symfony\Component\Finder\SplFileInfo $file */
+        foreach ($fileList as $file) {
+            return $this->questionMapper->map($file->getPathname());
+        }
+
+        return null;
+    }
 }

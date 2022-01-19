@@ -13,16 +13,16 @@ class UserQuestionRepository implements UserQuestionRepositoryInterface
 {
     public function __construct(
         private \App\Repository\UserQuestionRepository $userQuestionRepository,
-        private UserQuestionMapper $mapper,
+        private UserQuestionMapper                     $mapper,
     )
     {
     }
 
-    public function findeOneByQuestionAndUser(string $questionSlug, int $userId): ?UserQuestionDataProvider
+    public function findOneByQuestionAndUser(string $questionSlug, int $userId): ?UserQuestionDataProvider
     {
-        $userQuestion = $this->userQuestionRepository->findeOneByQuestionAndUser($questionSlug, $userId);
+        $userQuestion = $this->userQuestionRepository->findOneByQuestionAndUser($questionSlug, $userId);
 
-        if(!$userQuestion instanceof UserQuestion) {
+        if (!$userQuestion instanceof UserQuestion) {
             return null;
         }
 
@@ -32,20 +32,36 @@ class UserQuestionRepository implements UserQuestionRepositoryInterface
     /**
      * @return UserQuestionDataProvider[]
      */
-    public function getByExamAndUserIndexedByQuestionSlug(string $examSlug, int $userId): array
+    public function findByExamAndUserIndexedByQuestionSlug(string $examSlug, int $userId): array
     {
         $userQuestionDataProviderList = [];
 
-        $userQuestionList = $this->userQuestionRepository->findeByExamAndUser($examSlug, $userId);
+        $userQuestionList = $this->userQuestionRepository->findByExamAndUser($examSlug, $userId);
 
         foreach ($userQuestionList as $userQuestion) {
             $slug = $userQuestion->getQuestionSlug();
 
-            if($slug === null) {
+            if ($slug === null) {
                 throw new \RuntimeException("no slug provided");
             }
 
             $userQuestionDataProviderList[$slug] = $this->mapper->map($userQuestion);
+        }
+
+        return $userQuestionDataProviderList;
+    }
+
+    /**
+     * @return UserQuestionDataProvider[]
+     */
+    public function findByExamAndQuestionSlug(string $examSlug, string $questionSlug): array
+    {
+        $userQuestionDataProviderList = [];
+
+        $userQuestionList = $this->userQuestionRepository->findBy(['examSlug' => $examSlug, 'questionSlug' => $questionSlug]);
+
+        foreach ($userQuestionList as $userQuestion) {
+            $userQuestionDataProviderList[] = $this->mapper->map($userQuestion);
         }
 
         return $userQuestionDataProviderList;

@@ -50,7 +50,7 @@ class UserQuestionRepositoryTest extends KernelTestCase
         $container = static::getContainer();
         $userQuestionRepository = $container->get(UserQuestionRepository::class);
 
-        $userQuestion = $userQuestionRepository->findeOneByQuestionAndUser('s_in_solid', 2);
+        $userQuestion = $userQuestionRepository->findOneByQuestionAndUser('s_in_solid', 2);
 
         self::assertInstanceOf(UserQuestion::class, $userQuestion);
     }
@@ -60,15 +60,15 @@ class UserQuestionRepositoryTest extends KernelTestCase
         $container = static::getContainer();
         $userQuestionRepository = $container->get(UserQuestionRepository::class);
 
-        $userQuestion = $userQuestionRepository->findeOneByQuestionAndUser('s_in_solid', 12);
+        $userQuestion = $userQuestionRepository->findOneByQuestionAndUser('s_in_solid', 12);
 
         self::assertNull($userQuestion);
 
-        $userQuestion = $userQuestionRepository->findeOneByQuestionAndUser('', 2);
+        $userQuestion = $userQuestionRepository->findOneByQuestionAndUser('', 2);
 
         self::assertNull($userQuestion);
 
-        $userQuestion = $userQuestionRepository->findeOneByQuestionAndUser('', 0);
+        $userQuestion = $userQuestionRepository->findOneByQuestionAndUser('', 0);
 
         self::assertNull($userQuestion);
     }
@@ -78,7 +78,7 @@ class UserQuestionRepositoryTest extends KernelTestCase
         $container = static::getContainer();
         $userQuestionRepository = $container->get(UserQuestionRepository::class);
 
-        $userQuestion = $userQuestionRepository->findeByExamAndUser('solid', 2);
+        $userQuestion = $userQuestionRepository->findByExamAndUser('solid', 2);
 
         self::assertCount(2, $userQuestion);
     }
@@ -88,15 +88,15 @@ class UserQuestionRepositoryTest extends KernelTestCase
         $container = static::getContainer();
         $userQuestionRepository = $container->get(UserQuestionRepository::class);
 
-        $userQuestionList = $userQuestionRepository->findeByExamAndUser('', 2);
+        $userQuestionList = $userQuestionRepository->findByExamAndUser('', 2);
 
         self::assertEmpty($userQuestionList);
 
-        $userQuestionList = $userQuestionRepository->findeByExamAndUser('solid', 100);
+        $userQuestionList = $userQuestionRepository->findByExamAndUser('solid', 100);
 
         self::assertEmpty($userQuestionList);
 
-        $userQuestionList = $userQuestionRepository->findeByExamAndUser('', 100);
+        $userQuestionList = $userQuestionRepository->findByExamAndUser('', 100);
 
         self::assertEmpty($userQuestionList);
     }
