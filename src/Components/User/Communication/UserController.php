@@ -125,7 +125,7 @@ class UserController extends AbstractController
     {
         $userList = $this->userRepository->getAll();
 
-        return $this->render('user/users.html.twig', [
+        return $this->render('user/admin/users.html.twig', [
             'userList' => $userList,
         ]);
     }
@@ -139,7 +139,7 @@ class UserController extends AbstractController
             return $this->redirectToRoute('app_admin_users');
         }
 
-        return $this->render('user/user.html.twig', [
+        return $this->render('user/admin/user.html.twig', [
             'user' => $user,
         ]);
     }

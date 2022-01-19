@@ -95,12 +95,12 @@ class ExamController extends AbstractController
         ]);
     }
 
-    #[Route("/admin/user/{id}/exam", name: "app_admin_exam")]
-    public function examAdmin(int $id): Response
+    #[Route("/admin/user/{id}/exam", name: "app_admin_examUser")]
+    public function examUserAdmin(int $id): Response
     {
         $examDataProviderList = $this->examRepository->getAll();
 
-        return $this->render('exam/examAdmin.html.twig', [
+        return $this->render('exam/admin/examUser.html.twig', [
             'id' => $id,
             'examList' => $examDataProviderList,
         ]);
@@ -171,7 +171,7 @@ class ExamController extends AbstractController
             $calculatedPercent = $countQuestions / $questionQuantity * 100;
         }
 
-        return $this->render('exam/resultAdmin.html.twig', [
+        return $this->render('exam/admin/result.html.twig', [
             'exam' => $examDataProvider,
             'examPercent' => $calculatedPercent,
             'userAnswers' => $userAnswerList,
