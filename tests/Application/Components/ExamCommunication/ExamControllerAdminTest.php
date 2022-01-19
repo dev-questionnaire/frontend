@@ -57,6 +57,13 @@ class ExamControllerAdminTest extends WebTestCase
 
     public function testExamAdmin(): void
     {
+        $this->client->request('GET', '/admin/exam');
+
+        self::assertResponseIsSuccessful();
+    }
+
+    public function testUserExamAdmin(): void
+    {
         $this->client->request('GET', '/admin/user/1/exam');
 
         self::assertResponseIsSuccessful();

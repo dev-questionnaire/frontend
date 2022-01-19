@@ -95,6 +95,16 @@ class ExamController extends AbstractController
         ]);
     }
 
+    #[Route("/admin/exam", name: "app_admin_exam")]
+    public function examAdmin(): Response
+    {
+        $examDataProviderList = $this->examRepository->getAll();
+
+        return $this->render('exam/admin/exam.html.twig', [
+            'examList' => $examDataProviderList,
+        ]);
+    }
+
     #[Route("/admin/user/{id}/exam", name: "app_admin_examUser")]
     public function examUserAdmin(int $id): Response
     {
