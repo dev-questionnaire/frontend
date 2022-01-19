@@ -7,9 +7,11 @@ use App\Components\User\Persistence\EntityManager\UserEntityManager;
 use App\Components\User\Persistence\EntityManager\UserEntityManagerInterface;
 use App\Components\User\Persistence\Mapper\UserMapper;
 use App\Components\User\Persistence\Repository\UserRepository;
+use App\DataFixtures\AppFixtures;
 use App\DataTransferObject\UserDataProvider;
 use Doctrine\ORM\EntityManager;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class UserEntityManagerRepositoryTest extends KernelTestCase
@@ -17,20 +19,21 @@ class UserEntityManagerRepositoryTest extends KernelTestCase
     private ?EntityManager $entityManager;
     private ?UserEntityManagerInterface $userEntityManager;
     private ?UserRepository $userRepository;
+    private ContainerInterface $container;
 
     protected function setUp(): void
     {
         parent::setUp();
 
         $kernel = self::bootKernel();
-        $container = static::getContainer();
+        $this->container = static::getContainer();
 
         $this->entityManager = $kernel->getContainer()
             ->get('doctrine')
             ->getManager();
 
-        $this->userEntityManager = $container->get(UserEntityManager::class);
-        $this->userRepository = $container->get(UserRepository::class);
+        $this->userEntityManager = $this->container->get(UserEntityManager::class);
+        $this->userRepository = $this->container->get(UserRepository::class);
     }
 
     protected function tearDown(): void
@@ -100,6 +103,17 @@ class UserEntityManagerRepositoryTest extends KernelTestCase
         $result = $this->userRepository->checkEmailTaken($userDTO);
 
         self::assertTrue($result);
+    }
+
+    public function testGetAll(): void
+    {
+        $this->container->get(AppFixtures::class)->load($this->entityManager);
+
+        $userList = $this->userRepository->getAll();
+
+        self::assertCount(2, $userList);
+        self::assertSame('admin@valantic.com', $userList[0]->getEmail());
+        self::assertSame('user@valantic.com', $userList[1]->getEmail());
     }
 
     public function testUpdate(): void

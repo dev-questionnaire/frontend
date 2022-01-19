@@ -84,17 +84,32 @@ class AppFixturesTest extends KernelTestCase
 
         $userQuestionList = $this->userQuestionRepository->findAll();
 
-        self::assertTrue($userQuestionList[0]->getAnswer());
-        self::assertFalse($userQuestionList[1]->getAnswer());
-        self::assertNull($userQuestionList[2]->getAnswer());
+        $expected = [
+            'Solid' => false,
+            'Sexy_Programming' => false,
+            'Single_possibility' => true,
+            'Single_like_a_pringle' => false,
+        ];
 
-        self::assertSame('question_1', $userQuestionList[0]->getQuestionSlug());
-        self::assertSame('question_2', $userQuestionList[1]->getQuestionSlug());
-        self::assertSame('question_3', $userQuestionList[2]->getQuestionSlug());
+        self::assertSame($expected, $userQuestionList[0]->getAnswers());
 
-        self::assertSame('exam', $userQuestionList[0]->getExamSlug());
-        self::assertSame('exam', $userQuestionList[1]->getExamSlug());
-        self::assertSame('exam', $userQuestionList[2]->getExamSlug());
+        $expected = [
+            'Open_relation' => true,
+            'Oral__ex' => false,
+            'Open_close' => false,
+            'Opfer' => false
+        ];
+
+        self::assertSame($expected, $userQuestionList[1]->getAnswers());
+        self::assertNull($userQuestionList[2]->getAnswers());
+
+        self::assertSame('s_in_solid', $userQuestionList[0]->getQuestionSlug());
+        self::assertSame('o_in_solid', $userQuestionList[1]->getQuestionSlug());
+        self::assertSame('harun_alter', $userQuestionList[2]->getQuestionSlug());
+
+        self::assertSame('solid', $userQuestionList[0]->getExamSlug());
+        self::assertSame('solid', $userQuestionList[1]->getExamSlug());
+        self::assertSame('harun', $userQuestionList[2]->getExamSlug());
 
         self::assertSame($userList[1], $userQuestionList[0]->getUser());
         self::assertSame($userList[1], $userQuestionList[1]->getUser());

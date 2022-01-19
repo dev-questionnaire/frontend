@@ -68,7 +68,7 @@ class UserQuestionEntityManagerAndRepositoryTest extends KernelTestCase
             ->setUserId(2)
             ->setQuestionSlug('question')
             ->setExamSlug('exam')
-            ->setAnswer(null);
+            ->setAnswers(null);
 
         $this->userQuestionEntityManager->create($userQuestionDataProvider);
 
@@ -76,7 +76,7 @@ class UserQuestionEntityManagerAndRepositoryTest extends KernelTestCase
             ->setUserId(2)
             ->setQuestionSlug('question2')
             ->setExamSlug('exam')
-            ->setAnswer(null);
+            ->setAnswers(null);
 
         $this->userQuestionEntityManager->create($userQuestionDataProvider);
 
@@ -88,15 +88,15 @@ class UserQuestionEntityManagerAndRepositoryTest extends KernelTestCase
         self::assertSame(2, $userQuestionDataProvider->getUserId());
         self::assertSame('question', $userQuestionDataProvider->getQuestionSlug());
         self::assertSame('exam', $userQuestionDataProvider->getExamSlug());
-        self::assertNull($userQuestionDataProvider->getAnswer());
+        self::assertNull($userQuestionDataProvider->getAnswers());
         self::assertSame($currentDate, $userQuestionDataProvider->getCreatedAt());
         self::assertSame($currentDate, $userQuestionDataProvider->getUpdatedAt());
 
-        $userQuestionDataProvider->setAnswer(false);
+        $userQuestionDataProvider->setAnswers(['answer_1' => false, 'answer_2' => true]);
         $this->userQuestionEntityManager->updateAnswer($userQuestionDataProvider);
         $userQuestionDataProvider = $this->userQuestionRepository->findeOneByQuestionAndUser('question',2);
 
-        self::assertFalse($userQuestionDataProvider->getAnswer());
+        self::assertSame(['answer_1' => false, 'answer_2' => true], $userQuestionDataProvider->getAnswers());
 
         $userQuestionDataProviderList = $this->userQuestionRepository->getByExamAndUserIndexedByQuestionSlug('exam', 2);
         self::assertCount(2, $userQuestionDataProviderList);

@@ -50,7 +50,7 @@ class UserQuestionRepositoryTest extends KernelTestCase
         $container = static::getContainer();
         $userQuestionRepository = $container->get(UserQuestionRepository::class);
 
-        $userQuestion = $userQuestionRepository->findeOneByQuestionAndUser('question_1', 2);
+        $userQuestion = $userQuestionRepository->findeOneByQuestionAndUser('s_in_solid', 2);
 
         self::assertInstanceOf(UserQuestion::class, $userQuestion);
     }
@@ -60,7 +60,7 @@ class UserQuestionRepositoryTest extends KernelTestCase
         $container = static::getContainer();
         $userQuestionRepository = $container->get(UserQuestionRepository::class);
 
-        $userQuestion = $userQuestionRepository->findeOneByQuestionAndUser('question_1', 12);
+        $userQuestion = $userQuestionRepository->findeOneByQuestionAndUser('s_in_solid', 12);
 
         self::assertNull($userQuestion);
 
@@ -78,9 +78,9 @@ class UserQuestionRepositoryTest extends KernelTestCase
         $container = static::getContainer();
         $userQuestionRepository = $container->get(UserQuestionRepository::class);
 
-        $userQuestion = $userQuestionRepository->findeByExamAndUser('exam', 2);
+        $userQuestion = $userQuestionRepository->findeByExamAndUser('solid', 2);
 
-        self::assertCount(3, $userQuestion);
+        self::assertCount(2, $userQuestion);
     }
 
     public function testFindeByExamAndUserNegativ(): void
@@ -92,7 +92,7 @@ class UserQuestionRepositoryTest extends KernelTestCase
 
         self::assertEmpty($userQuestionList);
 
-        $userQuestionList = $userQuestionRepository->findeByExamAndUser('exam', 100);
+        $userQuestionList = $userQuestionRepository->findeByExamAndUser('solid', 100);
 
         self::assertEmpty($userQuestionList);
 

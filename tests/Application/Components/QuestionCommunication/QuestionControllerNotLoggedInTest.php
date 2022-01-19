@@ -1,13 +1,13 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Tests\Application\Components\ExamCommunication;
+namespace App\Tests\Application\Components\QuestionCommunication;
 
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 
-class ExamControllerTestNotLoggedIn extends WebTestCase
+class QuestionControllerNotLoggedInTest extends WebTestCase
 {
     private KernelBrowser $client;
 
@@ -17,16 +17,9 @@ class ExamControllerTestNotLoggedIn extends WebTestCase
         $this->client = static::createClient();
     }
 
-    public function testAppExam(): void
+    public function testAppQuestion(): void
     {
-        $this->client->request('GET', '/');
-
-        self::assertInstanceOf(RedirectResponse::class, $this->client->getResponse());
-    }
-
-    public function testAppExamResult(): void
-    {
-        $this->client->request('GET', '/exam/solid/result');
+        $this->client->request('GET', '/exam/solid/question');
 
         self::assertInstanceOf(RedirectResponse::class, $this->client->getResponse());
     }

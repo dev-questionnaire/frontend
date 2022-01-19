@@ -7,7 +7,7 @@ use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 
-class UserControllerTestNotLoggedIn extends WebTestCase
+class UserControllerNotLoggedInTest extends WebTestCase
 {
     private KernelBrowser $client;
 

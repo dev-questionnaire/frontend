@@ -60,7 +60,7 @@ class BridgeUserQuestionTest extends KernelTestCase
         $userQuestionDataProvider = $this->bridgeUserQuestion->getByUserAndQuestion(2, 'slug');
 
         self::assertInstanceOf(UserQuestionDataProvider::class, $userQuestionDataProvider);
-        self::assertNull($userQuestionDataProvider->getAnswer());
+        self::assertNull($userQuestionDataProvider->getAnswers());
 
 
         $this->bridgeUserQuestion->delete($userQuestionDataProvider->getId());
@@ -94,19 +94,6 @@ class BridgeUserQuestionTest extends KernelTestCase
 
         $this->bridgeUserQuestion->updateAnswer($questionDataProvider, 2, $formData);
         $userQuestionDataProvider = $this->bridgeUserQuestion->getByUserAndQuestion(2, 'question');
-        self::assertTrue($userQuestionDataProvider->getAnswer());
-
-
-        $formData =
-            [
-                'answer_1' => false,
-                'answer_2' => true,
-                'answer_3' => true,
-                'answer_4' => false,
-            ];
-
-        $this->bridgeUserQuestion->updateAnswer($questionDataProvider, 2, $formData);
-        $userQuestionDataProvider = $this->bridgeUserQuestion->getByUserAndQuestion(2, 'question');
-        self::assertFalse($userQuestionDataProvider->getAnswer());
+        self::assertTrue($userQuestionDataProvider->getAnswers()['answer_1']);
     }
 }

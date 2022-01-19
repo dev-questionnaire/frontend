@@ -32,7 +32,7 @@ class UserQuestionMapperTest extends KernelTestCase
             ->setQuestionSlug('question')
             ->setExamSlug('exam')
             ->setUser(null)
-            ->setAnswer(false)
+            ->setAnswers(['answer_1' => false, 'answer_2' => true])
             ->setCreatedAt($currentDate)
             ->setUpdatedAt($currentDate);
 

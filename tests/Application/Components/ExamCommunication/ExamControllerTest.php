@@ -82,14 +82,14 @@ class ExamControllerTest extends WebTestCase
             ->setExamSlug('solid')
             ->setQuestionSlug('s_in_solid')
             ->setUser($testUser)
-            ->setAnswer(true);
+            ->setAnswers(["Solid" => false, "Sexy_Programming" => false, "Single_possibility" => true, "Single_like_a_pringle" => false]);
 
         $userQuestion_2 = new UserQuestion();
         $userQuestion_2
             ->setExamSlug('solid')
             ->setQuestionSlug('o_in_solid')
             ->setUser($testUser)
-            ->setAnswer(true);
+            ->setAnswers(['Open_relation' => true, 'Oral__ex' => false, 'Open_close' => false, 'Opfer' => false]);
 
         $this->entityManager->persist($userQuestion_1);
         $this->entityManager->persist($userQuestion_2);
@@ -110,14 +110,14 @@ class ExamControllerTest extends WebTestCase
             ->setExamSlug('solid')
             ->setQuestionSlug('s_in_solid')
             ->setUser($testUser)
-            ->setAnswer(true);
+            ->setAnswers(["Solid" => false, "Sexy_Programming" => false, "Single_possibility" => true, "Single_like_a_pringle" => false]);
 
         $userQuestion_2 = new UserQuestion();
         $userQuestion_2
             ->setExamSlug('solid')
             ->setQuestionSlug('o_in_solid')
             ->setUser($testUser)
-            ->setAnswer(null);
+            ->setAnswers(null);
 
         $this->entityManager->persist($userQuestion_1);
         $this->entityManager->persist($userQuestion_2);

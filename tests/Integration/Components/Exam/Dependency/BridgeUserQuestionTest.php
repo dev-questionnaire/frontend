@@ -62,10 +62,10 @@ class BridgeUserQuestionTest extends KernelTestCase
 
     public function testGetByUserAndExamIndexedByQuestionSlug(): void
     {
-        $userQuestionDataProviderList = $this->bridgeUserQuestion->getByUserAndExamIndexedByQuestionSlug(2, 'exam');
-        self::assertCount(3, $userQuestionDataProviderList);
+        $userQuestionDataProviderList = $this->bridgeUserQuestion->getByUserAndExamIndexedByQuestionSlug(2, 'solid');
+        self::assertCount(2, $userQuestionDataProviderList);
 
-        self::assertInstanceOf(UserQuestionDataProvider::class, $userQuestionDataProviderList['question_1']);
+        self::assertInstanceOf(UserQuestionDataProvider::class, $userQuestionDataProviderList['s_in_solid']);
 
         self::assertEmpty($this->bridgeUserQuestion->getByUserAndExamIndexedByQuestionSlug(2, ''));
     }
