@@ -1,0 +1,10 @@
+{% extends "base.html.twig" %}
+{% block title %}Admin - {{ user.email }}{% endblock %}
+{% block headline %}{{ user.email }}{% endblock %}
+{% block body %}
+    <div id="links">
+        <ul style="list-style: none">
+            <li><a href="{{ path('app_admin_exam', {id: user.id}) }}">Exams</a></li>
+        </ul>
+    </div>
+{% endblock %}

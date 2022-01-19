@@ -1,0 +1,12 @@
+{% extends "base.html.twig" %}
+{% block title %}Admin - Users{% endblock %}
+{% block headline %}Users{% endblock %}
+{% block body %}
+    <div id="links">
+        <ul>
+            {% for user in userList %}
+                <li><a href="{{ path('app_admin_user', {id: user.id}) }}">{{ user.email }}</a></li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock %}

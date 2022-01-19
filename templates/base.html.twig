@@ -37,6 +37,9 @@
         <a href="#">Datenschutzerklärung</a>
         <a href="#">Impressum und Rechtshinweise</a>
         <a target="_blank" rel="noopener noreferrer" href="https://www.valantic.com/">Valantic</a>
+        {% if is_granted('ROLE_ADMIN') %}
+            <a href="{{ path('app_admin') }}">Admin Area</a>
+        {% endif %}
     </div>
 </footer>
 </body>

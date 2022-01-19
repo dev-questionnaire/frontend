@@ -1,0 +1,11 @@
+{% extends "base.html.twig" %}
+{% block title %}Admin{% endblock %}
+{% block headline %}Admin Area{% endblock %}
+{% block body %}
+    <div id="links">
+        <ul style="list-style: none">
+            <li><a href="{{ path('app_admin_users') }}">Users</a></li>
+            <li><a href="#">Exams</a></li>
+        </ul>
+    </div>
+{% endblock %}

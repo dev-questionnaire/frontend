@@ -1,0 +1,12 @@
+{% extends "base.html.twig" %}
+{% block title %}Admin - Exams{% endblock %}
+{% block headline %}Exams{% endblock %}
+{% block body %}
+    <div id="links">
+        <ul>
+        {% for exam in examList %}
+            <li><a href="{{ path('app_admin_exam_result', {id: id, examSlug: exam.slug}) }}">{{ exam.name }}</a></li>
+        {% endfor %}
+        </ul>
+    </div>
+{% endblock %}

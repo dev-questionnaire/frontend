@@ -3,14 +3,16 @@
     <h1>{{ exam.name }} | Score: {{ examPercent }} %</h1>
     <br/>
     {% for question in questionList %}
-        <p>{{ question.question }}
-        {% if userQuestionList[question.slug].answer == true %}
+        <p><b>{{ question.question }}</b>
+        {% if answeredCorrect[question.slug] == true %}
             <span style="color: green">&#10004</span>
             {% else %}
             <span style="color: red">&#10008</span>
         {% endif %}
         </p>
+        <p>Solution:</p>
         <ul>
+
         {% for answer in question.answers %}
             <li><span
                 {% for rightQuestion in question.rightQuestions %}

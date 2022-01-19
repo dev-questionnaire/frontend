@@ -1,0 +1,26 @@
+{% extends "base.html.twig" %}
+{% block title %}Admin - {{ exam.name }} Result{% endblock %}
+{% block headline %}{{ exam.name }} result{% endblock %}
+{% block body %}
+    <h1>{{ exam.name }} | Score: {{ examPercent }} %</h1>
+    <br/>
+    {% for question in questionList %}
+        <p><b>{{ question.question }}</b>
+            {% if answeredCorrect[question.slug] is null %}
+                <span style="color: gray">not answered</span>
+            {% elseif answeredCorrect[question.slug] == true %}
+                <span style="color: green">&#10004</span>
+            {% else %}
+                <span style="color: red">&#10008</span>
+            {% endif %}
+        </p>
+        <ul>
+            {% for answer in userAnswers[question.slug] %}
+                {% if answer is not null %}
+                    <li>{{ answer }}</li>
+                {% endif %}
+            {% endfor %}
+        </ul>
+        <br/>
+    {% endfor %}
+{% endblock %}
