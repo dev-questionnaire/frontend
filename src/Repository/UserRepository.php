@@ -35,4 +35,18 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         $this->_em->persist($user);
         $this->_em->flush();
     }
+
+    /**
+     * @return \App\Entity\User[]
+     */
+    public function findeByEmailExcludeId(string $email, int $id): array
+    {
+        return  $this->createQueryBuilder('u')
+            ->andWhere('u.id != :id')
+            ->andWhere('u.email = :email')
+            ->setParameter('id', $id)
+            ->setParameter('email', $email)
+            ->getQuery()
+            ->getResult();
+    }
 }

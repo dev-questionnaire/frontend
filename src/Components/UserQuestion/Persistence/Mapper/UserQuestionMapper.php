@@ -17,7 +17,7 @@ class UserQuestionMapper
             ->setId($userQuestion->getId())
             ->setQuestionSlug($userQuestion->getQuestionSlug())
             ->setExamSlug($userQuestion->getExamSlug())
-            ->setAnswer($userQuestion->getAnswer())
+            ->setAnswers($userQuestion->getAnswers())
             ->setCreatedAt($userQuestion->getCreatedAt()->format('d.m.Y'))
             ->setUpdatedAt($userQuestion->getUpdatedAt()->format('d.m.Y'));
 

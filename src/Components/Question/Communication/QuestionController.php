@@ -45,6 +45,7 @@ class QuestionController extends AbstractController
         //Build Form
         $formBuilder = $this->createFormBuilder();
 
+        /** @var string $answer */
         foreach ($currentQuestionDataProvider->getAnswers() as $answer)
         {
             $formBuilder->add(str_replace(' ', '_', $answer), CheckboxType::class, ['required' => false]);
@@ -54,11 +55,13 @@ class QuestionController extends AbstractController
 
         $form = $formBuilder->getForm();
 
-        //Check Question
+        //Save Answers
         $form->handleRequest($request);
 
         if ($form->isSubmitted() /**&& $form->isValid()**/) {
+            /** @var array<array-key, bool> $data */
             $data = $form->getData();
+
             $this->bridgeUserQuestion->updateAnswer($currentQuestionDataProvider, $userDataProvider->getId(), $data);
 
             return $this->redirectToRoute('app_question', ['examSlug' => $examSlug]);
@@ -88,7 +91,7 @@ class QuestionController extends AbstractController
                 return $questionDataProvider;
             }
 
-            if ($userQuestionDataProvider->getAnswer() === null) {
+            if ($userQuestionDataProvider->getAnswers() === null) {
                 return $questionDataProvider;
             }
         }

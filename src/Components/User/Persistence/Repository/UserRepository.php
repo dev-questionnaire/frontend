@@ -41,14 +41,31 @@ class UserRepository implements UserRepositoryInterface
 
     public function checkEmailTaken(UserDataProvider $userDataProvider): bool
     {
-        $userEntityList = $this->userEntityRepository->createQueryBuilder('u')
-            ->andWhere('u.id != :id')
-            ->andWhere('u.email = :email')
-            ->setParameter('id', $userDataProvider->getId())
-            ->setParameter('email', $userDataProvider->getEmail())
-            ->getQuery()
-            ->getResult();
+        /** @var string $email */
+        $email = $userDataProvider->getEmail();
+
+        /** @var int $id */
+        $id = $userDataProvider->getId();
+
+        $userEntityList = $this->userEntityRepository->findeByEmailExcludeId($email, $id);
 
         return !empty($userEntityList);
+    }
+
+    /**
+     * @return UserDataProvider[]
+     */
+    public function getAll(): array
+    {
+        /** @var UserDataProvider[] $userList */
+        $userList = [];
+
+        $users = $this->userEntityRepository->findAll();
+
+        foreach ($users as $user) {
+            $userList[] = $this->userMapper->map($user);
+        }
+
+        return $userList;
     }
 }

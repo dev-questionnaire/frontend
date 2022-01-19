@@ -47,6 +47,7 @@ class QuestionRepository implements QuestionRepositoryInterface
             ->sortByName()
             ->files()->contains('question');
 
+        /** @var \Symfony\Component\Finder\SplFileInfo $file */
         foreach ($fileList as $file) {
             $questionDataProviderList[] = $this->questionMapper->map($file->getPathname());
         }

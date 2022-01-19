@@ -7,6 +7,8 @@ use App\Components\User\Communication\Forms\Delete;
 use App\Components\User\Communication\Forms\Register;
 use App\Components\User\Communication\Forms\Update;
 use App\Components\User\Dependency\BridgeUserQuestion;
+use App\Components\User\Persistence\Repository\UserRepositoryInterface;
+use App\DataTransferObject\ErrorDataProvider;
 use App\DataTransferObject\UserDataProvider;
 use App\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -22,6 +24,7 @@ class UserController extends AbstractController
     public function __construct(
         private FacadeUserInterface     $facadeUser,
         private BridgeUserQuestion      $bridgeUserQuestion,
+        private UserRepositoryInterface $userRepository,
     )
     {
     }
@@ -29,7 +32,6 @@ class UserController extends AbstractController
     #[Route("/user/register", name: "app_user_register")]
     public function register(Request $request): Response
     {
-
         $errors = [];
 
         $userDataProvider = new UserDataProvider();
@@ -38,8 +40,10 @@ class UserController extends AbstractController
 
         $form->handleRequest($request);
         if ($form->isSubmitted()/**&& $form->isValid()**/) {
+            /** @var UserDataProvider $userDataProvider */
             $userDataProvider = $form->getData();
 
+            /** @var array<array-key, string> $errors */
             $errors = $this->facadeUser->create($userDataProvider);
 
             if (empty($errors)) {
@@ -71,9 +75,13 @@ class UserController extends AbstractController
 
         $form->handleRequest($request);
         if ($form->isSubmitted()/**&& $form->isValid()**/) {
+            /** @var UserDataProvider $userDataProviderForm */
             $userDataProviderForm = $form->getData();
 
-            if ($userDataProviderForm->getEmail() !== $userDataProvider->getEmail() || !password_verify($userDataProviderForm->getPassword(), $userDataProvider->getPassword())) {
+            /** @var string $formPassword */
+            $formPassword = $userDataProviderForm->getPassword();
+
+            if ($userDataProviderForm->getEmail() !== $userDataProvider->getEmail() || !password_verify($formPassword, $userDataProvider->getPassword())) {
                 $errors = $this->facadeUser->update($userDataProviderForm);
             }
         }
@@ -109,6 +117,30 @@ class UserController extends AbstractController
         return $this->renderForm('user/delete.html.twig', [
             'form' => $form,
             'userEmail' => $userDataProvider->getEmail(),
+        ]);
+    }
+
+    #[Route("/admin/users", name: "app_admin_users")]
+    public function showUsers(): Response
+    {
+        $userList = $this->userRepository->getAll();
+
+        return $this->render('user/users.html.twig', [
+            'userList' => $userList,
+        ]);
+    }
+
+    #[Route("/admin/user/{id}", name: "app_admin_user")]
+    public function showUser(int $id): Response
+    {
+        $user = $this->userRepository->getById($id);
+
+        if(!$user instanceof UserDataProvider) {
+            return $this->redirectToRoute('app_admin_users');
+        }
+
+        return $this->render('user/user.html.twig', [
+            'user' => $user,
         ]);
     }
 }

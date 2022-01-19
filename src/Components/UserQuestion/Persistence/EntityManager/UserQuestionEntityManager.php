@@ -30,7 +30,7 @@ class UserQuestionEntityManager implements UserQuestionEntityManagerInterface
             ->setUser($user)
             ->setQuestionSlug($userQuestionDataProvider->getQuestionSlug())
             ->setExamSlug($userQuestionDataProvider->getExamSlug())
-            ->setAnswer($userQuestionDataProvider->getAnswer());
+            ->setAnswers($userQuestionDataProvider->getAnswers());
 
         $this->entityManager->persist($userQuestion);
         $this->entityManager->flush();
@@ -44,7 +44,7 @@ class UserQuestionEntityManager implements UserQuestionEntityManagerInterface
             return;
         }
 
-        $userQuestion->setAnswer($userQuestionDataProvider->getAnswer());
+        $userQuestion->setAnswers($userQuestionDataProvider->getAnswers());
 
         $this->entityManager->flush();
     }

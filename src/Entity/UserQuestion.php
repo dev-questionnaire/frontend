@@ -26,8 +26,8 @@ class UserQuestion
     #[ORM\Column(type: 'integer')]
     private $id;
 
-    #[ORM\Column(type: 'boolean', nullable: true)]
-    private $answer;
+    #[ORM\Column(type: 'json', nullable: true)]
+    private $answers;
 
     #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'userQuestions')]
     #[ORM\JoinColumn(nullable: false)]
@@ -44,14 +44,21 @@ class UserQuestion
         return $this->id;
     }
 
-    public function getAnswer(): ?bool
+    public function getAnswers(): ?array
     {
-        return $this->answer;
+        return $this->answers;
     }
 
-    public function setAnswer(?bool $answer): self
+    public function setAnswer(?string $answer): self
     {
-        $this->answer = $answer;
+        $this->answers[] = $answer;
+
+        return $this;
+    }
+
+    public function setAnswers(?array $answers): self
+    {
+        $this->answers = $answers;
 
         return $this;
     }

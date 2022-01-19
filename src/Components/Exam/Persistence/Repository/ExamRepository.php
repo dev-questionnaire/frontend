@@ -44,6 +44,7 @@ class ExamRepository implements ExamRepositoryInterface
             ->sortByName()
             ->files()->contains(['slug' => $slug]);
 
+        /** @var \Symfony\Component\Finder\SplFileInfo $file */
         foreach ($fileList as $file) {
             $examDataProvider = $this->examMapper->map($file->getPathname());
         }
@@ -53,6 +54,7 @@ class ExamRepository implements ExamRepositoryInterface
 
     /**
      * @return ExamDataProvider[]
+     * @throws \JsonException
      */
     public function getAll(): array
     {
@@ -67,6 +69,7 @@ class ExamRepository implements ExamRepositoryInterface
             ->name('index.json')
             ->sortByName();
 
+        /** @var \Symfony\Component\Finder\SplFileInfo $file */
         foreach ($fileList as $file) {
             $examDataProviderList[] = $this->examMapper->map($file->getPathname());
         }

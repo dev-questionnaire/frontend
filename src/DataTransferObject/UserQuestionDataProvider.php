@@ -19,8 +19,8 @@ final class UserQuestionDataProvider
     /** @var string */
     protected $examSlug;
 
-    /** @var bool */
-    protected $answer = true;
+    /** @var null|array */
+    protected $answers;
 
     /** @var string */
     protected $createdAt;
@@ -192,21 +192,21 @@ final class UserQuestionDataProvider
     }
 
     /**
-     * @return bool
+     * @return null|array
      */
-    public function getAnswer(): ?bool
+    public function getAnswers(): ?array
     {
-        return $this->answer;
+        return $this->answers;
     }
 
 
     /**
-     * @param bool $answer
+     * @param null|array $answers
      * @return UserQuestionDataProvider
      */
-    public function setAnswer(?bool $answer = true)
+    public function setAnswers(?array $answers)
     {
-        $this->answer = $answer;
+        $this->answers = $answers;
 
         return $this;
     }
@@ -215,9 +215,9 @@ final class UserQuestionDataProvider
     /**
      * @return UserQuestionDataProvider
      */
-    public function unsetAnswer()
+    public function unsetAnswers()
     {
-        $this->answer = null;
+        $this->answers = null;
 
         return $this;
     }
@@ -226,9 +226,9 @@ final class UserQuestionDataProvider
     /**
      * @return bool
      */
-    public function hasAnswer()
+    public function hasAnswers()
     {
-        return ($this->answer !== null && $this->answer !== []);
+        return ($this->answers !== null && $this->answers !== []);
     }
 
 
@@ -360,12 +360,12 @@ final class UserQuestionDataProvider
                     'is_dataprovider' => false,
                     'isCamelCase' => false,
                 ),
-            'answer' =>
+            'answers' =>
                 array (
-                    'name' => 'answer',
+                    'name' => 'answers',
                     'allownull' => true,
-                    'default' => 'null',
-                    'type' => 'bool',
+                    'default' => '',
+                    'type' => 'array',
                     'is_collection' => false,
                     'is_dataprovider' => false,
                     'isCamelCase' => false,

@@ -10,4 +10,9 @@ interface UserRepositoryInterface
     public function getById(int $id): ?UserDataProvider;
 
     public function getByEmail(string $email): ?UserDataProvider;
+
+    /**
+     * @return UserDataProvider[]
+     */
+    public function getAll(): array;
 }

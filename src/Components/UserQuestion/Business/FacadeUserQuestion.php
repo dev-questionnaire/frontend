@@ -23,7 +23,7 @@ class FacadeUserQuestion implements FacadeUserQuestionInterface
         $userQuestionDataProvider = new UserQuestionDataProvider();
 
         $userQuestionDataProvider
-            ->setAnswer(null)
+            ->setAnswers(null)
             ->setUserId($userId)
             ->setQuestionSlug($questionSlug)
             ->setExamSlug($examSlug);
@@ -36,36 +36,13 @@ class FacadeUserQuestion implements FacadeUserQuestionInterface
      */
     public function updateAnswer(QuestionDataProvider $questionDataProvider, int $userId, array $formData): void
     {
-        $answerCorrect = null;
-
-        foreach ($formData as $question => $answer) {
-            if($answerCorrect === false)
-            {
-                break;
-            }
-
-            if($answer === false)
-            {
-                continue;
-            }
-
-            foreach ($questionDataProvider->getRightQuestions() as $rightQuestion) {
-                if(str_replace(' ', '_', (string)$rightQuestion) === (string)$question) {
-                    $answerCorrect = true;
-
-                    break;
-                }
-                $answerCorrect = false;
-            }
-        }
-
         $userQuestionDataProvider = $this->getByQuestionAndUser($userId, $questionDataProvider->getSlug());
 
         if(!$userQuestionDataProvider instanceof UserQuestionDataProvider) {
             throw new \RuntimeException("UserQuestion no found");
         }
 
-        $userQuestionDataProvider->setAnswer($answerCorrect);
+        $userQuestionDataProvider->setAnswers($formData);
 
         $this->userQuestionEntityManager->updateAnswer($userQuestionDataProvider);
     }

@@ -20,10 +20,11 @@ class FacadeUser implements FacadeUserInterface
     }
 
     /**
-     * @return ErrorDataProvider[]
+     * @return array<array-key, ErrorDataProvider>
      */
     public function create(UserDataProvider $userDataProvider): array
     {
+        /** @var array<array-key, ErrorDataProvider> $errors */
         $errors = $this->validateCreate->getErrors($userDataProvider)->getErrors();
 
         if(empty($errors)) {
@@ -34,10 +35,11 @@ class FacadeUser implements FacadeUserInterface
     }
 
     /**
-     * @return ErrorDataProvider[]
+     * @return array<array-key, ErrorDataProvider>
      */
     public function update(UserDataProvider $userDataProvider): array
     {
+        /** @var array<array-key, ErrorDataProvider> $errors */
         $errors = $this->validateUpdate->getErrors($userDataProvider)->getErrors();
 
         if(empty($errors)) {

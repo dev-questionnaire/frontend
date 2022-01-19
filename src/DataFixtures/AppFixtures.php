@@ -83,30 +83,30 @@ class AppFixtures extends Fixture
         $entityList = [];
 
         $userQuestion
-            ->setAnswer(true)
+            ->setAnswers(["Solid" => false, "Sexy_Programming" => false, "Single_possibility" => true, "Single_like_a_pringle" => false])
             ->setUser($userEntity)
-            ->setQuestionSlug('question_1')
-            ->setExamSlug('exam');
+            ->setQuestionSlug('s_in_solid')
+            ->setExamSlug('solid');
 
         $entityList[] = $userQuestion;
 
         $userQuestion = new UserQuestion();
 
         $userQuestion
-            ->setAnswer(false)
+            ->setAnswers(['Open_relation' => true, 'Oral__ex' => false, 'Open_close' => false, 'Opfer' => false])
             ->setUser($userEntity)
-            ->setQuestionSlug('question_2')
-            ->setExamSlug('exam');
+            ->setQuestionSlug('o_in_solid')
+            ->setExamSlug('solid');
 
         $entityList[] = $userQuestion;
 
         $userQuestion = new UserQuestion();
 
         $userQuestion
-            ->setAnswer(null)
+            ->setAnswers(null)
             ->setUser($userEntity)
-            ->setQuestionSlug('question_3')
-            ->setExamSlug('exam');
+            ->setQuestionSlug('harun_alter')
+            ->setExamSlug('harun');
 
         $entityList[] = $userQuestion;
 
