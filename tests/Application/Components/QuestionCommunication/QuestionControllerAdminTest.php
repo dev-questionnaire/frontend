@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Tests\Application\Components\UserCommunication;
+namespace App\Tests\Application\Components\QuestionCommunication;
 
 use App\DataFixtures\AppFixtures;
 use App\Repository\UserRepository;
@@ -11,7 +11,7 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 
-class UserControllerAdminTest extends WebTestCase
+class QuestionControllerAdminTest extends WebTestCase
 {
     private ?EntityManager $entityManager;
     private ContainerInterface $container;
@@ -51,24 +51,10 @@ class UserControllerAdminTest extends WebTestCase
         $this->entityManager = null;
     }
 
-    public function testShowUsers(): void
+    public function testShowAdminQuestions(): void
     {
-        $this->client->request('GET', '/admin/users');
+        $this->client->request('GET', '/admin/exam/solid/question');
 
         self::assertResponseIsSuccessful();
-    }
-
-    public function testShowUser(): void
-    {
-        $this->client->request('GET', '/admin/user/1');
-
-        self::assertResponseIsSuccessful();
-    }
-
-    public function testShowUserNegativ(): void
-    {
-        $this->client->request('GET', '/admin/user/100');
-
-        self::assertInstanceOf(RedirectResponse::class, $this->client->getResponse());
     }
 }
