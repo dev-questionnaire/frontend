@@ -2,6 +2,7 @@
 
 namespace App\Components\Exam\Communication;
 
+use App\Components\Exam\Business\FacadeExamInterface;
 use App\Components\Exam\Dependency\BridgeQuestionInterface;
 use App\Components\Exam\Persistence\Repository\ExamRepositoryInterface;
 use App\Components\Exam\Dependency\BridgeUserQuestionInterface;
@@ -18,6 +19,7 @@ class ExamController extends AbstractController
         private ExamRepositoryInterface     $examRepository,
         private BridgeQuestionInterface     $bridgeQuestion,
         private BridgeUserQuestionInterface $bridgeUserQuestion,
+        private FacadeExamInterface         $facadeExam,
     )
     {
     }
@@ -47,45 +49,15 @@ class ExamController extends AbstractController
 
         $userQuestionDataProviderList = $this->bridgeUserQuestion->getByUserAndExamIndexedByQuestionSlug($userDataProvider->getId(), $examSlug);
 
-        //CorrectAnswer?
-        $countQuestions = 0;
-        $answeredCorrect = [];
+        $percentAnswerCorrectAndUserAnswerLists = $this->facadeExam->getPercentAndAnswerCorrectAndUserAnswerList($questionDataProviderList, $userQuestionDataProviderList);
 
-        foreach ($questionDataProviderList as $questionDataProvider) {
-            $slug = $questionDataProvider->getSlug();
-
-            $answerList = $userQuestionDataProviderList[$slug]->getAnswers();
-
-            if ($answerList === null) {
-                return $this->redirectToRoute('app_question', ['examSlug' => $examSlug]);
-            }
-
-            $answeredCorrect[$slug] = null;
-
-            /**
-             * @var string $answer
-             * @var bool $result
-             */
-            foreach ($answerList as $answer => $result) {
-                $answeredCorrect[$slug] = $this->getCurrentAnsweredCorrect(
-                    $questionDataProvider,
-                    $answeredCorrect[$slug],
-                    $answer, $result
-                );
-            }
-
-            if ($answeredCorrect[$slug] === true) {
-                $countQuestions++;
-            }
+        if (!array_key_exists('percent', $percentAnswerCorrectAndUserAnswerLists)
+            || !array_key_exists('answeredCorrect', $percentAnswerCorrectAndUserAnswerLists)) {
+            return $this->redirectToRoute('app_question', ['examSlug' => $examSlug]);
         }
 
-        $calculatedPercent = 100;
-
-        $questionQuantity = count($questionDataProviderList);
-
-        if ($questionQuantity !== 0) {
-            $calculatedPercent = $countQuestions / $questionQuantity * 100;
-        }
+        $calculatedPercent = $percentAnswerCorrectAndUserAnswerLists['percent'];
+        $answeredCorrect = $percentAnswerCorrectAndUserAnswerLists['answeredCorrect'];
 
         return $this->render('exam/result.html.twig', [
             'exam' => $examDataProvider,
@@ -125,61 +97,17 @@ class ExamController extends AbstractController
 
         $userQuestionDataProviderList = $this->bridgeUserQuestion->getByUserAndExamIndexedByQuestionSlug($id, $examSlug);
 
-        $countQuestions = 0;
+        $percentAnswerCorrectAndUserAnswerLists = $this->facadeExam->getPercentAndAnswerCorrectAndUserAnswerList($questionDataProviderList, $userQuestionDataProviderList, true);
 
-        /** @var array<array-key, bool|null> $answeredCorrect */
-        $answeredCorrect = [];
-
-        /** @var array<array-key, string> $userAnswerList */
-        $userAnswerList = [];
-
-        foreach ($questionDataProviderList as $questionDataProvider) {
-
-            $slug = $questionDataProvider->getSlug();
-            $userAnswerList[$slug] = null;
-            $answeredCorrect[$slug] = null;
-
-            if(!array_key_exists($slug, $userQuestionDataProviderList)) {
-                continue;
-            }
-
-            $userQuestionDataProvider = $userQuestionDataProviderList[$slug];
-
-            $answerList = $userQuestionDataProvider->getAnswers();
-
-            if ($answerList === null) {
-                continue;
-            }
-
-            $answeredCorrect[$slug] = null;
-
-            /**
-             * @var string $answer
-             * @var bool $result
-             */
-            foreach ($answerList as $answer => $result) {
-                if ($result === true) {
-                    $userAnswerList[$slug][] = str_replace('_', ' ', $answer);
-                }
-
-                $answeredCorrect[$slug] = $this->getCurrentAnsweredCorrect(
-                    $questionDataProvider,
-                    $answeredCorrect[$slug],
-                    $answer, $result
-                );
-            }
-
-            if ($answeredCorrect[$slug] === true) {
-                $countQuestions++;
-            }
+        if (!array_key_exists('percent', $percentAnswerCorrectAndUserAnswerLists)
+            || !array_key_exists('answeredCorrect', $percentAnswerCorrectAndUserAnswerLists)
+            || !array_key_exists('userAnswerList', $percentAnswerCorrectAndUserAnswerLists)) {
+            $this->redirectToRoute('app_admin_examUser', ['id' => $id]);
         }
 
-        $calculatedPercent = 100;
-        $questionQuantity = count($questionDataProviderList);
-
-        if ($questionQuantity !== 0) {
-            $calculatedPercent = $countQuestions / $questionQuantity * 100;
-        }
+        $calculatedPercent = $percentAnswerCorrectAndUserAnswerLists['percent'];
+        $userAnswerList = $percentAnswerCorrectAndUserAnswerLists['userAnswerList'];
+        $answeredCorrect = $percentAnswerCorrectAndUserAnswerLists['answeredCorrect'];
 
         return $this->render('exam/admin/result.html.twig', [
             'exam' => $examDataProvider,
@@ -188,40 +116,5 @@ class ExamController extends AbstractController
             'questionList' => $questionDataProviderList,
             'answeredCorrect' => $answeredCorrect,
         ]);
-    }
-
-    private function getCurrentAnsweredCorrect(
-        QuestionDataProvider $questionDataProvider,
-        bool|null            $currentAnsweredCorrect,
-        string               $answer,
-        bool                 $result,
-    ): bool|null
-    {
-        /** @var string $rightAnswer */
-        foreach ($questionDataProvider->getRightQuestions() as $rightAnswer) {
-            $rightAnswer = str_replace(' ', '_', $rightAnswer);
-
-            if ($currentAnsweredCorrect === false) {
-                break;
-            }
-
-            $rightAnswer = str_replace(' ', '_', $rightAnswer);
-
-            if ($rightAnswer === $answer && $result === true) {
-                $currentAnsweredCorrect = true;
-                continue;
-            }
-
-            if ($rightAnswer === $answer && $result === false) {
-                $currentAnsweredCorrect = false;
-                continue;
-            }
-
-            if ($result === true) {
-                $currentAnsweredCorrect = false;
-            }
-        }
-
-        return $currentAnsweredCorrect;
     }
 }
