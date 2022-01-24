@@ -70,6 +70,7 @@ class UserRepository implements UserRepositoryInterface
     }
 
     /**
+     * @psalm-suppress PossiblyNullArrayOffset //id can't be null
      * @return UserDataProvider[]
      */
     public function getAllIndexedByUserId(): array
@@ -81,10 +82,6 @@ class UserRepository implements UserRepositoryInterface
 
         foreach ($users as $user) {
             $userId = $user->getId();
-
-            if($userId === null) {
-                continue;
-            }
 
             $userList[$userId] = $this->userMapper->map($user);
         }

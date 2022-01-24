@@ -93,7 +93,7 @@ class AppFixtures extends Fixture
         $userQuestion = new UserQuestion();
 
         $userQuestion
-            ->setAnswers(['Open_relation' => true, 'Oral__ex' => false, 'Open_close' => false, 'Opfer' => false])
+            ->setAnswers(['Open_relation' => true, 'Oral__ex' => false, 'Open_close' => true, 'Opfer' => false])
             ->setUser($userEntity)
             ->setQuestionSlug('o_in_solid')
             ->setExamSlug('solid');

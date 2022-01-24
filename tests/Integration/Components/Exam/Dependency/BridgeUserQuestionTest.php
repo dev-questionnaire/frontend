@@ -5,6 +5,7 @@ namespace App\Tests\Integration\Components\Exam\Dependency;
 
 use App\Components\Exam\Dependency\BridgeUserQuestion;
 use App\Components\Exam\Dependency\BridgeUserQuestionInterface;
+use App\Components\Question\Persistence\Repository\QuestionRepository;
 use App\Components\UserQuestion\Business\FacadeUserQuestion;
 use App\Components\UserQuestion\Persistence\EntityManager\UserQuestionEntityManager;
 use App\Components\UserQuestion\Persistence\Mapper\UserQuestionMapper;
@@ -68,5 +69,31 @@ class BridgeUserQuestionTest extends KernelTestCase
         self::assertInstanceOf(UserQuestionDataProvider::class, $userQuestionDataProviderList['s_in_solid']);
 
         self::assertEmpty($this->bridgeUserQuestion->getByUserAndExamIndexedByQuestionSlug(2, ''));
+    }
+
+    public function testGetPercentAndAnswerCorrectAndUserAnswerListAdmin(): void
+    {
+        $userQuestion = $this->container->get(\App\Repository\UserQuestionRepository::class)->findOneBy(['questionSlug' => 'o_in_solid', 'user' => 2]);
+        $userQuestion->setAnswers(null);
+        $this->entityManager->flush();
+
+        $questionDTOList = $this->container->get(QuestionRepository::class)->getByExamSlug('solid');
+        $userQuestionDTOList = $this->container->get(UserQuestionRepository::class)->findByExamAndUserIndexedByQuestionSlug('solid', 2);
+
+
+        $results = $this->container->get(FacadeUserQuestion::class)->getPercentAndAnswerCorrectAndUserAnswerList($questionDTOList, $userQuestionDTOList, true);
+
+        self::assertNotEmpty($results);
+    }
+
+    public function testGetPercentAndAnswerCorrectAndUserAnswerList(): void
+    {
+        $questionDTOList = $this->container->get(QuestionRepository::class)->getByExamSlug('solid');
+        $userQuestionDTOList = $this->container->get(UserQuestionRepository::class)->findByExamAndUserIndexedByQuestionSlug('solid', 2);
+
+        $results = $this->container->get(FacadeUserQuestion::class)->getPercentAndAnswerCorrectAndUserAnswerList($questionDTOList, $userQuestionDTOList)['answeredCorrect'];
+
+        self::assertTrue($results['s_in_solid']);
+        self::assertFalse($results['o_in_solid']);
     }
 }

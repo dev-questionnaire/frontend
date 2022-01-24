@@ -28,8 +28,6 @@ class ExamRepository implements ExamRepositoryInterface
 
     public function getBySlug(string $slug):  ?ExamDataProvider
     {
-        $examDataProvider = null;
-
         if (empty($slug)) {
             return null;
         }
@@ -43,6 +41,9 @@ class ExamRepository implements ExamRepositoryInterface
             ->name('index.json')
             ->sortByName()
             ->files()->contains(['slug' => $slug]);
+
+        /** @var null|ExamDataProvider $examDataProvider */
+        $examDataProvider = null;
 
         /** @var \Symfony\Component\Finder\SplFileInfo $file */
         foreach ($fileList as $file) {

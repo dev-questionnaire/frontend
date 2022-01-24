@@ -10,6 +10,8 @@ use Doctrine\ORM\EntityManager;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\Finder\Exception\DirectoryNotFoundException;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 
 class ExamControllerAdminTest extends WebTestCase
 {
@@ -28,7 +30,7 @@ class ExamControllerAdminTest extends WebTestCase
         $this->entityManager = $this->container->get('doctrine.orm.entity_manager');
 
         $appFixtures = $this->container->get(AppFixtures::class);
-        $appFixtures->load($this->entityManager);
+        $appFixtures->load($this->entityManager, ['test' => true]);
 
         $repository = $this->container->get(UserRepository::class);
 
@@ -78,29 +80,23 @@ class ExamControllerAdminTest extends WebTestCase
 
     public function testExamResultAdminWithQuestions(): void
     {
-        $userRepository = $this->container->get(UserRepository::class);
-        $testUser = $userRepository->findOneBy(['email' => 'user@valantic.com']);
-
-        $userQuestion_1 = new UserQuestion();
-        $userQuestion_1
-            ->setExamSlug('solid')
-            ->setQuestionSlug('s_in_solid')
-            ->setUser($testUser)
-            ->setAnswers(["Solid" => false, "Sexy_Programming" => false, "Single_possibility" => true, "Single_like_a_pringle" => false]);
-
-        $userQuestion_2 = new UserQuestion();
-        $userQuestion_2
-            ->setExamSlug('solid')
-            ->setQuestionSlug('o_in_solid')
-            ->setUser($testUser)
-            ->setAnswers(['Open_relation' => true, 'Oral__ex' => false, 'Open_close' => false, 'Opfer' => false]);
-
-        $this->entityManager->persist($userQuestion_1);
-        $this->entityManager->persist($userQuestion_2);
-        $this->entityManager->flush();
-
         $this->client->request('GET', '/admin/user/1/exam/oop/result');
 
         self::assertResponseIsSuccessful();
+    }
+
+    public function testExamResultAdminWithQuestionsNegativ(): void
+    {
+        $this->client->request('GET', '/admin/user/100/exam/oop/result');
+
+        self::assertInstanceOf(RedirectResponse::class, $this->client->getResponse());
+
+        $this->client->request('GET', '/admin/user/1/exam/blablabla/result');
+
+        self::assertInstanceOf(RedirectResponse::class, $this->client->getResponse());
+
+        $this->client->request('GET', '/admin/user/100/exam/blablabla/result');
+
+        self::assertInstanceOf(RedirectResponse::class, $this->client->getResponse());
     }
 }

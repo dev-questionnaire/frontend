@@ -22,4 +22,15 @@ class BridgeUserQuestion implements BridgeUserQuestionInterface
     {
         return $this->facadeUserQuestion->getByUserAndExamIndexedByQuestionSlug($userId, $examSlug);
     }
+
+    /**
+     * @param array<array-key, \App\DataTransferObject\QuestionDataProvider> $questionDataProviderList
+     * @param array<array-key, \App\DataTransferObject\UserQuestionDataProvider> $userQuestionDataProviderList
+     * @param bool $isAdminPage
+     * @return array<array-key, int|float|array<array-key, list<string>|string|bool|null>>
+     */
+    public function getPercentAndAnswerCorrectAndUserAnswerList(array $questionDataProviderList, array $userQuestionDataProviderList, bool $isAdminPage = false): array
+    {
+        return $this->facadeUserQuestion->getPercentAndAnswerCorrectAndUserAnswerList($questionDataProviderList, $userQuestionDataProviderList, $isAdminPage);
+    }
 }

@@ -3,8 +3,10 @@ declare(strict_types=1);
 
 namespace App\Tests\Application\Components\ExamCommunication;
 
+use App\DataFixtures\AppFixtures;
 use App\Entity\User;
 use App\Entity\UserQuestion;
+use App\Repository\UserQuestionRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManager;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
@@ -12,6 +14,7 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use function Safe\com_event_sink;
 
 class ExamControllerTest extends WebTestCase
 {
@@ -29,20 +32,12 @@ class ExamControllerTest extends WebTestCase
 
         $this->entityManager = $this->container->get('doctrine.orm.entity_manager');
 
-        $passwordHasher = $this->container->get(UserPasswordHasherInterface::class);
-
-        $user = new User();
-        $user
-            ->setEmail('test@email.com')
-            ->setPassword($passwordHasher->hashPassword($user, '123'))
-            ->setRoles(['ROLE_USER']);
-
-        $this->entityManager->persist($user);
-        $this->entityManager->flush();
+        $appFixtures = $this->container->get(AppFixtures::class);
+        $appFixtures->load($this->entityManager, ['test' => true]);
 
         $repository = $this->container->get(UserRepository::class);
 
-        $testUser = $repository->findOneBy(['email' => 'test@email.com']);
+        $testUser = $repository->findOneBy(['email' => 'user@valantic.com']);
 
         $this->client->loginUser($testUser);
     }
@@ -74,56 +69,36 @@ class ExamControllerTest extends WebTestCase
 
     public function testAppExamResult(): void
     {
-        $userRepository = $this->container->get(UserRepository::class);
-        $testUser = $userRepository->findOneBy(['email' => 'test@email.com']);
-
-        $userQuestion_1 = new UserQuestion();
-        $userQuestion_1
-            ->setExamSlug('solid')
-            ->setQuestionSlug('s_in_solid')
-            ->setUser($testUser)
-            ->setAnswers(["Solid" => false, "Sexy_Programming" => false, "Single_possibility" => true, "Single_like_a_pringle" => false]);
-
-        $userQuestion_2 = new UserQuestion();
-        $userQuestion_2
-            ->setExamSlug('solid')
-            ->setQuestionSlug('o_in_solid')
-            ->setUser($testUser)
-            ->setAnswers(['Open_relation' => true, 'Oral__ex' => false, 'Open_close' => false, 'Opfer' => false]);
-
-        $this->entityManager->persist($userQuestion_1);
-        $this->entityManager->persist($userQuestion_2);
-        $this->entityManager->flush();
-
         $this->client->request('GET', 'exam/solid/result');
 
         self::assertResponseIsSuccessful();
     }
 
-    public function testAppExamResultRedirect(): void
+    public function testAppExamResultRedirectAnswersNull(): void
     {
-        $userRepository = $this->container->get(UserRepository::class);
-        $testUser = $userRepository->findOneBy(['email' => 'test@email.com']);
+        $userQuestion = $this->container->get(UserQuestionRepository::class)->findOneBy(['questionSlug' => 'o_in_solid']);
 
-        $userQuestion_1 = new UserQuestion();
-        $userQuestion_1
-            ->setExamSlug('solid')
-            ->setQuestionSlug('s_in_solid')
-            ->setUser($testUser)
-            ->setAnswers(["Solid" => false, "Sexy_Programming" => false, "Single_possibility" => true, "Single_like_a_pringle" => false]);
-
-        $userQuestion_2 = new UserQuestion();
-        $userQuestion_2
-            ->setExamSlug('solid')
-            ->setQuestionSlug('o_in_solid')
-            ->setUser($testUser)
-            ->setAnswers(null);
-
-        $this->entityManager->persist($userQuestion_1);
-        $this->entityManager->persist($userQuestion_2);
+        $userQuestion->setAnswers(null);
         $this->entityManager->flush();
 
         $this->client->request('GET', 'exam/solid/result');
+        self::assertInstanceOf(RedirectResponse::class, $this->client->getResponse());
+    }
+
+    public function testAppExamResultRedirectNotAllQuestionsAnswered(): void
+    {
+        $userQuestion = $this->container->get(UserQuestionRepository::class)->findOneBy(['questionSlug' => 'o_in_solid']);
+
+        $this->entityManager->remove($userQuestion);
+        $this->entityManager->flush();
+
+        $this->client->request('GET', 'exam/solid/result');
+        self::assertInstanceOf(RedirectResponse::class, $this->client->getResponse());
+    }
+
+    public function testExamNotFound(): void
+    {
+        $this->client->request('GET', 'exam/blablabla/result');
 
         self::assertInstanceOf(RedirectResponse::class, $this->client->getResponse());
     }

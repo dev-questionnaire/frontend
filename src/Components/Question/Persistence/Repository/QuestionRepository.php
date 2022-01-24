@@ -41,6 +41,10 @@ class QuestionRepository implements QuestionRepositoryInterface
 
         $path = "{$this->pathToFolder}/{$examSlug}/";
 
+        if(!file_exists($path . "index.json")) {
+            return [];
+        }
+
         $fileList = $finder
             ->in($path)
             ->name('*.json')
@@ -65,17 +69,24 @@ class QuestionRepository implements QuestionRepositoryInterface
 
         $path = "{$this->pathToFolder}/{$examSlug}/";
 
+        if(!file_exists($path . "index.json")) {
+            return null;
+        }
+
         $fileList = $finder
             ->in($path)
             ->name('*.json')
             ->sortByName()
             ->files()->contains($questionSlug);
 
+        /** @var null|QuestionDataProvider $questionDataProvider */
+        $questionDataProvider = null;
+
         /** @var \Symfony\Component\Finder\SplFileInfo $file */
         foreach ($fileList as $file) {
-            return $this->questionMapper->map($file->getPathname());
+            $questionDataProvider = $this->questionMapper->map($file->getPathname());
         }
 
-        return null;
+        return $questionDataProvider;
     }
 }

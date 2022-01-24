@@ -96,7 +96,7 @@ class AppFixturesTest extends KernelTestCase
         $expected = [
             'Open_relation' => true,
             'Oral__ex' => false,
-            'Open_close' => false,
+            'Open_close' => true,
             'Opfer' => false
         ];
 

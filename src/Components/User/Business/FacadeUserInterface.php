@@ -22,4 +22,6 @@ interface FacadeUserInterface
 
     /** @return UserDataProvider[] */
     public function getAllIndexedByUserId(): array;
+
+    public function doesUserExist(int $id): bool;
 }

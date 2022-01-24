@@ -2,15 +2,13 @@
 
 namespace App\Components\Exam\Communication;
 
-use App\Components\Exam\Business\FacadeExamInterface;
 use App\Components\Exam\Dependency\BridgeQuestionInterface;
+use App\Components\Exam\Dependency\BridgeUserInterface;
 use App\Components\Exam\Persistence\Repository\ExamRepositoryInterface;
 use App\Components\Exam\Dependency\BridgeUserQuestionInterface;
 use App\Controller\AbstractController;
-use App\DataTransferObject\QuestionDataProvider;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use function PHPUnit\Framework\throwException;
 
 /** @psalm-suppress PropertyNotSetInConstructor */
 class ExamController extends AbstractController
@@ -19,7 +17,7 @@ class ExamController extends AbstractController
         private ExamRepositoryInterface     $examRepository,
         private BridgeQuestionInterface     $bridgeQuestion,
         private BridgeUserQuestionInterface $bridgeUserQuestion,
-        private FacadeExamInterface         $facadeExam,
+        private BridgeUserInterface         $bridgeUser,
     )
     {
     }
@@ -45,19 +43,32 @@ class ExamController extends AbstractController
 
         $examDataProvider = $this->examRepository->getBySlug($examSlug);
 
+        if (!$examDataProvider) {
+            return $this->redirectToRoute('app_exam');
+        }
+
         $questionDataProviderList = $this->bridgeQuestion->getByExamSlug($examSlug);
 
         $userQuestionDataProviderList = $this->bridgeUserQuestion->getByUserAndExamIndexedByQuestionSlug($userDataProvider->getId(), $examSlug);
 
-        $percentAnswerCorrectAndUserAnswerLists = $this->facadeExam->getPercentAndAnswerCorrectAndUserAnswerList($questionDataProviderList, $userQuestionDataProviderList);
+        $percentAnswerCorrectAndUserAnswerLists = $this->bridgeUserQuestion->getPercentAndAnswerCorrectAndUserAnswerList($questionDataProviderList, $userQuestionDataProviderList);
 
         if (!array_key_exists('percent', $percentAnswerCorrectAndUserAnswerLists)
             || !array_key_exists('answeredCorrect', $percentAnswerCorrectAndUserAnswerLists)) {
-            return $this->redirectToRoute('app_question', ['examSlug' => $examSlug]);
+            return $this->redirectToRoute("app_question", ['examSlug' => $examSlug]);
         }
 
+        /** @var float $calculatedPercent */
         $calculatedPercent = $percentAnswerCorrectAndUserAnswerLists['percent'];
+
+        /** @var array<array-key, boolean|null> $answeredCorrect */
         $answeredCorrect = $percentAnswerCorrectAndUserAnswerLists['answeredCorrect'];
+
+        foreach ($answeredCorrect as $answer) {
+            if ($answer === null) {
+                return $this->redirectToRoute("app_question", ['examSlug' => $examSlug]);
+            }
+        }
 
         return $this->render('exam/result.html.twig', [
             'exam' => $examDataProvider,
@@ -95,15 +106,17 @@ class ExamController extends AbstractController
 
         $questionDataProviderList = $this->bridgeQuestion->getByExamSlug($examSlug);
 
+        if ($this->bridgeUser->doesUserExist($id) === false) {
+            return $this->redirectToRoute('app_admin_users');
+        }
+
+        if (!$examDataProvider) {
+            return $this->redirectToRoute('app_admin_examUser', ['id' => $id]);
+        }
+
         $userQuestionDataProviderList = $this->bridgeUserQuestion->getByUserAndExamIndexedByQuestionSlug($id, $examSlug);
 
-        $percentAnswerCorrectAndUserAnswerLists = $this->facadeExam->getPercentAndAnswerCorrectAndUserAnswerList($questionDataProviderList, $userQuestionDataProviderList, true);
-
-        if (!array_key_exists('percent', $percentAnswerCorrectAndUserAnswerLists)
-            || !array_key_exists('answeredCorrect', $percentAnswerCorrectAndUserAnswerLists)
-            || !array_key_exists('userAnswerList', $percentAnswerCorrectAndUserAnswerLists)) {
-            $this->redirectToRoute('app_admin_examUser', ['id' => $id]);
-        }
+        $percentAnswerCorrectAndUserAnswerLists = $this->bridgeUserQuestion->getPercentAndAnswerCorrectAndUserAnswerList($questionDataProviderList, $userQuestionDataProviderList, true);
 
         $calculatedPercent = $percentAnswerCorrectAndUserAnswerLists['percent'];
         $userAnswerList = $percentAnswerCorrectAndUserAnswerLists['userAnswerList'];

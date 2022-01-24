@@ -5,6 +5,7 @@ namespace App\Tests\Integration\Components\UserQuestion\Business;
 
 use App\Components\Question\Persistence\Repository\QuestionRepository;
 use App\Components\UserQuestion\Business\FacadeUserQuestion;
+use App\Components\UserQuestion\Persistence\Repository\UserQuestionRepository;
 use App\DataFixtures\AppFixtures;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
