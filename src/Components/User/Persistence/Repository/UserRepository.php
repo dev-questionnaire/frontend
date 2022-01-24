@@ -70,7 +70,6 @@ class UserRepository implements UserRepositoryInterface
     }
 
     /**
-     * @psalm-suppress PossiblyNullArrayOffset //id can't be null
      * @return UserDataProvider[]
      */
     public function getAllIndexedByUserId(): array
