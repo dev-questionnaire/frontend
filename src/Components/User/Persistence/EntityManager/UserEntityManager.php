@@ -14,7 +14,6 @@ class UserEntityManager implements UserEntityManagerInterface
     public function __construct(
         private EntityManagerInterface $entityManager,
         private UserRepository $userRepository,
-        private UserPasswordHasherInterface $userPasswordHasher,
     )
     {
     }
@@ -32,10 +31,7 @@ class UserEntityManager implements UserEntityManagerInterface
         $user
             ->setEmail($userDataProvider->getEmail())
             ->setRoles(['ROLE_USER'])
-            ->setPassword($this->userPasswordHasher->hashPassword(
-                $user,
-                $userDataProvider->getPassword()
-            ));
+            ->setPassword($userDataProvider->getPassword()/*Hash*/);
 
         $this->entityManager->persist($user);
         $this->entityManager->flush();

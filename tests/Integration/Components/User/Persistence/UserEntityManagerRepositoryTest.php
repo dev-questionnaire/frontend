@@ -109,7 +109,7 @@ class UserEntityManagerRepositoryTest extends KernelTestCase
     {
         $this->container->get(AppFixtures::class)->load($this->entityManager);
 
-        $userList = $this->userRepository->getAll();
+        $userList = $this->userRepository->findAll();
 
         self::assertCount(2, $userList);
         self::assertSame('admin@valantic.com', $userList[0]->getEmail());

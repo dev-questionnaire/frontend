@@ -7,17 +7,17 @@ use App\DataTransferObject\UserDataProvider;
 
 interface UserRepositoryInterface
 {
-    public function getById(int $id): ?UserDataProvider;
+    public function findById(int $id): ?UserDataProvider;
 
-    public function getByEmail(string $email): ?UserDataProvider;
-
-    /**
-     * @return UserDataProvider[]
-     */
-    public function getAll(): array;
+    public function findByToken(string $token): ?UserDataProvider;
 
     /**
      * @return UserDataProvider[]
      */
-    public function getAllIndexedByUserId(): array;
+    public function findAll(): array;
+
+    /**
+     * @return UserDataProvider[]
+     */
+    public function findAllIndexedByUserId(): array;
 }

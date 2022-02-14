@@ -14,14 +14,14 @@
             <h1>{% block headline %}Exams{% endblock %}</h1>
         </div>
         <div>
-            {% if not app.user %}
+            {% if loggedInUser is defined%}
+                <a href="{{ path("app_user_profile") }}">{{ loggedInUser.email }}</a>
+                |
+                <a href="{{ path("app_logout") }}">Log Out</a>
+            {% else %}
                 <a href="{{ path("app_login") }}">Log In</a>
                 |
                 <a href="{{ path("app_user_register") }}">Register</a>
-            {% else %}
-                <a href="{{ path("app_user_profile") }}">{{ app.user.email }}</a>
-                |
-                <a href="{{ path("app_logout") }}">Log Out</a>
             {% endif %}
         </div>
     </div>
@@ -37,9 +37,7 @@
         <a href="#">Datenschutzerklärung</a>
         <a href="#">Impressum und Rechtshinweise</a>
         <a target="_blank" rel="noopener noreferrer" href="https://www.valantic.com/">Valantic</a>
-        {% if is_granted('ROLE_ADMIN') %}
-            <a href="{{ path('app_admin') }}">Admin Area</a>
-        {% endif %}
+        <a href="{{ path('app_admin') }}">Admin Area</a>
     </div>
 </footer>
 </body>

@@ -6,29 +6,43 @@ use App\Components\Exam\Dependency\BridgeQuestionInterface;
 use App\Components\Exam\Dependency\BridgeUserInterface;
 use App\Components\Exam\Persistence\Repository\ExamRepositoryInterface;
 use App\Components\Exam\Dependency\BridgeUserQuestionInterface;
-use App\Controller\AbstractController;
+use App\Components\User\Persistence\Repository\UserRepositoryInterface;
+use App\Controller\CustomAbstractController;
+use App\Components\User\Service\ApiSecurity;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /** @psalm-suppress PropertyNotSetInConstructor */
-class ExamController extends AbstractController
+class ExamController extends CustomAbstractController
 {
     public function __construct(
         private ExamRepositoryInterface     $examRepository,
         private BridgeQuestionInterface     $bridgeQuestion,
         private BridgeUserQuestionInterface $bridgeUserQuestion,
         private BridgeUserInterface         $bridgeUser,
+        RequestStack $requestStack,
+        ApiSecurity $api,
+        UserRepositoryInterface $userRepository,
     )
     {
+        parent::__construct($requestStack, $api, $userRepository);
     }
 
     #[Route("/", name: "app_exam")]
     public function index(): Response
     {
+        //Check if logged in
+        $authorized = $this->authorized();
+        if ($authorized !== null) {
+            return $authorized;
+        }
+
         $examDataProviderList = $this->examRepository->getAll();
 
         return $this->render('exam/exam.html.twig', [
             'examList' => $examDataProviderList,
+            'loggedInUser' => $this->getUserDataProvider(),
         ]);
     }
 
@@ -75,6 +89,7 @@ class ExamController extends AbstractController
             'examPercent' => $calculatedPercent,
             'questionList' => $questionDataProviderList,
             'answeredCorrect' => $answeredCorrect,
+            'loggedInUser' => $this->getUserDataProvider(),
         ]);
     }
 
@@ -85,6 +100,7 @@ class ExamController extends AbstractController
 
         return $this->render('exam/admin/exam.html.twig', [
             'examList' => $examDataProviderList,
+            'loggedInUser' => $this->getUserDataProvider(),
         ]);
     }
 
@@ -96,6 +112,7 @@ class ExamController extends AbstractController
         return $this->render('exam/admin/examUser.html.twig', [
             'id' => $id,
             'examList' => $examDataProviderList,
+            'loggedInUser' => $this->getUserDataProvider(),
         ]);
     }
 
@@ -128,6 +145,7 @@ class ExamController extends AbstractController
             'userAnswers' => $userAnswerList,
             'questionList' => $questionDataProviderList,
             'answeredCorrect' => $answeredCorrect,
+            'loggedInUser' => $this->getUserDataProvider(),
         ]);
     }
 }

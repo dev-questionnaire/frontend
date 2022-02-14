@@ -5,23 +5,30 @@ namespace App\Components\Question\Communication;
 use App\Components\Question\Dependency\BridgeExamInterface;
 use App\Components\Question\Dependency\BridgeUserQuestionInterface;
 use App\Components\Question\Persistence\Repository\QuestionRepositoryInterface;
-use App\Controller\AbstractController;
+use App\Components\User\Persistence\Repository\UserRepositoryInterface;
+use App\Controller\CustomAbstractController;
 use App\DataTransferObject\QuestionDataProvider;
+use App\Components\User\Service\ApiSecurity;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /** @psalm-suppress PropertyNotSetInConstructor */
-class QuestionController extends AbstractController
+class QuestionController extends CustomAbstractController
 {
     public function __construct(
         private QuestionRepositoryInterface $questionRepository,
         private BridgeUserQuestionInterface $bridgeUserQuestion,
         private BridgeExamInterface $bridgeExam,
+        RequestStack $requestStack,
+        ApiSecurity $api,
+        UserRepositoryInterface $userRepository,
     )
     {
+        parent::__construct($requestStack, $api, $userRepository);
     }
 
     #[Route("/exam/{examSlug}/question", name: "app_question")]

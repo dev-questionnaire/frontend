@@ -8,25 +8,30 @@ use App\Components\User\Communication\Forms\Register;
 use App\Components\User\Communication\Forms\Update;
 use App\Components\User\Dependency\BridgeUserQuestion;
 use App\Components\User\Persistence\Repository\UserRepositoryInterface;
+use App\Controller\CustomAbstractController;
 use App\DataTransferObject\ErrorDataProvider;
 use App\DataTransferObject\UserDataProvider;
-use App\Controller\AbstractController;
+use App\Components\User\Service\ApiSecurity;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Routing\Annotation\Route;
 
 /** @psalm-suppress PropertyNotSetInConstructor */
-class UserController extends AbstractController
+class UserController extends CustomAbstractController
 {
 
     public function __construct(
         private FacadeUserInterface     $facadeUser,
         private BridgeUserQuestion      $bridgeUserQuestion,
         private UserRepositoryInterface $userRepository,
+        RequestStack $requestStack,
+        ApiSecurity $api,
     )
     {
+        parent::__construct($requestStack, $api, $userRepository);
     }
 
     #[Route("/user/register", name: "app_user_register")]
@@ -60,16 +65,15 @@ class UserController extends AbstractController
     #[Route("/user/profile", name: "app_user_profile")]
     public function profile(Request $request): Response
     {
+        //Check if logged in
+        $loggedIn = $this->isLoggedIn();
+        if ($loggedIn !== null) {
+            return $loggedIn;
+        }
+
         $errors = [];
 
-        $userDataProvider = $this->getUserDataProvider();
-
-        if ($userDataProvider->getId() === null
-            || $userDataProvider->getEmail() === null
-            || $userDataProvider->getPassword() === null
-        ) {
-            throw new \RuntimeException("User is not logged in");
-        }
+        $userDataProvider = $loggedInUser = $this->getUserDataProvider();
 
         $form = $this->createForm(Update::class, $userDataProvider);
 
@@ -89,12 +93,19 @@ class UserController extends AbstractController
         return $this->renderForm('user/profile.html.twig', [
             'form' => $form,
             'errors' => $errors,
+            'loggedInUser' => $loggedInUser,
         ]);
     }
 
     #[Route("/user/delete", name: "app_user_delete")]
     public function deleteUser(Request $request): Response
     {
+        //Check if logged in
+        $loggedIn = $this->isLoggedIn();
+        if ($loggedIn !== null) {
+            return $loggedIn;
+        }
+
         $userDataProvider = $this->getUserDataProvider();
 
         if ($userDataProvider->getId() === null) {
@@ -123,16 +134,29 @@ class UserController extends AbstractController
     #[Route("/admin/users", name: "app_admin_users")]
     public function showUsers(): Response
     {
-        $userList = $this->userRepository->getAll();
+        //Check if logged in
+        $loggedIn = $this->isLoggedIn('ROLE_ADMIN');
+        if ($loggedIn !== null) {
+            return $loggedIn;
+        }
+
+        $userList = $this->userRepository->findAll();
 
         return $this->render('user/admin/users.html.twig', [
             'userList' => $userList,
+            'loggedInUser' => $this->getUserDataProvider(),
         ]);
     }
 
     #[Route("/admin/user/{id}", name: "app_admin_user")]
     public function showUser(int $id): Response
     {
+        //Check if logged in
+        $loggedIn = $this->isLoggedIn();
+        if ($loggedIn !== null) {
+            return $loggedIn;
+        }
+
         $user = $this->userRepository->getById($id);
 
         if(!$user instanceof UserDataProvider) {
@@ -141,6 +165,7 @@ class UserController extends AbstractController
 
         return $this->render('user/admin/user.html.twig', [
             'user' => $user,
+            'loggedInUser' => $this->getUserDataProvider(),
         ]);
     }
 }

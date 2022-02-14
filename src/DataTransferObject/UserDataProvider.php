@@ -1,397 +1,199 @@
 <?php
 declare(strict_types=1);
+
 namespace App\DataTransferObject;
+
+use Symfony\Component\Lock\Strategy\UnanimousStrategy;
 
 /**
  * Auto generated data provider
  */
 final class UserDataProvider
 {
-    /** @var int */
-    protected $id;
+    protected ?int $id;
 
-    /** @var string */
-    protected $email;
+    protected ?string $email;
 
-    /** @var string */
-    protected $password;
+    protected ?string $password = '';
 
-    /** @var string */
-    protected $verificationPassword = '';
+    protected ?string $verificationPassword = '';
 
-    /** @var array */
-    protected $roles;
+    protected ?array $roles;
 
-    /** @var string */
-    protected $createdAt = '';
-
-    /** @var string */
-    protected $updatedAt = '';
-
-
-    /**
-     * @return int
-     */
     public function getId(): ?int
     {
         return $this->id;
     }
 
-
-    /**
-     * @param int $id
-     * @return UserDataProvider
-     */
-    public function setId(?int $id = null)
+    public function setId(?int $id = null): UserDataProvider
     {
         $this->id = $id;
 
         return $this;
     }
 
-
-    /**
-     * @return UserDataProvider
-     */
-    public function unsetId()
+    public function unsetId(): UserDataProvider
     {
         $this->id = null;
 
         return $this;
     }
 
-
-    /**
-     * @return bool
-     */
-    public function hasId()
+    public function hasId(): bool
     {
         return ($this->id !== null && $this->id !== []);
     }
 
-
-    /**
-     * @return string
-     */
     public function getEmail(): ?string
     {
         return $this->email;
     }
 
-
-    /**
-     * @param string $email
-     * @return UserDataProvider
-     */
-    public function setEmail(?string $email = null)
+    public function setEmail(?string $email = null): UserDataProvider
     {
         $this->email = $email;
 
         return $this;
     }
 
-
-    /**
-     * @return UserDataProvider
-     */
-    public function unsetEmail()
+    public function unsetEmail(): UserDataProvider
     {
         $this->email = null;
 
         return $this;
     }
 
-
-    /**
-     * @return bool
-     */
-    public function hasEmail()
+    public function hasEmail(): bool
     {
         return ($this->email !== null && $this->email !== []);
     }
 
-
-    /**
-     * @return string
-     */
     public function getPassword(): ?string
     {
         return $this->password;
     }
 
-
-    /**
-     * @param string $password
-     * @return UserDataProvider
-     */
-    public function setPassword(?string $password = null)
+    public function setPassword(?string $password = null): UserDataProvider
     {
         $this->password = $password;
 
         return $this;
     }
 
-
-    /**
-     * @return UserDataProvider
-     */
-    public function unsetPassword()
+    public function unsetPassword(): UserDataProvider
     {
         $this->password = null;
 
         return $this;
     }
 
-
-    /**
-     * @return bool
-     */
-    public function hasPassword()
+    public function hasPassword(): bool
     {
         return ($this->password !== null && $this->password !== []);
     }
 
-
-    /**
-     * @return string
-     */
-    public function getVerificationPassword(): string
+    public function getVerificationPassword(): ?string
     {
         return $this->verificationPassword;
     }
 
-
-    /**
-     * @param string $verificationPassword
-     * @return UserDataProvider
-     */
-    public function setVerificationPassword(string $verificationPassword = '')
+    public function setVerificationPassword(?string $verificationPassword): void
     {
         $this->verificationPassword = $verificationPassword;
-
-        return $this;
     }
 
-
-    /**
-     * @return UserDataProvider
-     */
-    public function unsetVerificationPassword()
+    public function unsetVerificationPassword(): UserDataProvider
     {
         $this->verificationPassword = null;
 
         return $this;
     }
 
-
-    /**
-     * @return bool
-     */
-    public function hasVerificationPassword()
+    public function hasVerificationPassword(): bool
     {
         return ($this->verificationPassword !== null && $this->verificationPassword !== []);
     }
 
-
-    /**
-     * @return array
-     */
     public function getRoles(): array
     {
         return $this->roles;
     }
 
-
-    /**
-     * @param array $roles
-     * @return UserDataProvider
-     */
-    public function setRoles(array $roles)
+    public function setRoles(array $roles): UserDataProvider
     {
         $this->roles = $roles;
 
         return $this;
     }
 
-
-    /**
-     * @return UserDataProvider
-     */
-    public function unsetRoles()
+    public function unsetRoles(): UserDataProvider
     {
         $this->roles = null;
 
         return $this;
     }
 
-
-    /**
-     * @return bool
-     */
-    public function hasRoles()
+    public function hasRoles(): bool
     {
         return ($this->roles !== null && $this->roles !== []);
     }
-
-
-    /**
-     * @return string
-     */
-    public function getCreatedAt(): string
-    {
-        return $this->createdAt;
-    }
-
-
-    /**
-     * @param string $createdAt
-     * @return UserDataProvider
-     */
-    public function setCreatedAt(string $createdAt = '')
-    {
-        $this->createdAt = $createdAt;
-
-        return $this;
-    }
-
-
-    /**
-     * @return UserDataProvider
-     */
-    public function unsetCreatedAt()
-    {
-        $this->createdAt = null;
-
-        return $this;
-    }
-
-
-    /**
-     * @return bool
-     */
-    public function hasCreatedAt()
-    {
-        return ($this->createdAt !== null && $this->createdAt !== []);
-    }
-
-
-    /**
-     * @return string
-     */
-    public function getUpdatedAt(): string
-    {
-        return $this->updatedAt;
-    }
-
-
-    /**
-     * @param string $updatedAt
-     * @return UserDataProvider
-     */
-    public function setUpdatedAt(string $updatedAt = '')
-    {
-        $this->updatedAt = $updatedAt;
-
-        return $this;
-    }
-
-
-    /**
-     * @return UserDataProvider
-     */
-    public function unsetUpdatedAt()
-    {
-        $this->updatedAt = null;
-
-        return $this;
-    }
-
-
-    /**
-     * @return bool
-     */
-    public function hasUpdatedAt()
-    {
-        return ($this->updatedAt !== null && $this->updatedAt !== []);
-    }
-
 
     /**
      * @return array
      */
     protected function getElements(): array
     {
-        return array (
-          'id' =>
-          array (
-            'name' => 'id',
-            'allownull' => true,
-            'default' => '',
-            'type' => 'int',
-            'is_collection' => false,
-            'is_dataprovider' => false,
-            'isCamelCase' => false,
-          ),
-          'email' =>
-          array (
-            'name' => 'email',
-            'allownull' => true,
-            'default' => '',
-            'type' => 'string',
-            'is_collection' => false,
-            'is_dataprovider' => false,
-            'isCamelCase' => false,
-          ),
-          'password' =>
-          array (
-            'name' => 'password',
-            'allownull' => true,
-            'default' => '',
-            'type' => 'string',
-            'is_collection' => false,
-            'is_dataprovider' => false,
-            'isCamelCase' => false,
-          ),
-          'verificationPassword' =>
-          array (
-            'name' => 'verificationPassword',
-            'allownull' => false,
-            'default' => '\'\'',
-            'type' => 'string',
-            'is_collection' => false,
-            'is_dataprovider' => false,
-            'isCamelCase' => false,
-          ),
-          'roles' =>
-          array (
-            'name' => 'roles',
-            'allownull' => false,
-            'default' => '',
-            'type' => 'array',
-            'is_collection' => false,
-            'is_dataprovider' => false,
-            'isCamelCase' => false,
-          ),
-          'createdAt' =>
-          array (
-            'name' => 'createdAt',
-            'allownull' => false,
-            'default' => '\'\'',
-            'type' => 'string',
-            'is_collection' => false,
-            'is_dataprovider' => false,
-            'isCamelCase' => false,
-          ),
-          'updatedAt' =>
-          array (
-            'name' => 'updatedAt',
-            'allownull' => false,
-            'default' => '\'\'',
-            'type' => 'string',
-            'is_collection' => false,
-            'is_dataprovider' => false,
-            'isCamelCase' => false,
-          ),
-        );
+        return [
+            'id' =>
+                [
+                    'name' => 'id',
+                    'allownull' => true,
+                    'default' => '',
+                    'type' => 'int',
+                    'is_collection' => false,
+                    'is_dataprovider' => false,
+                    'isCamelCase' => false,
+                ],
+            'email' =>
+                [
+                    'name' => 'email',
+                    'allownull' => true,
+                    'default' => '',
+                    'type' => 'string',
+                    'is_collection' => false,
+                    'is_dataprovider' => false,
+                    'isCamelCase' => false,
+                ],
+            'password' =>
+                [
+                    'name' => 'password',
+                    'allownull' => true,
+                    'default' => '',
+                    'type' => 'string',
+                    'is_collection' => false,
+                    'is_dataprovider' => false,
+                    'isCamelCase' => false,
+                ],
+            'verificationPassword' =>
+                [
+                    'name' => 'verificationPassword',
+                    'allownull' => true,
+                    'default' => '',
+                    'type' => 'string',
+                    'is_collection' => false,
+                    'is_dataprovider' => false,
+                    'isCamelCase' => false,
+                ],
+            'roles' =>
+                [
+                    'name' => 'roles',
+                    'allownull' => false,
+                    'default' => '',
+                    'type' => 'array',
+                    'is_collection' => false,
+                    'is_dataprovider' => false,
+                    'isCamelCase' => false,
+                ],
+        ];
     }
 }

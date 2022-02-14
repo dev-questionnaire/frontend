@@ -1,14 +1,10 @@
 {% extends "base.html.twig" %}
 {% block title %}Login{% endblock %}
-{% block stylesheets %}
-    <link rel="stylesheet" type="text/css" href="/css/formUser.css">
-{% endblock %}
 {% block headline %}Login{% endblock %}
 {% block body %}
     {{ form(form) }}
-
     {% if error %}
         <p>Error:</p>
-        <p>{{ error.messageKey }}</p>
+        <p>{{ error }}</p>
     {% endif %}
 {% endblock %}

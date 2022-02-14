@@ -59,7 +59,7 @@ class FacadeUser implements FacadeUserInterface
     /** @return UserDataProvider[] */
     public function getAllIndexedByUserId(): array
     {
-        return $this->userRepository->getAllIndexedByUserId();
+        return $this->userRepository->findAllIndexedByUserId();
     }
 
     public function doesUserExist(int $id): bool

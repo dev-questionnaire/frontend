@@ -3,21 +3,21 @@ declare(strict_types=1);
 
 namespace App\Components\User\Persistence\Repository;
 
+use App\Components\User\Service\ApiUser;
 use App\DataTransferObject\UserDataProvider;
 use App\Components\User\Persistence\Mapper\UserMapper;
 use App\Entity\User;
-use \App\Repository\UserRepository as UserEntityRepository;
 
 class UserRepository implements UserRepositoryInterface
 {
     public function __construct(
-        private UserEntityRepository $userEntityRepository,
         private UserMapper $userMapper,
+        private ApiUser    $api,
     )
     {
     }
 
-    public function getById(int $id): ?UserDataProvider
+    public function findById(int $id): ?UserDataProvider
     {
         $userEntity = $this->userEntityRepository->find($id);
 
@@ -28,39 +28,37 @@ class UserRepository implements UserRepositoryInterface
         return $this->userMapper->map($userEntity);
     }
 
-    public function getByEmail(string $email): ?UserDataProvider
+    public function findByToken(string $token): ?UserDataProvider
     {
-        $userEntity = $this->userEntityRepository->findOneBy(['email' => $email]);
+        $user = $this->api->findByToken($token);
 
-        if(!$userEntity instanceof User) {
+        if(empty($user)) {
             return null;
         }
 
-        return $this->userMapper->map($userEntity);
+        return $this->userMapper->map($user);
     }
 
     public function checkEmailTaken(UserDataProvider $userDataProvider): bool
     {
-        /** @var string $email */
-        $email = $userDataProvider->getEmail();
+        $user = $this->api->checkEmailTaken($userDataProvider);
 
-        /** @var int $id */
-        $id = $userDataProvider->getId();
+        if(empty($user)) {
+            return false;
+        }
 
-        $userEntityList = $this->userEntityRepository->findeByEmailExcludeId($email, $id);
-
-        return !empty($userEntityList);
+        return (bool)$user['found'];
     }
 
     /**
      * @return UserDataProvider[]
      */
-    public function getAll(): array
+    public function findAll(): array
     {
         /** @var UserDataProvider[] $userList */
         $userList = [];
 
-        $users = $this->userEntityRepository->findAll();
+        $users = $this->api->findAll();
 
         foreach ($users as $user) {
             $userList[] = $this->userMapper->map($user);
@@ -72,17 +70,15 @@ class UserRepository implements UserRepositoryInterface
     /**
      * @return UserDataProvider[]
      */
-    public function getAllIndexedByUserId(): array
+    public function findAllIndexedByUserId(): array
     {
         /** @var UserDataProvider[] $userList */
         $userList = [];
 
-        $users = $this->userEntityRepository->findAll();
+        $users = $this->api->findAll();
 
-        foreach ($users as $user) {
-            $userId = $user->getId();
-
-            $userList[$userId] = $this->userMapper->map($user);
+        foreach ($users as $id => $user) {
+            $userList[(int)$id] = $this->userMapper->map($user);
         }
 
         return $userList;

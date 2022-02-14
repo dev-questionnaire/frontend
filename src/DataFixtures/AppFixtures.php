@@ -16,7 +16,6 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 class AppFixtures extends Fixture
 {
     public function __construct(
-        private UserPasswordHasherInterface $userPasswordHasher,
         private UserRepository              $userRepository,
     )
     {
@@ -51,8 +50,7 @@ class AppFixtures extends Fixture
             ->setRoles(['ROLE_ADMIN', 'ROLE_USER']);
 
         $user->setPassword(
-            $this->userPasswordHasher->hashPassword(
-                $user, 'admin')
+            'admin'
         );
 
         $entityList[] = $user;
@@ -63,9 +61,7 @@ class AppFixtures extends Fixture
             ->setEmail('user@valantic.com')
             ->setRoles(['ROLE_USER']);
 
-        $user->setPassword(
-            $this->userPasswordHasher->hashPassword(
-                $user, 'user')
+        $user->setPassword('user'
         );
 
         $entityList[] = $user;
