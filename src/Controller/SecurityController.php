@@ -6,7 +6,9 @@ use App\Controller\Forms\Login;
 use App\DataTransferObject\UserDataProvider;
 use App\Components\User\Service\ApiSecurity;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpClient\Exception\ClientException;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
@@ -37,7 +39,11 @@ class SecurityController extends AbstractController
             $userDataProvider = $form->getData();
 
             //Send request to login through api
-            $content = $this->api->login($userDataProvider);
+            try {
+                $content = $this->api->login($userDataProvider);
+            } catch (ClientException $exception) {
+                return $this->redirectToRoute('app_login');
+            }
 
             //If successful
             if ($content['success'] === true) {

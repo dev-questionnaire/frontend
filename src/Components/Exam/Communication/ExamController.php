@@ -9,6 +9,7 @@ use App\Components\Exam\Dependency\BridgeUserQuestionInterface;
 use App\Components\User\Persistence\Repository\UserRepositoryInterface;
 use App\Controller\CustomAbstractController;
 use App\Components\User\Service\ApiSecurity;
+use Symfony\Component\HttpClient\Exception\ClientException;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -33,7 +34,12 @@ class ExamController extends CustomAbstractController
     public function index(): Response
     {
         //Check if logged in
-        $authorized = $this->authorized();
+        try {
+            $authorized = $this->authorized();
+        } catch (ClientException $exception) {
+            return $this->redirectToRoute('app_login');
+        }
+
         if ($authorized !== null) {
             return $authorized;
         }
