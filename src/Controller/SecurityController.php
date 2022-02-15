@@ -85,7 +85,11 @@ class SecurityController extends AbstractController
         $apiToken = $this->requestStack->getSession()->get('authentication_token');
 
         if($apiToken !== null) {
-            $this->api->logout();
+            $content = $this->api->logout($apiToken);
+            if(!$content['logout']) {
+                return $this->redirectToRoute('app_login');
+            }
+
             unset($apiToken);
         }
 

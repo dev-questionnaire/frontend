@@ -54,11 +54,18 @@ class ApiSecurity
         return json_decode($content, true, 512, JSON_THROW_ON_ERROR);
     }
 
-    public function logout(): void
+    public function logout(string $token): array
     {
-        $this->httpClient->request(
+        $response = $this->httpClient->request(
             'POST',
-            $this->apiUrl . '/api/logout'
+            $this->apiUrl . '/api/logout', [
+                'json' => [
+                    'token' => $token,
+                ],
+            ]
         );
+
+        $content = $response->getContent();
+        return json_decode($content, true, 512, JSON_THROW_ON_ERROR);
     }
 }
